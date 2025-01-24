@@ -1,6 +1,9 @@
 'use client';
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import Image from 'next/image';
+import "./styles.css";
+import logoImage from './../../public/Logo.png'
 
 // Definição dos tipos
 type LoginData = {
@@ -69,29 +72,45 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={tryToLogin}>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Log in</button>
-      </form>
+    <div className='loginContainer'>
 
-      {loading && <p>Loading...</p>}
-      <h2>{errorMessage}</h2>
+      <Image src={logoImage} alt="Login" className='logo'></Image>
+
+      <div className='login'>
+
+        <h2>Log in</h2>
+        <form onSubmit={tryToLogin}>
+          <label htmlFor="email">Email address</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            type="text"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit">Log in</button>
+        </form>
+
+        {loading && <p>Loading...</p>}
+        <h2>{errorMessage}</h2>
+      </div>
+
+      <div className='info'>
+        <Image src="/login.svg" alt="Login" width={500} height={300}></Image>
+        <h2>Monetis, Seamless Banking, Anytime, Anywhere.</h2>
+        <p>Manage your finances with ease. Accounts, savings and more, all in one place.</p>
+      </div>
     </div>
   );
 }

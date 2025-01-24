@@ -1,0 +1,79 @@
+.logo{
+  width: 300px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: fit-content;
+}
+
+.loginContainer{
+  display: flex;
+  height: 100vh;
+}
+
+.loginContainer .info{
+  flex: 0.45;
+  display: flex;
+  background-color: #4d8bf7;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loginContainer .info h2{
+  color: #fff;
+  font-size: 20px;
+  margin: 30px 0px 15px;
+  text-align: center;
+  width: 40%;
+  font-family: "GeneralSans SemiBold";
+  font-weight: 500;
+}
+
+.loginContainer .info p{
+  color: #fff;
+  font-size: 12px;
+  width: 32%;
+  margin: 0px;
+  text-align: center;
+  font-family: "GeneralSans Regular";
+}
+
+.loginContainer .login{
+  flex: 0.55;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.loginContainer .login h2{
+  text-align: info;
+  width: 40%;
+  font-family: "GeneralSans Bold";
+  font-weight: 500;
+}
+
+.loginContainer .login form{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "GeneralSans Regular";
+}
+
+.loginContainer .login form label{
+  font-size: 15px;
+}
+
+.loginContainer .login form input{
+  padding: 10px;
+  border: 1px solid #efefef;
+  box-shadow: 0px 0px 3px #e9e9e9;
+  border-radius: 5px;
+  outline: none;
+  font-size: 13px;
+  font-family: "GeneralSans Regular";
+}
+
