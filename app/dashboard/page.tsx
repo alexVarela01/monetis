@@ -1,18 +1,27 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useAuth } from '@/app/hooks/useAuth';
 
 export default function Dashboard() {
-  const { data: session, status } = useSession();
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
-
+  function handleLogout () {
+    sessionStorage.clear();
+    router.push('/login');
+  };
 
   return (
     <div>
       <h2>Welcome to the dashboard</h2>
+      {isAuthenticated ? (
+        <p>You are authenticated.</p>
+      ) : (
+        <p>You are not authenticated.</p>
+      )}
+
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { signIn } from 'next-auth/react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
+// Definição dos tipos
 type LoginData = {
   email: string;
   password: string;
@@ -16,33 +16,48 @@ export default function Login() {
     password: ''
   });
 
-  // Handle form submission using next-auth
+  useEffect(() => {
+    const token = sessionStorage.getItem('authToken');
+
+    if (token) {
+      window.location.href = '/dashboard';
+    }
+  }, []);
+
+  // Handle form submission
   const tryToLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage('');
-
+  
     try {
-      const result = await signIn('credentials', {
-        redirect: false, // Prevent page redirection to the callback URL
-        email: formData.email,
-        password: formData.password,
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
-
-      if (result?.error) {
-        throw new Error(result.error);
+  
+      if (!response.ok) {
+        throw new Error('Failed to login');
       }
+  
+      // Create new session using session storage
+      const data = await response.json();
 
-      // Redirect to dashboard or another page on success
+      // Create new session using session storage
+      sessionStorage.setItem('authToken', data.token);
+      sessionStorage.setItem('userEmail', formData.email);
+      sessionStorage.setItem('userName', data.userName);
+      
+      // redirects to dashboard
       window.location.href = '/dashboard';
     } catch (error: any) {
-      setErrorMessage(error.message || 'Failed to log in');
+      setErrorMessage(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle input changes
+  // Atualiza os valores do formulário
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -60,19 +75,19 @@ export default function Login() {
           required
         />
         <input
-          type="password"
+          type="text"
           name="password"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
           required
         />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Log in'}
-        </button>
+        <button type="submit">Log in</button>
       </form>
 
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {loading && <p>Loading...</p>}
+      <h2>{errorMessage}</h2>
     </div>
   );
 }
+
