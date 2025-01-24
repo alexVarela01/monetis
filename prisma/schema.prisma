@@ -1,0 +1,56 @@
+// Configuração do banco de dados
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Certifique-se de configurar o .env com a URL do banco
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Modelo da tabela users
+model User {
+  id             Int      @id @default(autoincrement())
+  name           String
+  surname        String
+  email          String   @unique
+  phone_number   String?  // Opcional
+  street_address String?
+  postal_code    String?
+  city           String?
+  state          String?
+  country        String?
+  password       String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  accounts       UserAccount[]
+  histories      History[]
+}
+
+// Modelo da tabela user_accounts
+model UserAccount {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  iban       String   @unique
+  amount     Float    @default(0.0)
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user       User     @relation(fields: [user_id], references: [id])
+}
+
+// Modelo da tabela history
+model History {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  type       String
+  category   String?
+  amount     Float
+  date       DateTime @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user       User     @relation(fields: [user_id], references: [id])
+}
