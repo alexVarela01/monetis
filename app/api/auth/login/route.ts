@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       };
 
       // Generate JWT token
-      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
+      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "7d" });
       const userName = user.name + " " + user.surname;
       
       return new Response(
