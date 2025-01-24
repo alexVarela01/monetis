@@ -50,8 +50,13 @@ export default function Login() {
       
       // redirects to dashboard
       window.location.href = '/dashboard';
-    } catch (error: any) {
-      setErrorMessage(error.message);
+    } catch (error: unknown) {
+      // Cast the error to Error
+      if (error instanceof Error) {
+        setErrorMessage(error.message); // Log the error message if needed
+      } else {
+        setErrorMessage('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
