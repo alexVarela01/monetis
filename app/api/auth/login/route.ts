@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       const userName = user.name + " " + user.surname;
       
       return new Response(
-        JSON.stringify({ message: "Login successful", token, userName }),
+        JSON.stringify({token, userName }),
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     } else {
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
       });
     }
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+    return new Response(JSON.stringify({ error: error }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
