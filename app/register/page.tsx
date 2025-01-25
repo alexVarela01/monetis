@@ -1,89 +1,89 @@
 'use client';
 
-import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import Image from 'next/image';
+import { ClipLoader } from 'react-spinners';
+import "./styles.css";
+import logoImage from './../../public/Logo.png'
 
 // Definição dos tipos
-type User = {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  phone_number?: string;
-  street_address?: string;
-  postal_code?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  password: string;
+type RegisterData = {
+  name: string,
+  surname: string,
+  email: string,
+  phone_number: number,
+  street_address: string,
+  postal_code: string,
+  city: string,
+  state: string,
+  country: string,
+  password: string,
+  confirmPassword: string,
 };
 
-export default function Login() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [formData, setFormData] = useState<Omit<User, 'id'>>({
+export default function Register() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [formData, setFormData] = useState<Omit<RegisterData, 'id'>>({
     name: '',
     surname: '',
     email: '',
-    phone_number: '',
+    phone_number: 0,
     street_address: '',
     postal_code: '',
     city: '',
     state: '',
     country: '',
     password: '',
+    confirmPassword: '',
   });
 
-  // Fetch users when the page loads
+  // Handle user already logged in
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const response = await fetch('/api/users');
-        const data: User[] = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      } finally {
-        setLoading(false);
-      }
+    const token = sessionStorage.getItem('authToken');
+    if (token) {
+      window.location.href = '/dashboard';
     }
-    fetchUsers();
   }, []);
 
   // Handle form submission
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const tryToRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true);
+  
     try {
-      const response = await fetch('/api/users', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+  
 
-      if (!response.ok) {
-        throw new Error('Failed to create user');
+  
+      // Create new session using session storage
+      const data = await response.json();
+
+      if (response.status !== 200) {
+        const errMessage = response.status === 401 ? data.error : "Unexpected error, please try again later!"; 
+        throw new Error(errMessage);
       }
 
-      const newUser: User = await response.json();
-
-      // Atualiza a lista de usuários com o novo usuário criado
-      setUsers((prevUsers) => [...prevUsers, newUser]);
-
-      // Limpa o formulário
-      setFormData({
-        name: '',
-        surname: '',
-        email: '',
-        phone_number: '',
-        street_address: '',
-        postal_code: '',
-        city: '',
-        state: '',
-        country: '',
-        password: '',
-      });
-    } catch (error) {
-      console.error('Error creating user:', error);
+      // Create new session using session storage
+      sessionStorage.setItem('authToken', data.token);
+      sessionStorage.setItem('userEmail', formData.email);
+      sessionStorage.setItem('userName', data.userName);
+      
+      // redirects to dashboard
+      window.location.href = '/dashboard';
+    } catch (error: unknown) {
+      // Cast the error to Error
+      if (error instanceof Error) {
+        setErrorMessage(error.message); // Log the error message if needed
+      } else {
+        setErrorMessage('An unknown error occurred');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -94,101 +94,75 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Users</h1>
+    <div className='registerContainer'>
 
-      {/* Lista de usuários */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              {user.name} {user.surname} - {user.email}
-            </li>
-          ))}
-        </ul>
-      )}
+      <Image src={logoImage} alt="Register" className='logo'></Image>
 
-      {/* Formulário para adicionar um novo usuário */}
-      <h2>Add New User</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="surname"
-          placeholder="Surname"
-          value={formData.surname}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="phone_number"
-          placeholder="Phone Number"
-          value={formData.phone_number}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="street_address"
-          placeholder="Street Address"
-          value={formData.street_address}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="postal_code"
-          placeholder="Postal Code"
-          value={formData.postal_code}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="state"
-          placeholder="State"
-          value={formData.state}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="country"
-          placeholder="Country"
-          value={formData.country}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">Add User</button>
-      </form>
+      <div className='register'>
+
+        <h2>Create an account</h2>
+        <form onSubmit={tryToRegister}>
+
+          <div className='row'>
+            <div className='column required'>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="John"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className='column required'>
+              <label htmlFor="surname">Surname</label>
+              <input
+                type="text"
+                name="surname"
+                placeholder="Doe"
+                value={formData.surname}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+
+          <label htmlFor="email">Email address</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? <ClipLoader color="#fff" size={11}/> : 'Sign up'}
+          </button>
+
+          <a className='signUp' href="/login">Already have an account? Sign in!</a>
+          <p className='error'>{errorMessage}</p>
+        </form>
+      </div>
+
+      <div className='info'>
+        <Image src="/register.svg" alt="Register" width={500} height={300}></Image>
+        <h2>Fill out the form to get started</h2>
+        <p>Start managing your finances today with our easy-to-use platform.</p>
+      </div>
     </div>
   );
 }
+

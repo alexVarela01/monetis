@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     } else {
-      return new Response(JSON.stringify({ error: "Invalid credentials" }), {
+      return new Response(JSON.stringify({ error: "Invalid email or password" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
       });
