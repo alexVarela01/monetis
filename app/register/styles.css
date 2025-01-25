@@ -6,13 +6,13 @@
   height: fit-content;
 }
 
-.loginContainer{
+.registerContainer{
   display: flex;
   height: 100vh;
 }
 
-.loginContainer .info{
-  flex: 0.45;
+.registerContainer .info{
+  flex: 0.35;
   display: flex;
   background-color: #4d8bf7;
   align-items: center;
@@ -20,17 +20,17 @@
   flex-direction: column;
 }
 
-.loginContainer .info h2{
+.registerContainer .info h2{
   color: #fff;
   font-size: 20px;
   margin: 30px 0px 15px;
   text-align: center;
-  width: 40%;
+  width: 100%;
   font-family: "GeneralSans SemiBold";
   font-weight: 500;
 }
 
-.loginContainer .info p{
+.registerContainer .info p{
   color: #fff;
   font-size: 12px;
   width: 32%;
@@ -39,8 +39,8 @@
   font-family: "GeneralSans Regular";
 }
 
-.loginContainer .login{
-  flex: 0.55;
+.registerContainer .register{
+  flex: 0.65;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -48,14 +48,14 @@
   flex-direction: column;
 }
 
-.loginContainer .login h2{
-  text-align: info;
+.registerContainer .register h2{
+  text-align: start;
   width: 40%;
   font-family: "GeneralSans Bold";
   font-weight: 500;
 }
 
-.loginContainer .login form{
+.registerContainer .register form{
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -64,11 +64,11 @@
   position: relative;
 }
 
-.loginContainer .login form label{
+.registerContainer .register form label{
   font-size: 15px;
 }
 
-.loginContainer .login form input{
+.registerContainer .register form input{
   padding: 10px;
   border: 1px solid #efefef;
   box-shadow: 0px 0px 3px #e9e9e9;
@@ -79,7 +79,7 @@
   margin-bottom: 10px;
 }
 
-.loginContainer .login form button{
+.registerContainer .register form button{
   border: 1px solid #030303;
   box-shadow: 0px 0px 3px #e9e9e9;
   border-radius: 2px;
@@ -93,20 +93,38 @@
   height: 40px;
 }
 
-.loginContainer .login form button:hover{
+.registerContainer .register form button:hover{
   background-color: #4d8bf7;
   border: 1px solid #4d8bf7;
   transform: scale(1.01);
 }
 
-.loginContainer .login form button:disabled{
+.registerContainer .register form button:disabled{
   transform: scale(1);
   background-color: #030303;
   border: 1px solid #030303;
   opacity: 0.6;
 }
 
-.loginContainer .login .error{
+.registerContainer .register form .row{
+  display: flex;
+  gap: 10px;
+}
+
+.registerContainer .register form .column{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.registerContainer .register form .column.required label::after{
+  content: '*';
+  color: rgba(255, 0, 0, 0.786);
+  margin-left: 5px;
+}
+
+.registerContainer .register .error{
   color: rgba(255, 0, 0, 0.786);
   font-size: 13px;
   font-family: "GeneralSans Regular";
@@ -116,7 +134,7 @@
   left: 0;
 }
 
-.loginContainer .login .signUp{
+.registerContainer .register .signUp{
   color: #4d8bf7;
   font-size: 13px;
   font-family: "GeneralSans Regular";

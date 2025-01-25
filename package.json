@@ -16,7 +16,8 @@
     "pg": "^8.13.1",
     "prisma": "^6.2.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-spinners": "^0.15.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Image from 'next/image';
+import { ClipLoader } from 'react-spinners';
 import "./styles.css";
 import logoImage from './../../public/Logo.png'
 
@@ -39,12 +40,15 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
   
-      if (!response.ok) {
-        throw new Error('Failed to login');
-      }
+
   
       // Create new session using session storage
       const data = await response.json();
+
+      if (response.status !== 200) {
+        const errMessage = response.status === 401 ? data.error : "Unexpected error, please try again later!"; 
+        throw new Error(errMessage);
+      }
 
       // Create new session using session storage
       sessionStorage.setItem('authToken', data.token);
@@ -92,18 +96,20 @@ export default function Login() {
 
           <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             required
           />
-          <button type="submit">Log in</button>
-        </form>
+          <button type="submit" disabled={loading}>
+            {loading ? <ClipLoader color="#fff" size={11}/> : 'Log in'}
+          </button>
 
-        {loading && <p>Loading...</p>}
-        <h2>{errorMessage}</h2>
+          <a className='signUp' href="/register">Don&apos;t have an account? Sign up today!</a>
+          <p className='error'>{errorMessage}</p>
+        </form>
       </div>
 
       <div className='info'>
