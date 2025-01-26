@@ -12,7 +12,6 @@ type User = {
   street_address?: string;
   postal_code?: string;
   city?: string;
-  state?: string;
   country?: string;
   password: string;
 };
@@ -28,7 +27,6 @@ export default function Login() {
     street_address: '',
     postal_code: '',
     city: '',
-    state: '',
     country: '',
     password: '',
   });
@@ -78,7 +76,6 @@ export default function Login() {
         street_address: '',
         postal_code: '',
         city: '',
-        state: '',
         country: '',
         password: '',
       });
@@ -163,13 +160,6 @@ export default function Login() {
           name="city"
           placeholder="City"
           value={formData.city}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="state"
-          placeholder="State"
-          value={formData.state}
           onChange={handleChange}
         />
         <input

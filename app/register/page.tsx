@@ -1,19 +1,25 @@
 'use client';
 
-import Select from 'react-select'
-import CountrySelector from '../Components/CountrySelector';
-import { useState, ChangeEvent, FormEvent, useEffect, useMemo } from 'react';
+import CountrySelector from '../Components/CountrySelector/CountrySelector';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Image from 'next/image';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
 import logoImage from './../../public/Logo.png'
+import { ToastContainer, toast } from 'react-toastify';
+import { SingleValue } from 'react-select';
+
+interface CountryOption {
+  label: string;
+  value: string;
+}
 
 // Definição dos tipos
 type RegisterData = {
   name: string,
   surname: string,
   email: string,
-  phone_number: number,
+  phone_number?: string,
   street_address: string,
   postal_code: string,
   city: string,
@@ -24,12 +30,12 @@ type RegisterData = {
 
 export default function Register() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<Omit<RegisterData, 'id'>>({
     name: '',
     surname: '',
     email: '',
-    phone_number: 0,
+
+    phone_number: '',
 
     street_address: '',
     postal_code: '',
@@ -52,52 +58,81 @@ export default function Register() {
   const tryToRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
-      const response = await fetch('/api/auth/register', {
+      const registerResponse = await fetch('/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-  
 
-  
       // Create new session using session storage
-      const data = await response.json();
+      const registerData = await registerResponse.json();
 
-      if (response.status !== 200) {
-        const errMessage = response.status === 401 ? data.error : "Unexpected error, please try again later!"; 
+      if (registerResponse.status !== 200) {
+        toast.dismiss();
+        for (const error of registerData.errors) {
+          toast.error(error, {
+            position: "bottom-right",
+            autoClose: false,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+
+        return;
+      }
+
+      const loginResponse = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      // Create new session using session storage
+      const loginData = await loginResponse.json();
+
+      if (loginResponse.status !== 200) {
+        const errMessage = loginResponse.status === 401 ? loginData.error : "Unexpected error, please try again later!";
         throw new Error(errMessage);
       }
 
       // Create new session using session storage
-      sessionStorage.setItem('authToken', data.token);
+      sessionStorage.setItem('authToken', loginData.token);
       sessionStorage.setItem('userEmail', formData.email);
-      sessionStorage.setItem('userName', data.userName);
-      
+      sessionStorage.setItem('userName', loginData.userName);
+
       // redirects to dashboard
       window.location.href = '/dashboard';
     } catch (error: unknown) {
-      // Cast the error to Error
-      if (error instanceof Error) {
-        setErrorMessage(error.message); // Log the error message if needed
-      } else {
-        setErrorMessage('An unknown error occurred');
-      }
+      console.error('An unexpected error happened:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Atualiza os valores do formulário
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const setSelectedCountry = (country: any) => {
-    setFormData((prevData) => ({ ...prevData, country: country.value }));
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // check if the value is a number
+    if (isNaN(Number(value))) return;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   }
+
+  const setSelectedCountry = (country: SingleValue<CountryOption>) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      country: country ? country.value : '', // Ensure that country is not null
+    }));
+  };
 
   return (
     <div className='registerContainer'>
@@ -140,7 +175,7 @@ export default function Register() {
             <div className='column required'>
               <label htmlFor="email">Email address</label>
               <input
-                type="text"
+                type="email"
                 name="email"
                 placeholder="johndoe@me.com"
                 value={formData.email}
@@ -155,14 +190,14 @@ export default function Register() {
                 name="phone_number"
                 placeholder="123456789"
                 value={formData.phone_number}
-                onChange={handleChange}
+                onChange={handlePhoneChange}
               />
             </div>
           </div>
 
           <h3>Address information</h3>
           <div className='row'>
-            <div className='column required' style={{flex: '0.7'}}>
+            <div className='column required' style={{ flex: '0.7' }}>
               <label htmlFor="street_address">Street address</label>
               <input
                 type="text"
@@ -173,7 +208,7 @@ export default function Register() {
                 required
               />
             </div>
-            <div className='column' style={{flex: '0.3'}}>
+            <div className='column required' style={{ flex: '0.3' }}>
               <label htmlFor="postal_code">Postal code</label>
               <input
                 type="text"
@@ -181,13 +216,14 @@ export default function Register() {
                 placeholder="12345-678"
                 value={formData.postal_code}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
 
 
           <div className='row'>
-           <div className='column' style={{width:'calc(35% - 20px)'}}>
+            <div className='column required' style={{ width: 'calc(35% - 20px)' }}>
               <label htmlFor="city">City</label>
               <input
                 type="text"
@@ -195,20 +231,15 @@ export default function Register() {
                 placeholder="London"
                 value={formData.city}
                 onChange={handleChange}
+                required
               />
             </div>
-            <div className='column' style={{width:'calc(30% - 20px)'}}>
+            <div className='column required' style={{ width: 'calc(30% - 20px)' }}>
               <label htmlFor="country">Country</label>
-              {/* <input
-                type="text"
-                name="country"
-                placeholder="Portugal"
+              <CountrySelector
+                required
                 value={formData.country}
-                onChange={handleChange}
-              /> */}
-              <CountrySelector 
-                value={formData.country} 
-                onChange={(country) => setSelectedCountry(country)} 
+                onChange={(country) => setSelectedCountry(country)}
               />
             </div>
           </div>
@@ -238,15 +269,20 @@ export default function Register() {
               />
             </div>
           </div>
+          <span className='helpText'>Password must be 8+ characters with a letter, number, and one special character: @$!%*?&+=#^()-</span>
+
+          <h3>Terms and conditions</h3>
+          <span className='helpText'>By clicking `&quot;`Sign up`&quot;` you agree to our <a href="/terms">Terms of Service</a></span>
           
           <button type="submit" disabled={loading}>
-            {loading ? <ClipLoader color="#fff" size={11}/> : 'Sign up'}
+            {loading ? <ClipLoader color="#fff" size={11} /> : 'Sign up'}
           </button>
 
           <a className='signUp' href="/login">Already have an account? Sign in!</a>
-          <p className='error'>{errorMessage}</p>
         </form>
       </div>
+
+      <ToastContainer />
     </div>
   );
 }
