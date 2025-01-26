@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import Select from 'react-select'
+import CountrySelector from '../Components/CountrySelector';
+import { useState, ChangeEvent, FormEvent, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
@@ -15,7 +17,6 @@ type RegisterData = {
   street_address: string,
   postal_code: string,
   city: string,
-  state: string,
   country: string,
   password: string,
   confirmPassword: string,
@@ -33,7 +34,6 @@ export default function Register() {
     street_address: '',
     postal_code: '',
     city: '',
-    state: '',
     country: '',
 
     password: '',
@@ -95,6 +95,10 @@ export default function Register() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const setSelectedCountry = (country: any) => {
+    setFormData((prevData) => ({ ...prevData, country: country.value }));
+  }
+
   return (
     <div className='registerContainer'>
 
@@ -104,8 +108,6 @@ export default function Register() {
 
         <h2>Create an account</h2>
         <form onSubmit={tryToRegister}>
-        <hr />
-
           <h3>User information</h3>
 
           <div className='row'>
@@ -140,7 +142,7 @@ export default function Register() {
               <input
                 type="text"
                 name="email"
-                placeholder="Email"
+                placeholder="johndoe@me.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -151,7 +153,7 @@ export default function Register() {
               <input
                 type="text"
                 name="phone_number"
-                placeholder="Phone number"
+                placeholder="123456789"
                 value={formData.phone_number}
                 onChange={handleChange}
               />
@@ -165,7 +167,7 @@ export default function Register() {
               <input
                 type="text"
                 name="street_address"
-                placeholder="Street address"
+                placeholder="Sttr. Example, 123"
                 value={formData.street_address}
                 onChange={handleChange}
                 required
@@ -176,7 +178,7 @@ export default function Register() {
               <input
                 type="text"
                 name="postal_code"
-                placeholder="Postal code"
+                placeholder="12345-678"
                 value={formData.postal_code}
                 onChange={handleChange}
               />
@@ -190,29 +192,23 @@ export default function Register() {
               <input
                 type="text"
                 name="city"
-                placeholder="City"
+                placeholder="London"
                 value={formData.city}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='column' style={{width:'calc(35% - 20px)'}}>
-              <label htmlFor="state">State</label>
-              <input
-                type="text"
-                name="state"
-                placeholder="State"
-                value={formData.state}
                 onChange={handleChange}
               />
             </div>
             <div className='column' style={{width:'calc(30% - 20px)'}}>
               <label htmlFor="country">Country</label>
-              <input
+              {/* <input
                 type="text"
                 name="country"
-                placeholder="Country"
+                placeholder="Portugal"
                 value={formData.country}
                 onChange={handleChange}
+              /> */}
+              <CountrySelector 
+                value={formData.country} 
+                onChange={(country) => setSelectedCountry(country)} 
               />
             </div>
           </div>
@@ -250,12 +246,6 @@ export default function Register() {
           <a className='signUp' href="/login">Already have an account? Sign in!</a>
           <p className='error'>{errorMessage}</p>
         </form>
-      </div>
-
-      <div className='info'>
-        <Image src="/register.svg" alt="Register" width={500} height={300}></Image>
-        <h2>Fill out the form to get started</h2>
-        <p>Start managing your finances today with our easy-to-use platform.</p>
       </div>
     </div>
   );
