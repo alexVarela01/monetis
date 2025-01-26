@@ -29,11 +29,13 @@ export default function Register() {
     surname: '',
     email: '',
     phone_number: 0,
+
     street_address: '',
     postal_code: '',
     city: '',
     state: '',
     country: '',
+
     password: '',
     confirmPassword: '',
   });
@@ -102,6 +104,9 @@ export default function Register() {
 
         <h2>Create an account</h2>
         <form onSubmit={tryToRegister}>
+        <hr />
+
+          <h3>User information</h3>
 
           <div className='row'>
             <div className='column required'>
@@ -129,25 +134,115 @@ export default function Register() {
             </div>
           </div>
 
+          <div className='row'>
+            <div className='column required'>
+              <label htmlFor="email">Email address</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className='column'>
+              <label htmlFor="phone_number">Phone number</label>
+              <input
+                type="text"
+                name="phone_number"
+                placeholder="Phone number"
+                value={formData.phone_number}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-          <label htmlFor="email">Email address</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <h3>Address information</h3>
+          <div className='row'>
+            <div className='column required' style={{flex: '0.7'}}>
+              <label htmlFor="street_address">Street address</label>
+              <input
+                type="text"
+                name="street_address"
+                placeholder="Street address"
+                value={formData.street_address}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className='column' style={{flex: '0.3'}}>
+              <label htmlFor="postal_code">Postal code</label>
+              <input
+                type="text"
+                name="postal_code"
+                placeholder="Postal code"
+                value={formData.postal_code}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+
+          <div className='row'>
+           <div className='column' style={{width:'calc(35% - 20px)'}}>
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </div>
+            <div className='column' style={{width:'calc(35% - 20px)'}}>
+              <label htmlFor="state">State</label>
+              <input
+                type="text"
+                name="state"
+                placeholder="State"
+                value={formData.state}
+                onChange={handleChange}
+              />
+            </div>
+            <div className='column' style={{width:'calc(30% - 20px)'}}>
+              <label htmlFor="country">Country</label>
+              <input
+                type="text"
+                name="country"
+                placeholder="Country"
+                value={formData.country}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <h3>Security information</h3>
+          <div className='row'>
+            <div className='column required'>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className='column required'>
+              <label htmlFor="confirmPassword">Confirm password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          
           <button type="submit" disabled={loading}>
             {loading ? <ClipLoader color="#fff" size={11}/> : 'Sign up'}
           </button>
