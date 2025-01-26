@@ -43,7 +43,6 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
 }
 
 .registerContainer .register h2{
@@ -51,6 +50,7 @@ body{
   width: 40%;
   font-family: "GeneralSans Bold";
   font-weight: 500;
+  margin-bottom: 0px;
 }
 
 .registerContainer .register form{
@@ -74,7 +74,6 @@ body{
   outline: none;
   font-size: 13px;
   font-family: "GeneralSans Regular";
-  margin-bottom: 10px;
 }
 
 .registerContainer .register form button{
@@ -137,4 +136,11 @@ body{
   font-size: 13px;
   font-family: "GeneralSans Regular";
   cursor: pointer;
+}
+
+
+.registerContainer .helpText{
+  font-size: 13px;
+  font-family: "GeneralSans Regular";
+  color: #6c6c6c;
 }
