@@ -30,6 +30,16 @@
   font-weight: 500;
 }
 
+.registerContainer h3{
+  margin: 0px;
+  font-family: "GeneralSans SemiBold";
+}
+
+.registerContainer hr{
+  width: 100%;
+  opacity: 0.1;
+}
+
 .registerContainer .info p{
   color: #fff;
   font-size: 12px;
