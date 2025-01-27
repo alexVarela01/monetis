@@ -1,8 +1,11 @@
 .logo{
-  width: 300px;
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 20px;
+}
+
+.logo img{
+  width: 300px;
   height: fit-content;
 }
 

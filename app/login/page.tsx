@@ -2,9 +2,11 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
 import logoImage from './../../public/Logo.png'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Definição dos tipos
 type LoginData = {
@@ -14,7 +16,6 @@ type LoginData = {
 
 export default function Login() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
   const [formData, setFormData] = useState<Omit<LoginData, 'id'>>({
     email: '',
     password: ''
@@ -58,12 +59,24 @@ export default function Login() {
       // redirects to dashboard
       window.location.href = '/dashboard';
     } catch (error: unknown) {
+      
+      let errorMessage = 'An unknown error occurred';
       // Cast the error to Error
       if (error instanceof Error) {
-        setErrorMessage(error.message); // Log the error message if needed
-      } else {
-        setErrorMessage('An unknown error occurred');
-      }
+        errorMessage = error.message; // Log the error message if needed
+      } 
+
+      toast.dismiss();
+      toast.error(errorMessage, {
+        position: "bottom-left",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
     } finally {
       setLoading(false);
     }
@@ -78,7 +91,7 @@ export default function Login() {
   return (
     <div className='loginContainer'>
 
-      <Image src={logoImage} alt="Login" className='logo'></Image>
+      <Link href="/" className='logo'><Image src={logoImage} alt="Register"></Image></Link>
 
       <div className='login'>
 
@@ -108,7 +121,6 @@ export default function Login() {
           </button>
 
           <a className='signUp' href="/register">Don&apos;t have an account? Sign up today!</a>
-          <p className='error'>{errorMessage}</p>
         </form>
       </div>
 
@@ -117,6 +129,8 @@ export default function Login() {
         <h2>Monetis, Seamless Banking, Anytime, Anywhere.</h2>
         <p>Manage your finances with ease. Accounts, savings and more, all in one place.</p>
       </div>
+
+      <ToastContainer />
     </div>
   );
 }
