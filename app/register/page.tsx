@@ -3,6 +3,7 @@
 import CountrySelector from '../Components/CountrySelector/CountrySelector';
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
 import logoImage from './../../public/Logo.png'
@@ -137,7 +138,7 @@ export default function Register() {
   return (
     <div className='registerContainer'>
 
-      <Image src={logoImage} alt="Register" className='logo'></Image>
+      <Link href="/" className='logo'><Image src={logoImage} alt="Register"></Image></Link>
 
       <div className='register'>
 
@@ -271,8 +272,8 @@ export default function Register() {
           </div>
           <span className='helpText'>Password must be 8+ characters with a letter, number, and one special character: @$!%*?&+=#^()-</span>
 
-          <h3>Terms and conditions</h3>
-          <span className='helpText'>By clicking `&quot;`Sign up`&quot;` you agree to our <a href="/terms">Terms of Service</a></span>
+          <hr />
+          <span className='helpText'>By clicking &quot;Sign up&quot; you agree to our <a href="/terms">Terms of Service</a></span>
           
           <button type="submit" disabled={loading}>
             {loading ? <ClipLoader color="#fff" size={11} /> : 'Sign up'}
