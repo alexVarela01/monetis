@@ -1,0 +1,24 @@
+.statistics .chart canvas{
+  width: 100%;
+  margin-top: auto;
+}
+
+.statistics .chart{
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics {
+  padding: 20px;
+  background-color: #1c1c1cec;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.statistics h2{
+  color: #fff;
+  font-size: 20px;
+  margin: 0px;
+  font-family: "GeneralSans Regular";
+  font-weight: normal;
+}
