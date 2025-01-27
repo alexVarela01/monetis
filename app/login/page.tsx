@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
-import logoImage from './../../public/Logo.png'
+import logoImage from '@/public/Logo.png'
 import { ToastContainer, toast } from 'react-toastify';
 
 // Definição dos tipos
