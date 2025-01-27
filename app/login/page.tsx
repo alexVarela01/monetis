@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
 import logoImage from './../../public/Logo.png'
@@ -90,7 +91,7 @@ export default function Login() {
   return (
     <div className='loginContainer'>
 
-      <Image src={logoImage} alt="Login" className='logo'></Image>
+      <Link href="/" className='logo'><Image src={logoImage} alt="Register"></Image></Link>
 
       <div className='login'>
 
