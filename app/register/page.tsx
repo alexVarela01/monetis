@@ -49,6 +49,7 @@ export default function Register() {
 
   // Handle user already logged in
   useEffect(() => {
+    document.title = 'Monetis | Register';
     const token = sessionStorage.getItem('authToken');
     if (token) {
       window.location.href = '/dashboard';

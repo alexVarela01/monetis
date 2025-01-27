@@ -22,6 +22,7 @@ export default function Login() {
   });
 
   useEffect(() => {
+    document.title = 'Monetis | Login';
     const token = sessionStorage.getItem('authToken');
 
     if (token) {
