@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import './Navigation.css';
@@ -8,7 +8,12 @@ import { MdDashboard, MdCompareArrows, MdArrowOutward, MdCreditCard, MdOutlineSe
 
 
 function Navigation() {
-  const currentPage = window.location.pathname.split('/')[1];
+  const [currentPage, setCurrentPage] = useState("");
+
+  useEffect(() => {
+    setCurrentPage(window.location.pathname.split("/")[1]);
+  }, []);
+
   const router = useRouter();
 
   function handleLogout () {
