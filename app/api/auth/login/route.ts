@@ -1,46 +1,37 @@
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
-const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key"; // Ensure to set this in environment variables
+const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
 
-    // Find user by email and password
-    const user = await prisma.user.findFirst({
-      where: {
-        email: email,
-        password: password,
-      },
-    });
+    const user = await prisma.user.findUnique({ where: { email } });
 
-    if (user) {
-      // Create JWT payload
-      const payload = {
-        id: user.id,
-        email: user.email,
-      };
-
-      // Generate JWT token
-      const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "7d" });
-      const userName = user.name + " " + user.surname;
-      
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return new Response(
-        JSON.stringify({token, userName }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "Invalid email or password" }),
+        { status: 401, headers: { "Content-Type": "application/json" } }
       );
-    } else {
-      return new Response(JSON.stringify({ error: "Invalid email or password" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      });
     }
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
+
+    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, {
+      expiresIn: "7d",
     });
+
+    const userName = `${user.name} ${user.surname}`;
+    
+    return new Response(
+      JSON.stringify({ token, userName }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ error: error }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 }

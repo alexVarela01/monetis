@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "bcrypt": "^5.1.1",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.6",
     "pg": "^8.13.1",
@@ -19,10 +20,12 @@
     "react-dom": "^19.0.0",
     "react-select": "^5.10.0",
     "react-select-country-list": "^2.2.3",
-    "react-spinners": "^0.15.0"
+    "react-spinners": "^0.15.0",
+    "react-toastify": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.8",
     "@types/node": "^20",
     "@types/react": "^19",

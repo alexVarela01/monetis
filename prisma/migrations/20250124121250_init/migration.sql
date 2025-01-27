@@ -8,7 +8,6 @@ CREATE TABLE "User" (
     "street_address" TEXT,
     "postal_code" TEXT,
     "city" TEXT,
-    "state" TEXT,
     "country" TEXT,
     "password" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
