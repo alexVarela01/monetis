@@ -147,3 +147,7 @@ body{
   font-family: "GeneralSans Regular";
   color: #6c6c6c;
 }
+
+.registerContainer .helpText a{
+  color: #4d8bf7;
+}
