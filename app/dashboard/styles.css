@@ -8,6 +8,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px 60px;
+    position: relative;
     margin-top: 40px;
   }
 
@@ -132,4 +133,33 @@
 .dashboard .right .transactions .transaction-list{
   overflow: auto;
   height: 93%;
+}
+
+.dashboard .right .transactions .no-data{
+  font-family: "GeneralSans Light";
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
+  text-align: center;
+  width: 80%;
+  z-index: 2;
+  margin-bottom: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
+
+.dashboard .loading{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

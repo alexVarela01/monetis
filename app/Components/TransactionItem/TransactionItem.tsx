@@ -6,7 +6,6 @@ import { BiTransfer } from "react-icons/bi";
 interface TransactionItemProps {
   type: string;
   amount: number;
-  date: string;
   category: string;
 }
 
@@ -37,7 +36,7 @@ const categories: { [key: string]: { icon: React.ComponentType; color: string } 
   },
 };
 
-function TransactionItem({ type, amount, date, category }: TransactionItemProps) {
+function TransactionItem({ type, amount, category }: TransactionItemProps) {
   const categoryDetails = type === 'transfer' ? { icon: BiTransfer, color: '#68c9c4' } : categories[category] || categories['Other'];
   return (
     <div className='transaction'>

@@ -5,9 +5,10 @@ import './StatisticsPanel.css';
 
 interface StatisticsPanelProps {
   data : { income: number[]; expenses: number[] }
+  loading: boolean
 }
 
-function StatisticsPanel({ data }: StatisticsPanelProps) {
+function StatisticsPanel({ data, loading }: StatisticsPanelProps) {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
 
@@ -81,13 +82,16 @@ function StatisticsPanel({ data }: StatisticsPanelProps) {
     return () => {
       chartInstance.current?.destroy();
     };
-  }, []);
+  }, [loading]);
 
   return (
     <div className='statistics'>
       <div className='chart'>
         <h2>Statistics (10 last days)</h2>
-        <canvas ref={chartRef} height={300}></canvas>
+
+        {!loading &&
+          <canvas ref={chartRef} height={300}></canvas>
+        }
       </div>
     </div>
   );

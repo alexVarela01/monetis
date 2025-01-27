@@ -7,51 +7,76 @@ import StatisticsPanel from '@/app/Components/StatisticsPanel/StatisticsPanel';
 import OverallPanel from '@/app/Components/OverallPanel/OverallPanel';
 import TransactionItem from '@/app/Components/TransactionItem/TransactionItem';
 import './styles.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { CiSquarePlus  } from "react-icons/ci";
+import { GridLoader } from 'react-spinners';
 
 export default function Dashboard() {
   useAuth();
+  const [userAccounts, setUserAccounts] = useState<Array<{ name: string; amount: number, totalBalance: number }>>([]);
+  const [transactions, setTransactions] = useState<Array<{ type: string; amount: number, category: string, date: string }>>([]);
+  const [dataStatistics, setDataStatistics] = useState<{income: number[]; expenses: number[];}>({ income: Array(10).fill(0), expenses: Array(10).fill(0),});
+  const [overview, setOverview] = useState<Array<{ type: string; amount: number, category: string, count?: number }>>([]);
 
-  const accounts = [
-    { name: 'Checking', balance: 20000},
-    { name: 'Savings', balance: 2000},
-    { name: 'Account_1', balance: 512},
-    { name: 'Account_2', balance: 239.21},
-  ];
 
-  const dataStatistics: { income: number[]; expenses: number[] } = {
-    income: [152, 142, 64, 156, 121, 70, 152, 171, 124, 137],
-    expenses: [146, 129, 133, 160, 179, 82, 31, 117, 67, 10],
-  };
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const transactions = [
-    { type: 'payment', amount: -100, date: '2021-10-01', category: 'Salary' },
-    { type: 'payment', amount: -50, date: '2021-10-02', category: 'Groceries' },
-    { type: 'transfer', amount: -50, date: '2021-10-03', category: 'Alexandre Varela' },
-    { type: 'payment', amount: -20, date: '2021-10-04', category: 'Clothing' },
-    { type: 'payment', amount: 10, date: '2021-10-05', category: 'Bills' },
-    { type: 'payment', amount: -40, date: '2021-10-06', category: 'Other' },
-    { type: 'payment', amount: -20, date: '2021-10-07', category: 'Online' },
-  ]
-
-  const overview = [
-    { type: "payment", category: 'Groceries', amount: 1002, count: 1 },
-    { type: "payment", category: 'Online Shopping', amount: 520, count: 3 },
-    { type: "payment", category: 'Entertainment', amount: 123, count: 10 },
-    { type: "payment", category: 'Clothing', amount: 5310, count: 25 },
-    { type: "transfer", category: 'Alexandre Varela', amount: 5310 },
-    { type: "transfer", category: 'NTT Data', amount: 5310 },
-    { type: "transfer", category: 'John Doe', amount: 5310 },
-    { type: "transfer", category: 'John Doeasd', amount: -5310 },
-  ]
-
-  const totalBalance = accounts.reduce((acc, account) => acc + account.balance, 0);
   useEffect(() => {
     document.title = 'Monetis | Dashboard';
-
-
     
+    setLoading(true);
+    async function fetchUsers() {
+      try {
+        const token = sessionStorage.getItem('authToken');
+        const response = await fetch('/api/users/data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+  
+        const accountData = await response.json();
+        const totalBalance = accountData.accounts.reduce((acc: number, account: any) => acc + account.amount, 0);
+
+        // store history from last 7 days using accountData.history.date
+        const currentDate = new Date();
+        const lastTenDays = new Date(currentDate.setDate(currentDate.getDate() - 10));
+        
+        const lastTenDaysHistory = accountData.history.filter(
+          (transaction: any) => new Date(transaction.date) >= lastTenDays
+        );
+
+        const newStatistics = { income: Array(10).fill(0), expenses: Array(10).fill(0) };
+
+        for (let i = 9; i >= 0; i--) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+
+          const dateString = date.toISOString().split("T")[0];
+          const dailyTransactions = lastTenDaysHistory.filter(
+            (transaction: any) => transaction.date.startsWith(dateString)
+          );
+
+          dailyTransactions.forEach((transaction: any) => {
+            if(transaction.amount < 0){
+              newStatistics.expenses[9 - i] += Math.abs(transaction.amount);
+            } else {
+              newStatistics.income[9 - i] += transaction.amount;
+            }
+          });
+        }
+
+        setOverview(accountData.historyCategoryAmountCount.map((category: any) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
+        setDataStatistics(newStatistics);
+        setUserAccounts(accountData.accounts.map((account: any) => ({ name: account.name, amount: account.amount, totalBalance })));
+        setTransactions(accountData.history.slice(0, 7).map((transaction: any) => ({ type: transaction.type, amount: transaction.amount, category: transaction.category, date: transaction.date })));
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUsers();
   }, []);
 
   return (
@@ -63,11 +88,11 @@ export default function Dashboard() {
 
         <div className='accounts_balance'>
 
-          {accounts.map((account, index) => (
-            <AccountCard key={index} colorKey={index} accountName={account.name} balance={account.balance} fillPercent={(account.balance / totalBalance) * 100}/>
+          {userAccounts.length > 0 && userAccounts.map((account, index) => (
+            <AccountCard key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100}/>
           ))}
 
-          {accounts.length < 4 && 
+          {userAccounts.length > 0 && userAccounts.length < 4 && 
             <div className='new_account'>
               <span><CiSquarePlus /></span>
             </div>
@@ -76,8 +101,8 @@ export default function Dashboard() {
 
         <div className='panels'>
           <div className='left'>
-            <StatisticsPanel data={dataStatistics}/>
-            <OverallPanel data={overview}/>
+            <StatisticsPanel data={dataStatistics} loading={loading}/>
+            <OverallPanel data={overview} loading={loading}/>
           </div>
 
           <div className='right'>
@@ -85,12 +110,22 @@ export default function Dashboard() {
               <h2>Transactions</h2>
               <div className='transaction-list'>
                 {transactions.map((transaction, index) => (
-                  <TransactionItem key={index} type={transaction.type} amount={transaction.amount} date={transaction.date} category={transaction.category}/>
+                  <TransactionItem key={index} type={transaction.type} amount={transaction.amount} category={transaction.category}/>
                 ))}
+
+                {transactions.length === 0 &&
+                  <p className='no-data'>Nothing to display at the moment. <br /> We'll track all your transactions here.</p>
+                }
               </div>
             </div>
           </div>
         </div>
+
+        {loading &&
+          <div className='loading'>
+            <GridLoader color="#4d8bf7" size={10}/>
+          </div>
+        }
       </div>
     </div>
   );
