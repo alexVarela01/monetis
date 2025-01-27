@@ -1,0 +1,54 @@
+.navigation{
+  flex: 0.10;
+  padding: 50px 30px;
+  box-shadow: 0px 0px 10px #e9e9e9b9;
+  background-color: rgb(252, 252, 252);
+}
+
+.navigation .logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: fit-content;
+  margin-bottom: 30px;
+  margin-left: 10px;
+}
+
+.navigation .options{
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 100px);
+  gap: 5px;
+}
+
+.navigation .options a, .navigation .options button{
+  text-decoration: none;
+  color: #1c1c1c;
+  font-family: "GeneralSans Regular";
+  font-size: 14px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  text-align: left;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.navigation .options svg{
+  width: 18px;
+  height: 18px;
+}
+
+.navigation .options a.active, .navigation .options button.active{
+  font-family: "GeneralSans Medium";
+}
+
+.navigation .options a:hover, .navigation .options button:hover{
+  background-color: rgb(245, 245, 245);
+}
