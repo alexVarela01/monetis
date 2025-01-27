@@ -51,8 +51,42 @@ export async function POST(req: Request) {
   });
 
   if (newUser) {
+
+    // generate unique iban for checking and saving, check if it already exists
+    let checkingIban = await generateUniqueIban();
+    await prisma.userAccount.create({
+      data: {
+        user_id: newUser.id,
+        iban: checkingIban,
+        amount: 0,
+        name: 'Checking',
+      },
+    });
+
+    // generate unique iban for checking and saving, check if it already exists
+    let savingsIban = await generateUniqueIban();
+    await prisma.userAccount.create({
+      data: {
+        user_id: newUser.id,
+        iban: savingsIban,
+        amount: 0,
+        name: 'Savings',
+      },
+    });
+
     return new Response(JSON.stringify({ message: 'User created successfully' }), { status: 200 });
   } else {
     return new Response(JSON.stringify({ error: 'Failed to create user' }), { status: 500 });
   }
+}
+
+async function generateUniqueIban() {
+    // generate unique iban for checking and saving, check if it already exists
+    let iban = Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
+    let userAccount = await prisma.userAccount.findUnique({ where: { iban } });
+    while (userAccount) {
+      iban = Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
+      userAccount = await prisma.userAccount.findUnique({ where: { iban } });
+    }
+    return iban;
 }
