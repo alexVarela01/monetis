@@ -10,6 +10,7 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import { CiSquarePlus  } from "react-icons/ci";
 import { GridLoader } from 'react-spinners';
+import StaticLoader from '../Components/StaticLoader/StaticLoader';
 
 interface TransactionInterface {
   type: string;
@@ -34,17 +35,19 @@ interface CategoryInterface {
 
 export default function Dashboard() {
   useAuth();
+  const [isClient, setIsClient] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  
   const [userAccounts, setUserAccounts] = useState<Array<AccountInterface>>([]);
   const [transactions, setTransactions] = useState<Array<TransactionInterface>>([]);
   const [dataStatistics, setDataStatistics] = useState<{income: number[]; expenses: number[];}>({ income: Array(10).fill(0), expenses: Array(10).fill(0),});
   const [overview, setOverview] = useState<Array<{ type: string; amount: number, category: string, count?: number }>>([]);
 
-  const [loading, setLoading] = useState<boolean>(true);
-
 
   useEffect(() => {
     document.title = 'Monetis | Dashboard';
     setLoading(true);
+    setIsClient(true);
     
     async function fetchUsers() {
       try {
@@ -142,10 +145,14 @@ export default function Dashboard() {
           </div>
         </div>
 
-      </div>
-
+      </div> 
+      
       <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
-        <GridLoader color="#4d8bf7" size={10}/>
+        {isClient ? (
+          <GridLoader color="#4d8bf7" size={10} />
+        ) : (
+          <StaticLoader/>
+        )}
       </div>
     </div>
   );
