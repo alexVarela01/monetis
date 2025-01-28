@@ -5,7 +5,7 @@ import Navigation from '@/app/Components/Navigation/Navigation';
 import './styles.css';
 import { useEffect, useState } from 'react';
 import { GridLoader } from 'react-spinners';
-
+import StaticLoader from '../Components/StaticLoader/StaticLoader';
 
 
 export default function Transactions() {
@@ -13,11 +13,13 @@ export default function Transactions() {
 
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [isClient, setIsClient] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = 'Monetis | Transactions';
     
     setLoading(true);
+    setIsClient(true);
     async function fetchTransactions() {
       try {
         console.log("todo here")
@@ -39,7 +41,11 @@ export default function Transactions() {
 
       </div>
       <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
-        <GridLoader color="#4d8bf7" size={10}/>
+        {isClient ? (
+          <GridLoader color="#4d8bf7" size={10} />
+        ) : (
+          <StaticLoader/>
+        )}
       </div>
     </div>
   );
