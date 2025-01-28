@@ -3,9 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import "./styles.css";
-import logoImage from './../../public/Logo.png'
+import logoImage from '@/public/Logo.png'
+import { useEffect } from 'react';
 
 export default function Terms() {
+
+  useEffect(() => {
+    document.title = 'Monetis | Terms and Conditions';
+  }, []);
+
   return (
     <div className='termsContainer'>
 

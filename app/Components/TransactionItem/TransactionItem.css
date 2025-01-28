@@ -1,0 +1,45 @@
+.transaction{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 17px 13px;
+  transition: 0.5s;
+  background-color: transparent;
+}
+
+.transaction:not(:last-child){
+  border-bottom: 1px solid #e9e9e979;
+}
+
+.transaction div{
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction .type{
+  font-family: "GeneralSans Medium";
+  text-transform: capitalize;
+}
+
+.transaction .category{
+  font-family: "GeneralSans Regular";
+}
+
+.transaction .amount{
+  font-family: "GeneralSans Medium";
+  font-size: 22px;
+  margin-left: auto;
+}
+
+.transaction:hover{
+  background-color: #f9f9f9;
+}
+
+.transaction .icon{
+  font-size: 17px;
+  color: #030303c2;
+  background-color: red;
+  padding: 12px;
+  border-radius: 100%;
+  margin-right: 5px;
+}
