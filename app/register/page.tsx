@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
 import "./styles.css";
-import logoImage from './../../public/Logo.png'
+import logoImage from '@/public/Logo.png'
 import { ToastContainer, toast } from 'react-toastify';
 import { SingleValue } from 'react-select';
 
@@ -49,6 +49,7 @@ export default function Register() {
 
   // Handle user already logged in
   useEffect(() => {
+    document.title = 'Monetis | Register';
     const token = sessionStorage.getItem('authToken');
     if (token) {
       window.location.href = '/dashboard';
