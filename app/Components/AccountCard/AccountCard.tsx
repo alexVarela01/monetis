@@ -45,7 +45,7 @@ function AccountCard({ accountName, balance, colorKey, fillPercent }: AccountCar
     return () => {
       chartInstance.current?.destroy();
     };
-  }, [balance, accountColors[colorKey]]);
+  }, [balance, fillPercent, colorKey]);
 
   return (
     <div className='account'>
