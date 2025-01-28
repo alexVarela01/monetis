@@ -33,7 +33,6 @@
   margin: 0;
   text-align: left;
   width: 100%;
-  font-weight: normal;
   z-index: 2;
 
 }
@@ -51,7 +50,6 @@
 .container.overview h2{
   font-family: "GeneralSans Regular";
   font-size: 18px;
-  font-weight: normal;
   margin: 0;
   text-align: left;
   width: 100%;
