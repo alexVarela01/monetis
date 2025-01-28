@@ -41,10 +41,11 @@ export default function Dashboard() {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+
   useEffect(() => {
     document.title = 'Monetis | Dashboard';
-    
     setLoading(true);
+    
     async function fetchUsers() {
       try {
         const token = sessionStorage.getItem('authToken');
@@ -141,11 +142,10 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {loading &&
-          <div className='loading'>
-            <GridLoader color="#4d8bf7" size={10}/>
-          </div>
-        }
+      </div>
+
+      <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
+        <GridLoader color="#4d8bf7" size={10}/>
       </div>
     </div>
   );
