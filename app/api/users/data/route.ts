@@ -13,8 +13,6 @@ export async function POST(req: Request) {
         const userHistory = await getUserHistory(decoded.id);
         const userHistoryCategoryAmountCount = await getUserHistoryCategoryAmount(decoded.id);
 
-        console.log(userHistoryCategoryAmountCount);
-        
         return new Response(JSON.stringify({accounts: userAccounts, history: userHistory, historyCategoryAmountCount: userHistoryCategoryAmountCount}), {
           status: 200,
           headers: { "Content-Type": "application/json" },
