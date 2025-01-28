@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 }
 
 async function getUserAccounts(user_id: number) {
-  let userAccounts = await prisma.userAccount.findMany({
+  const userAccounts = await prisma.userAccount.findMany({
     where: { user_id: user_id },
     orderBy: { id: 'asc' },
   });
@@ -40,7 +40,7 @@ async function getUserAccounts(user_id: number) {
 }
 
 async function getUserHistory(user_id: number) {
-  let userAccounts = await prisma.history.findMany({
+  const userAccounts = await prisma.history.findMany({
     where: { user_id: user_id },
     orderBy: { id: 'desc' },
   });

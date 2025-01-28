@@ -53,7 +53,7 @@ export async function POST(req: Request) {
   if (newUser) {
 
     // generate unique iban for checking and saving, check if it already exists
-    let checkingIban = await generateUniqueIban();
+    const checkingIban = await generateUniqueIban();
     await prisma.userAccount.create({
       data: {
         user_id: newUser.id,
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
     });
 
     // generate unique iban for checking and saving, check if it already exists
-    let savingsIban = await generateUniqueIban();
+    const savingsIban = await generateUniqueIban();
     await prisma.userAccount.create({
       data: {
         user_id: newUser.id,

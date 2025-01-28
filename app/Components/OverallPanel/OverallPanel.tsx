@@ -111,7 +111,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
             ))}
 
             {data.length === 0 &&
-             <p className='no-data'>Nothing to display at the moment. <br />We'll track your expenses here!</p>
+             <p className='no-data'>Nothing to display at the moment. <br />We&apos;ll track your expenses here!</p>
             }
           </div>
         }
@@ -124,7 +124,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
           <canvas ref={chartExpensesRef}></canvas>
 
           {data.filter((item) => item.type === 'payment').length === 0 &&
-            <p className='no-data'>Nothing to display at the moment. <br />We'll track your expenses here!</p>
+            <p className='no-data'>Nothing to display at the moment. <br />We&apos;ll track your expenses here!</p>
           }
         </div>
       </div>
@@ -135,7 +135,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
           <canvas ref={chartIncomeRef}></canvas>
 
           {data.filter((item) => item.type === 'transfer').length === 0 &&
-            <p className='no-data'>Nothing to display at the moment. <br />We'll track your income here!</p>
+            <p className='no-data'>Nothing to display at the moment. <br />We&apos;ll track your income here!</p>
           }
         </div>
       </div>

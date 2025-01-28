@@ -11,13 +11,33 @@ import { useEffect, useState } from 'react';
 import { CiSquarePlus  } from "react-icons/ci";
 import { GridLoader } from 'react-spinners';
 
+interface TransactionInterface {
+  type: string;
+  amount: number;
+  category: string;
+  date: string;
+}
+
+interface AccountInterface {
+  name: string;
+  amount: number;
+  totalBalance: number;
+}
+
+interface CategoryInterface {
+  type: string;
+  category: string;
+  amount: number;
+  _sum: { amount: number };
+  _count: { id: number };
+}
+
 export default function Dashboard() {
   useAuth();
-  const [userAccounts, setUserAccounts] = useState<Array<{ name: string; amount: number, totalBalance: number }>>([]);
-  const [transactions, setTransactions] = useState<Array<{ type: string; amount: number, category: string, date: string }>>([]);
+  const [userAccounts, setUserAccounts] = useState<Array<AccountInterface>>([]);
+  const [transactions, setTransactions] = useState<Array<TransactionInterface>>([]);
   const [dataStatistics, setDataStatistics] = useState<{income: number[]; expenses: number[];}>({ income: Array(10).fill(0), expenses: Array(10).fill(0),});
   const [overview, setOverview] = useState<Array<{ type: string; amount: number, category: string, count?: number }>>([]);
-
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -35,14 +55,14 @@ export default function Dashboard() {
         });
   
         const accountData = await response.json();
-        const totalBalance = accountData.accounts.reduce((acc: number, account: any) => acc + account.amount, 0);
+        const totalBalance = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
 
         // store history from last 7 days using accountData.history.date
         const currentDate = new Date();
         const lastTenDays = new Date(currentDate.setDate(currentDate.getDate() - 10));
         
         const lastTenDaysHistory = accountData.history.filter(
-          (transaction: any) => new Date(transaction.date) >= lastTenDays
+          (transaction: TransactionInterface) => new Date(transaction.date) >= lastTenDays
         );
 
         const newStatistics = { income: Array(10).fill(0), expenses: Array(10).fill(0) };
@@ -53,10 +73,10 @@ export default function Dashboard() {
 
           const dateString = date.toISOString().split("T")[0];
           const dailyTransactions = lastTenDaysHistory.filter(
-            (transaction: any) => transaction.date.startsWith(dateString)
+            (transaction: TransactionInterface) => transaction.date.startsWith(dateString)
           );
 
-          dailyTransactions.forEach((transaction: any) => {
+          dailyTransactions.forEach((transaction: TransactionInterface) => {
             if(transaction.amount < 0){
               newStatistics.expenses[9 - i] += Math.abs(transaction.amount);
             } else {
@@ -65,10 +85,10 @@ export default function Dashboard() {
           });
         }
 
-        setOverview(accountData.historyCategoryAmountCount.map((category: any) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
+        setOverview(accountData.historyCategoryAmountCount.map((category: CategoryInterface) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
         setDataStatistics(newStatistics);
-        setUserAccounts(accountData.accounts.map((account: any) => ({ name: account.name, amount: account.amount, totalBalance })));
-        setTransactions(accountData.history.slice(0, 7).map((transaction: any) => ({ type: transaction.type, amount: transaction.amount, category: transaction.category, date: transaction.date })));
+        setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance })));
+        setTransactions(accountData.history.slice(0, 7).map((transaction: TransactionInterface) => ({ type: transaction.type, amount: transaction.amount, category: transaction.category, date: transaction.date })));
         
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -114,7 +134,7 @@ export default function Dashboard() {
                 ))}
 
                 {transactions.length === 0 &&
-                  <p className='no-data'>Nothing to display at the moment. <br /> We'll track all your transactions here.</p>
+                  <p className='no-data'>Nothing to display at the moment. <br /> We&apos;ll track all your transactions here.</p>
                 }
               </div>
             </div>
