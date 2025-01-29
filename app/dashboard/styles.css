@@ -26,6 +26,7 @@
   align-items: center;
   gap: 10px;
   height: 20%;
+  position: relative;
 }
 
 .dashboard .accounts_balance > div:nth-child(1) .background img{
@@ -150,4 +151,28 @@
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.5;
+}
+
+.dashboard .accounts_balance .seeAll{
+  position: absolute;
+  top: -15px;
+  right: 0px;
+  font-size: 15px;
+  z-index: 2;
+  cursor: pointer;
+  font-family: "GeneralSans Regular";
+  text-decoration: none;
+  color: #000;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dashboard .accounts_balance .seeAll svg{
+  font-size: 12px;
+}
+
+.dashboard .accounts_balance .seeAll:hover{
+  color: #4d8bf7;
 }

@@ -37,7 +37,7 @@ const categories: { [key: string]: { icon: React.ComponentType; color: string } 
 };
 
 function TransactionItem({ type, amount, category }: TransactionItemProps) {
-  const categoryDetails = type === 'transfer' ? { icon: BiTransfer, color: '#68c9c4' } : categories[category] || categories['Other'];
+  const categoryDetails = type.includes('transfer') ? { icon: BiTransfer, color: '#68c9c4' } : categories[category] || categories['Other'];
   return (
     <div className='transaction'>
 
