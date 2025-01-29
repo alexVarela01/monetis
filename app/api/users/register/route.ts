@@ -1,12 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import { generateUniqueIban } from "../../helper";
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
-
-export async function GET() {
-  const users = await prisma.user.findMany();
-  return new Response(JSON.stringify(users), { status: 200 });
-}
 
 export async function POST(req: Request) {
   const { name, surname, email, phone_number, street_address, postal_code, city, country, password, confirmPassword } = await req.json();
@@ -78,15 +74,4 @@ export async function POST(req: Request) {
   } else {
     return new Response(JSON.stringify({ error: 'Failed to create user' }), { status: 500 });
   }
-}
-
-async function generateUniqueIban() {
-    // generate unique iban for checking and saving, check if it already exists
-    let iban = Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
-    let userAccount = await prisma.userAccount.findUnique({ where: { iban } });
-    while (userAccount) {
-      iban = Math.floor(1000000000000000 + Math.random() * 9000000000000000).toString();
-      userAccount = await prisma.userAccount.findUnique({ where: { iban } });
-    }
-    return iban;
 }

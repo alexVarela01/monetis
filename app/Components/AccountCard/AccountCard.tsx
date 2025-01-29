@@ -4,12 +4,17 @@ import accountBackground from '@/public/account_background.svg';
 import { TbExternalLink } from "react-icons/tb";
 import Chart from 'chart.js/auto';
 import './AccountCard.css';
+import { FaArrowRight, FaCopy } from "react-icons/fa";
 
 interface AccountCardProps {
   accountName: string;
   balance: number;
   colorKey: number;
   fillPercent: number;
+
+  iban?: string;
+  accountHolder?: string;
+  handleToast?: (message: string) => void;
 }
 
 const accountColors = [
@@ -19,7 +24,7 @@ const accountColors = [
   '241, 103, 93'
 ]
 
-function AccountCard({ accountName, balance, colorKey, fillPercent }: AccountCardProps) {
+function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accountHolder, handleToast }: AccountCardProps) {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
   useEffect(() => {
@@ -47,9 +52,20 @@ function AccountCard({ accountName, balance, colorKey, fillPercent }: AccountCar
     };
   }, [balance, fillPercent, colorKey]);
 
+  function formatIban(iban: string) {
+    return "PT50 " + iban.slice(0, 4) + ' ' + iban.slice(4, 8) + ' ' + iban.slice(8, 12) + ' ' + iban.slice(12, 16) + ' ' + iban.slice(16, 20) + ' ' + iban.slice(20, 21);
+  }
+
+  function copyToClipboard(iban: string) {
+    navigator.clipboard.writeText(iban)
+
+    if (handleToast){
+      handleToast("IBAN copied to clipboard!");
+    }
+  }
+
   return (
     <div className='account'>
-      <TbExternalLink className='hyperlink' />
       <h2>{accountName}</h2>
       <p>{balance.toFixed(2)} €</p>
 
@@ -61,7 +77,31 @@ function AccountCard({ accountName, balance, colorKey, fillPercent }: AccountCar
 
       <div className='chart'>
         <canvas ref={chartRef}></canvas>
+        <div className='fillPercent'>
+          <span style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>{fillPercent.toFixed(0)}%</span>
+        </div>
+
+        {(iban && accountHolder) && 
+          <div className='balanceDistribution' style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>
+            Balance <br />Distribution
+          </div>
+        }
+
       </div>
+
+      {iban && accountHolder ? (
+          <>
+            <div className='seeAccoutDetails'>
+              <p>See details</p>
+              <FaArrowRight />
+            </div>
+            {iban && <p className='iban'>{formatIban(iban)} <button onClick={() => copyToClipboard(iban)}><FaCopy /></button></p>}
+            {accountHolder && <p className='accountHolder'>{accountHolder}</p>}
+          </>
+        ) : (
+          <TbExternalLink className='hyperlink' />
+        )}
+
     </div>
   );
 }
