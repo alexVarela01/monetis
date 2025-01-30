@@ -24,10 +24,6 @@ export async function POST(req: Request) {
         errorsList.push('Name must be less than 15 characters');
       }
 
-      if(name === 'Checking' || name === 'Savings') {
-        errorsList.push('Invalid account name');
-      }
-
       // check if amount is a positive and multiple of 10. Minimum should be 10
       if (!/^\d+$/.test(amount) || Number(amount) < 10 || Number(amount) % 10 !== 0) {
         errorsList.push('Amount must be a positive number and multiple of 10');
@@ -35,7 +31,7 @@ export async function POST(req: Request) {
 
       //check if checking account has balance
       const checkingAccount = await prisma.userAccount.findFirst({
-        where: { user_id: decoded.id, name: 'Checking' },
+        where: { user_id: decoded.id, type: 'checking' },
       });
 
       if(checkingAccount && Number(checkingAccount.amount) < Number(amount)) {
@@ -51,13 +47,14 @@ export async function POST(req: Request) {
           iban: generatedIban,
           amount: Number(amount),
           name: name,
+          type: 'user'
         },
       });
 
       if (account) {
         // update user balance on checking account
         await prisma.userAccount.updateMany({
-          where: { user_id: decoded.id, name: 'Checking' },
+          where: { user_id: decoded.id, type: 'checking' },
           data: { amount: { decrement: Number(amount) } },
         });
 

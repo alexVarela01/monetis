@@ -55,6 +55,7 @@ export async function POST(req: Request) {
         user_id: newUser.id,
         iban: checkingIban,
         amount: 0,
+        type: "checking",
         name: 'Checking',
       },
     });
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
         user_id: newUser.id,
         iban: savingsIban,
         amount: 0,
+        type: "savings",
         name: 'Savings',
       },
     });

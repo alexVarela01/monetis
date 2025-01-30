@@ -23,7 +23,7 @@ function Navigation() {
 
   return (
     <div className='navigation'>
-      <Image src={logoImage} alt="Register" className='logo'></Image>
+      <Image src={logoImage} onClick={() => window.location.href = '/dashboard'} alt="Register" className='logo'></Image>
 
       <div className='options'>
         <a href="/dashboard" className={currentPage === 'dashboard' ? 'active' : ''}><MdDashboard/><span>Dashboard</span></a>

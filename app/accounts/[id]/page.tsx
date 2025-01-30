@@ -69,7 +69,7 @@ export default function Accounts({ params }: { params: Promise<{ id: string }> }
         <Navigation />
 
         <div className='content'>
-          <h1>Account {userAccount?.name}</h1>
+          <h1>{userAccount?.name} Account</h1>
         </div>
 
         <div className={`loading_screen ${!loading ? "hidden" : ""}`}>

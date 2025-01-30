@@ -5,6 +5,7 @@ import { TbExternalLink } from "react-icons/tb";
 import Chart from 'chart.js/auto';
 import './AccountCard.css';
 import { FaArrowRight, FaCopy } from "react-icons/fa";
+import { formatBalance } from '@/app/utils/helpers';
 
 interface AccountCardProps {
   accountName: string;
@@ -72,8 +73,8 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
 
   return (
     <div className='account' onClick={iban ? undefined : () => window.location.href = `/accounts/${accountId}`}>
-      <h2>{accountName} {accountId}</h2>
-      <p>{balance.toFixed(2)} €</p>
+      <h2>{accountName}</h2>
+      <p>{formatBalance(balance)} €</p>
 
       <div className='backgroundGradient' style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>
         <div className='background'>
@@ -89,13 +90,6 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
             <span style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>{fillPercent.toFixed(0)}%</span>
           }
         </div>
-
-        {(iban && accountHolder && fillPercent >= 0) && 
-          <div className='balanceDistribution' style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>
-            Balance <br />Distribution
-          </div>
-        }
-
       </div>
 
       {iban && accountHolder ? (

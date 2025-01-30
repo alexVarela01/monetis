@@ -10,6 +10,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import StaticLoader from '../Components/StaticLoader/StaticLoader';
 import Dialog from '../Components/Dialog/Dialog';
 import { ToastContainer, toast } from 'react-toastify';
+import { formatBalance } from '../utils/helpers';
 
 interface AccountInterface {
   id: number;
@@ -34,7 +35,7 @@ export default function Accounts() {
   const [loadingAction, setLoadingAction] = useState<boolean>(false);
   const [isClient, setIsClient] = useState<boolean>(false);
   const [accountHolder, setAccountHolder] = useState<string>('');
-  const [totalBalance, setTotalBalance] = useState<number>(0.0);
+  const [totalBalance, setTotalBalance] = useState<string>('');
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState<Omit<CreateAccount, 'id'>>({
     name: '',
@@ -63,10 +64,10 @@ export default function Accounts() {
 
       const accountData = await response.json();
       console.log(accountData);
-      const totalBalance = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
+      const totalBalanceFromAccounts = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
 
-      setTotalBalance(totalBalance.toString());
-      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: userName, totalBalance, id: account.id })));
+      setTotalBalance(formatBalance(totalBalanceFromAccounts));
+      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: userName, totalBalance: totalBalanceFromAccounts, id: account.id })));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -169,7 +170,7 @@ export default function Accounts() {
             <h1>Accounts</h1>
 
             <div className='totalBalance'>
-              <span className='total'>Total Balance</span> <span>{Number(totalBalance).toFixed(2)} EUR</span>
+              <span className='total'>Total Balance</span> <span>{totalBalance} EUR</span>
             </div>
           </div>
 
