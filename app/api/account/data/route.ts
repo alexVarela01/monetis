@@ -20,6 +20,7 @@ export async function GET(req: Request) {
     
     if (typeof decoded !== "string") {
       const userAccount = await getUserAccount(decoded.id, Number(id));
+      const totalBalance = await getTotalBalance(decoded.id);
 
       if (!userAccount) {
         return new Response(JSON.stringify({ error: "Account not found" }), {
@@ -27,7 +28,7 @@ export async function GET(req: Request) {
           headers: { "Content-Type": "application/json" },
         });
       }else{
-        return new Response(JSON.stringify({ account: userAccount }), {
+        return new Response(JSON.stringify({ account: userAccount.account, index: userAccount.index, totalBalance: totalBalance }), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
@@ -42,7 +43,20 @@ export async function GET(req: Request) {
 }
 
 async function getUserAccount(user_id: number, account_id: number) {
-  return await prisma.userAccount.findFirst({
-    where: { user_id, id: account_id },
+  const accounts = await prisma.userAccount.findMany({
+    where: { user_id },
+    orderBy: { id: 'asc' }, // Ensure consistent ordering
   });
+
+  const index = accounts.findIndex(account => account.id === account_id);
+  let account = accounts[index];
+  return index !== -1 ? { account: accounts[index], index } : null; // Return null if not found
+}
+
+
+async function getTotalBalance(user_id: number) {
+  return await prisma.userAccount.aggregate({
+    where: { user_id },
+    _sum: { amount: true },
+  })
 }

@@ -17,6 +17,7 @@ interface AccountCardProps {
   iban?: string;
   accountHolder?: string;
   handleToast?: (message: string) => void;
+  cardDetails?: boolean;
 }
 
 const accountColors = [
@@ -31,7 +32,7 @@ const accountColors = [
 ];
 
 
-function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accountHolder, handleToast, accountId }: AccountCardProps) {
+function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accountHolder, handleToast, accountId, cardDetails }: AccountCardProps) {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
   useEffect(() => {
@@ -94,10 +95,12 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
 
       {iban && accountHolder ? (
           <>
-            <div className='seeAccoutDetails' onClick={() => window.location.href = `/accounts/${accountId}`}>
-              <p>See details</p>
-              <FaArrowRight />
-            </div>
+            {!cardDetails &&
+              <div className='seeAccoutDetails' onClick={() => window.location.href = `/accounts/${accountId}`}>
+                <p>See details</p>
+                <FaArrowRight />
+              </div>
+            }
             {iban && <p className='iban'>{formatIban(iban)} <button onClick={() => copyToClipboard(iban)}><FaCopy /></button></p>}
             {accountHolder && <p className='accountHolder'>{accountHolder}</p>}
           </>
