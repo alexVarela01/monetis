@@ -18,3 +18,43 @@
     margin: 0;
   }
 }
+
+.user_account .account{
+  width: calc(100% - 5px);
+  flex: none;
+  height: 40%;
+}
+
+
+.user_account .chart{
+  width: 150px !important;
+
+  position: absolute;
+  /* allign center */
+  top: 20px;
+  right: 20px;
+  transform: translate(0%, 0%);
+}
+
+.user_account .chart span{
+  font-size: 20px !important;
+}
+
+
+.user_account .account:hover{
+  transform: scale(1.0);
+  cursor: initial;
+}
+
+.user_account .top{
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 10px;
+}
+
+.user_account .top svg{
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 10px 10px 0px;
+}
