@@ -22,6 +22,7 @@ interface TransactionInterface {
 }
 
 interface AccountInterface {
+  id: number;
   name: string;
   amount: number;
   totalBalance: number;
@@ -93,7 +94,7 @@ export default function Dashboard() {
 
         setOverview(accountData.historyCategoryAmountCount.filter((transaction: TransactionInterface) => transaction.type !== 'transfer between accounts').map((category: CategoryInterface) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
         setDataStatistics(newStatistics);
-        setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance })));
+        setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance, id: account.id })));
         setTransactions(accountData.history.slice(0, 7).map((transaction: TransactionInterface) => ({ type: transaction.type, amount: transaction.amount, category: transaction.category, date: transaction.date })));
         
       } catch (error) {
@@ -115,11 +116,11 @@ export default function Dashboard() {
         <div className='accounts_balance'>
 
           {userAccounts.length > 0 && userAccounts.length > 4 && 
-            <Link className='seeAll' href={'/accounts'}>See all <FaArrowRight /></Link>
+            <Link className='seeAll' href={'/accounts'}>See all accounts<FaArrowRight /></Link>
           }
 
           {userAccounts.length > 0 && userAccounts.slice(0,4).map((account, index) => (
-            <AccountCard key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100}/>
+            <AccountCard accountId={account.id} key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100}/>
           ))}
 
           {userAccounts.length > 0 && userAccounts.length < 6 && 

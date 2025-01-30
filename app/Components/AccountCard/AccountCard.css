@@ -16,7 +16,7 @@
   background-color: #efefef;
   position: relative;
   z-index: 2;
-  padding: 40px 20px;
+  padding: 40px 20px 20px;
   border-radius: 10px;
   overflow: hidden;
   color: #fff;
@@ -25,6 +25,8 @@
   transition: 0.5s;
   height: 146px;
   box-sizing: border-box;
+  border: none;
+  user-select: none;
 }
 
 .account:hover{
@@ -171,5 +173,5 @@
 }
 
 .account .seeAccoutDetails p{
-  font-size: 14px !important;
+  font-size: 12px !important;
 }

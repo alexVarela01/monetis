@@ -12,6 +12,7 @@ import Dialog from '../Components/Dialog/Dialog';
 import { ToastContainer, toast } from 'react-toastify';
 
 interface AccountInterface {
+  id: number;
   name: string;
   amount: number;
   iban: string;
@@ -65,7 +66,7 @@ export default function Accounts() {
       const totalBalance = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
 
       setTotalBalance(totalBalance.toString());
-      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: userName, totalBalance })));
+      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: userName, totalBalance, id: account.id })));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -175,7 +176,7 @@ export default function Accounts() {
           <div className='accounts_balance'>
 
             {userAccounts.length > 0 && userAccounts.map((account, index) => (
-              <AccountCard key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100} iban={account.iban} accountHolder={account.accountHolder} handleToast={sendToastIban}/>
+              <AccountCard key={index} colorKey={index} accountId={account.id} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100} iban={account.iban} accountHolder={account.accountHolder} handleToast={sendToastIban}/>
             ))}
 
             {userAccounts.length > 0 && userAccounts.length < 6 && 

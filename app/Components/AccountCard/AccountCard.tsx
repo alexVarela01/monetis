@@ -11,6 +11,7 @@ interface AccountCardProps {
   balance: number;
   colorKey: number;
   fillPercent: number;
+  accountId: number;
 
   iban?: string;
   accountHolder?: string;
@@ -18,13 +19,18 @@ interface AccountCardProps {
 }
 
 const accountColors = [
-  '33, 110, 247',
-  '51, 206, 139',
-  '254, 192, 102',
-  '241, 103, 93'
-]
+  '33, 110, 247',  // Blue
+  '51, 206, 139',  // Green
+  '254, 192, 102', // Yellow-Orange
+  '241, 103, 93',  // Red
+  '153, 102, 255', // Purple
+  '255, 153, 204', // Pink
+  '102, 217, 239', // Cyan
+  '255, 128, 0',   // Deep Orange
+];
 
-function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accountHolder, handleToast }: AccountCardProps) {
+
+function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accountHolder, handleToast, accountId }: AccountCardProps) {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstance = useRef<Chart | null>(null);
   useEffect(() => {
@@ -65,8 +71,8 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
   }
 
   return (
-    <div className='account'>
-      <h2>{accountName}</h2>
+    <div className='account' onClick={iban ? undefined : () => window.location.href = `/accounts/${accountId}`}>
+      <h2>{accountName} {accountId}</h2>
       <p>{balance.toFixed(2)} €</p>
 
       <div className='backgroundGradient' style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>
@@ -78,10 +84,13 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
       <div className='chart'>
         <canvas ref={chartRef}></canvas>
         <div className='fillPercent'>
-          <span style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>{fillPercent.toFixed(0)}%</span>
+
+          {fillPercent >= 0 &&
+            <span style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>{fillPercent.toFixed(0)}%</span>
+          }
         </div>
 
-        {(iban && accountHolder) && 
+        {(iban && accountHolder && fillPercent >= 0) && 
           <div className='balanceDistribution' style={{ "--background-color": accountColors[colorKey] } as React.CSSProperties}>
             Balance <br />Distribution
           </div>
@@ -91,7 +100,7 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
 
       {iban && accountHolder ? (
           <>
-            <div className='seeAccoutDetails'>
+            <div className='seeAccoutDetails' onClick={() => window.location.href = `/accounts/${accountId}`}>
               <p>See details</p>
               <FaArrowRight />
             </div>
