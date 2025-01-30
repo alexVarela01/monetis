@@ -2,6 +2,7 @@ import React from 'react';
 import './TransactionItem.css';
 import { MdShoppingCart, MdFastfood, MdAttachMoney, MdMovie, MdLocalMall, MdReceipt } from "react-icons/md";
 import { BiTransfer } from "react-icons/bi";
+import { formatBalance } from '@/app/utils/helpers';
 
 interface TransactionItemProps {
   type: string;
@@ -46,7 +47,7 @@ function TransactionItem({ type, amount, category }: TransactionItemProps) {
         <div className='type'>{type}</div>
         <div className='category'>{category}</div>
       </div>
-      <span className='amount' style={{ color: amount >= 0 ? '#68c9c4' : 'initial' }}>{amount} €</span>
+      <span className='amount' style={{ color: amount >= 0 ? '#68c9c4' : 'initial' }}>{formatBalance(amount)} €</span>
     </div>
   );
 }

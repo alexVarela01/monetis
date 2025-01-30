@@ -124,6 +124,12 @@
 
 .accounts .account .chart{
   width: 150px;
+
+  position: absolute;
+  /* allign center */
+  top: 20px;
+  right: 20px;
+  transform: translate(0%, 0%);
 }
 
 .accounts .account .chart span{
