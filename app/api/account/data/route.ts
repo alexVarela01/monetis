@@ -26,14 +26,15 @@ export async function GET(req: Request) {
     if (typeof decoded !== "string") {
       const userAccount = await getUserAccount(decoded.id, Number(id));
       const totalBalance = await getTotalBalance(decoded.id);
-
+      const checkingBalance = await getCheckingAccountBalance(decoded.id);
+      
       if (!userAccount) {
         return new Response(JSON.stringify({ error: "Account not found" }), {
           status: 404,
           headers: { "Content-Type": "application/json" },
         });
       }else{
-        return new Response(JSON.stringify({ account: userAccount.account, index: userAccount.index, totalBalance: totalBalance, accountHolder: accountHolder }), {
+        return new Response(JSON.stringify({ account: userAccount.account, index: userAccount.index, totalBalance: totalBalance, accountHolder: accountHolder, checkingBalance: checkingBalance?.amount }), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
@@ -57,10 +58,16 @@ async function getUserAccount(user_id: number, account_id: number) {
   return index !== -1 ? { account: accounts[index], index } : null; // Return null if not found
 }
 
-
 async function getTotalBalance(user_id: number) {
   return await prisma.userAccount.aggregate({
     where: { user_id },
     _sum: { amount: true },
   })
+}
+
+async function getCheckingAccountBalance(user_id: number) {
+  return await prisma.userAccount.findFirst({
+    where: { user_id, type: 'checking' },
+    select: { amount: true },
+  });
 }

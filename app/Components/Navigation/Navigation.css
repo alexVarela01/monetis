@@ -23,7 +23,7 @@
   gap: 5px;
 }
 
-.navigation .options a, .navigation .options button{
+.navigation .options > div, .navigation .options button{
   text-decoration: none;
   color: #1c1c1c;
   font-family: "GeneralSans Regular";
@@ -46,10 +46,10 @@
   height: 18px;
 }
 
-.navigation .options a.active, .navigation .options button.active{
+.navigation .options > div.active, .navigation .options button.active{
   font-family: "GeneralSans Medium";
 }
 
-.navigation .options a:hover, .navigation .options button:hover{
+.navigation .options > div:hover, .navigation .options button:hover{
   background-color: rgb(245, 245, 245);
 }
