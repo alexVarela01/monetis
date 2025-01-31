@@ -23,11 +23,16 @@ export default function Login() {
 
   useEffect(() => {
     document.title = 'Monetis | Login';
-    const token = sessionStorage.getItem('authToken');
-
-    if (token) {
-      window.location.href = '/dashboard';
-    }
+    fetch('/api/auth/me', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.authenticated) {
+        window.location.href = '/dashboard';
+      }
+    })
   }, []);
 
   // Handle form submission
@@ -52,11 +57,6 @@ export default function Login() {
         throw new Error(errMessage);
       }
 
-      // Create new session using session storage
-      sessionStorage.setItem('authToken', data.token);
-      sessionStorage.setItem('userEmail', formData.email);
-      sessionStorage.setItem('userName', data.userName);
-      
       // redirects to dashboard
       window.location.href = '/dashboard';
     } catch (error: unknown) {

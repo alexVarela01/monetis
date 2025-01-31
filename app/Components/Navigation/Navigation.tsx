@@ -17,8 +17,15 @@ function Navigation() {
   const router = useRouter();
 
   function handleLogout () {
-    sessionStorage.clear();
-    router.push('/login');
+
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      router.push('/login');
+    })
   };
 
   return (

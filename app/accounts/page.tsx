@@ -44,8 +44,6 @@ export default function Accounts() {
 
   useEffect(() => {
     document.title = 'Monetis | Accounts';
-    
-    setAccountHolder(sessionStorage.getItem('userName') || '');
     setLoading(true);
     setIsClient(true);
     fetchAccounts();
@@ -53,21 +51,20 @@ export default function Accounts() {
 
   async function fetchAccounts() {
     try {
-      const token = sessionStorage.getItem('authToken');
-      const userName = sessionStorage.getItem('userName');
-
+      
       const response = await fetch('/api/users/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
       });
-
+      
       const accountData = await response.json();
       console.log(accountData);
+      console.log(accountData.accountHolder);
       const totalBalanceFromAccounts = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
 
+      setAccountHolder(accountData.accountHolder);
       setTotalBalance(formatBalance(totalBalanceFromAccounts));
-      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: userName, totalBalance: totalBalanceFromAccounts, id: account.id })));
+      setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, iban: account.iban, accountHolder: accountData.accountHolder, totalBalance: totalBalanceFromAccounts, id: account.id })));
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -104,11 +101,10 @@ export default function Accounts() {
     e.preventDefault();
     setLoadingAction(true);
     try {
-      const token = sessionStorage.getItem('authToken');
       const registerResponse = await fetch('/api/account/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData, token }),
+        body: JSON.stringify({ formData }),
       });
 
       // Create new session using session storage

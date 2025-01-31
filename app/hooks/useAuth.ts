@@ -9,13 +9,9 @@ export function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('authToken');
-  
-    if (token) {
       fetch('/api/auth/checkValidToken', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, userEmail: sessionStorage.getItem('userEmail') }),
       })
         .then((response) => response.json())
         .then((data) => {
@@ -30,9 +26,6 @@ export function useAuth() {
           sessionStorage.clear();
           router.push('/login');
         });
-    } else {
-      router.push('/login');
-    }
   }, [router]);
 
   return { isAuthenticated };
