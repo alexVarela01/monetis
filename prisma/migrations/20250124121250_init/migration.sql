@@ -20,6 +20,7 @@ CREATE TABLE "User" (
 CREATE TABLE "UserAccount" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
+    "type" TEXT NOT NULL,
     "iban" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
     "name" TEXT NOT NULL,

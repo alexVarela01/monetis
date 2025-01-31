@@ -65,65 +65,6 @@ body{
   position: relative;
 }
 
-.registerContainer .register form label{
-  font-size: 15px;
-}
-
-.registerContainer .register form input{
-  padding: 10px;
-  border: 1px solid #efefef;
-  box-shadow: 0px 0px 3px #e9e9e9;
-  border-radius: 5px;
-  outline: none;
-  font-size: 13px;
-  font-family: "GeneralSans Regular";
-}
-
-.registerContainer .register form button{
-  border: 1px solid #030303;
-  box-shadow: 0px 0px 3px #e9e9e9;
-  border-radius: 2px;
-  outline: none;
-  font-size: 13px;
-  font-family: "GeneralSans Medium";
-  background-color: #030303;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.5s;
-  height: 40px;
-}
-
-.registerContainer .register form button:hover{
-  background-color: #4d8bf7;
-  border: 1px solid #4d8bf7;
-  transform: scale(1.01);
-}
-
-.registerContainer .register form button:disabled{
-  transform: scale(1);
-  background-color: #030303;
-  border: 1px solid #030303;
-  opacity: 0.6;
-}
-
-.registerContainer .register form .row{
-  display: flex;
-  gap: 10px;
-}
-
-.registerContainer .register form .column{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.registerContainer .register form .column.required label::after{
-  content: '*';
-  color: rgba(255, 0, 0, 0.786);
-  margin-left: 5px;
-}
-
 .registerContainer .register .error{
   color: rgba(255, 0, 0, 0.786);
   font-size: 13px;
