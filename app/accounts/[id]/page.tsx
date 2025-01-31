@@ -41,14 +41,12 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
 
 
   useEffect(() => {
-    setAccountHolder(sessionStorage.getItem('userName') || '');
     setLoading(true);
     setIsClient(true);
 
     async function fetchAccount() {
       try {
-        const token = sessionStorage.getItem('authToken');
-        const response = await fetch(`/api/account/data?token=${encodeURIComponent(token || '')}&id=${encodeURIComponent(id)}`, {
+        const response = await fetch(`/api/account/data?id=${encodeURIComponent(id)}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -66,6 +64,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
         document.title = 'Monetis | Accounts - ' + account.name;
 
         setTotalBalance(totalBalance._sum.amount);
+        setAccountHolder(accountData.accountHolder);
         setUserAccount({ 
           id: account.id, 
           index: index, 

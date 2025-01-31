@@ -1,14 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import { generateUniqueIban } from "../../helper";
+import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
-
-
-
 export async function POST(req: Request) {
+  const cookies = parse(req.headers.get("cookie") || "");
+  const token = cookies.token;
 
-  const { formData, token } = await req.json();
+  const { formData } = await req.json();
   const { name, amount } = formData;
 
   const errorsList = [];

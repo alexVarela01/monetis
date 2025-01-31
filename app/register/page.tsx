@@ -50,12 +50,17 @@ export default function Register() {
   // Handle user already logged in
   useEffect(() => {
     document.title = 'Monetis | Register';
-    const token = sessionStorage.getItem('authToken');
-    if (token) {
-      window.location.href = '/dashboard';
-    }
+    fetch('/api/auth/me', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.authenticated) {
+        window.location.href = '/dashboard';
+      }
+    })
   }, []);
-
   // Handle form submission
   const tryToRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,11 +107,6 @@ export default function Register() {
         const errMessage = loginResponse.status === 401 ? loginData.error : "Unexpected error, please try again later!";
         throw new Error(errMessage);
       }
-
-      // Create new session using session storage
-      sessionStorage.setItem('authToken', loginData.token);
-      sessionStorage.setItem('userEmail', formData.email);
-      sessionStorage.setItem('userName', loginData.userName);
 
       // redirects to dashboard
       window.location.href = '/dashboard';

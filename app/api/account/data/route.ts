@@ -1,12 +1,17 @@
 import { PrismaClient } from "@prisma/client";
+import { parse } from "cookie";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
 export async function GET(req: Request) {
   try {
+
+    const cookies = parse(req.headers.get("cookie") || "");
+    const token = cookies.token;
+    const accountHolder = cookies.userName;
+
     const url = new URL(req.url);
-    const token = url.searchParams.get("token");
     const id = url.searchParams.get("id");
 
     if (!token || !id) {
@@ -28,7 +33,7 @@ export async function GET(req: Request) {
           headers: { "Content-Type": "application/json" },
         });
       }else{
-        return new Response(JSON.stringify({ account: userAccount.account, index: userAccount.index, totalBalance: totalBalance }), {
+        return new Response(JSON.stringify({ account: userAccount.account, index: userAccount.index, totalBalance: totalBalance, accountHolder: accountHolder }), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
