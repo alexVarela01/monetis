@@ -40,7 +40,7 @@ export async function GET(req: Request) {
       }
     }
   } catch (error) {
-    return new Response(JSON.stringify({ error: "Unauthorized or Invalid Token" }), {
+    return new Response(JSON.stringify({ error: "Unauthorized or Invalid Token", message: error }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
     });
@@ -54,7 +54,6 @@ async function getUserAccount(user_id: number, account_id: number) {
   });
 
   const index = accounts.findIndex(account => account.id === account_id);
-  let account = accounts[index];
   return index !== -1 ? { account: accounts[index], index } : null; // Return null if not found
 }
 
