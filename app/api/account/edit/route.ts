@@ -18,11 +18,12 @@ export async function POST(req: Request) {
       });
 
       if (!userAccount) errorsList.push('Account not found');
+      else if (userAccount.type === 'checking' || userAccount.type === 'savings') errorsList.push('Cannot edit this account');
       
       if (!newName) errorsList.push('Required fields are missing');
       
-      if (newName.length > 15) {
-        errorsList.push('Name must be less than 15 characters');
+      if (newName.length > 25) {
+        errorsList.push('Name must be less than 25 characters');
       }
 
       if(errorsList.length > 0) {

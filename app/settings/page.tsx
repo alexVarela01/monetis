@@ -8,7 +8,7 @@ import { GridLoader } from 'react-spinners';
 import StaticLoader from '../Components/StaticLoader/StaticLoader';
 
 
-export default function Transactions() {
+export default function Settings() {
   useAuth();
 
 
@@ -16,11 +16,11 @@ export default function Transactions() {
   const [isClient, setIsClient] = useState<boolean>(false);
 
   useEffect(() => {
-    document.title = 'Monetis | Transactions';
+    document.title = 'Monetis | Settings';
     
     setLoading(true);
     setIsClient(true);
-    async function fetchTransactions() {
+    async function fetchSettings() {
       try {
         console.log("todo here")
       } catch (error) {
@@ -29,15 +29,15 @@ export default function Transactions() {
         setLoading(false);
       }
     }
-    fetchTransactions();
+    fetchSettings();
   }, []);
 
   return (
-    <div className='transactions'>
+    <div className='settings'>
       <Navigation />
 
       <div className='content'>
-        <h1>Transactions - Under development</h1>
+        <h1>Settings - Under development</h1>
 
       </div>
       <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
