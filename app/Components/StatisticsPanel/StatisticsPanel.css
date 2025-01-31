@@ -10,15 +10,16 @@
 
 .statistics {
   padding: 20px;
-  background-color: #1c1c1cec;
+  box-shadow: 0px 0px 5px #e9e9e9;
+  background-color: #fdfdfd;
   border-radius: 10px;
   box-sizing: border-box;
 }
 
 .statistics h2{
-  color: #fff;
+  color: #000;
   font-size: 20px;
   margin: 0px;
   font-family: "GeneralSans Regular";
-  font-weight: normal;
+  margin-bottom: 15px;
 }

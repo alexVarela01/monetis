@@ -10,6 +10,9 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import { CiSquarePlus  } from "react-icons/ci";
 import { GridLoader } from 'react-spinners';
+import StaticLoader from '../Components/StaticLoader/StaticLoader';
+import {FaArrowRight} from "react-icons/fa";
+import Link from 'next/link';
 
 interface TransactionInterface {
   type: string;
@@ -19,6 +22,7 @@ interface TransactionInterface {
 }
 
 interface AccountInterface {
+  id: number;
   name: string;
   amount: number;
   totalBalance: number;
@@ -34,17 +38,20 @@ interface CategoryInterface {
 
 export default function Dashboard() {
   useAuth();
+  const [isClient, setIsClient] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  
   const [userAccounts, setUserAccounts] = useState<Array<AccountInterface>>([]);
   const [transactions, setTransactions] = useState<Array<TransactionInterface>>([]);
   const [dataStatistics, setDataStatistics] = useState<{income: number[]; expenses: number[];}>({ income: Array(10).fill(0), expenses: Array(10).fill(0),});
   const [overview, setOverview] = useState<Array<{ type: string; amount: number, category: string, count?: number }>>([]);
 
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     document.title = 'Monetis | Dashboard';
-    
     setLoading(true);
+    setIsClient(true);
+    
     async function fetchUsers() {
       try {
         const token = sessionStorage.getItem('authToken');
@@ -74,7 +81,7 @@ export default function Dashboard() {
           const dateString = date.toISOString().split("T")[0];
           const dailyTransactions = lastTenDaysHistory.filter(
             (transaction: TransactionInterface) => transaction.date.startsWith(dateString)
-          );
+          ).filter((transaction: TransactionInterface) => transaction.type !== 'transfer between accounts');
 
           dailyTransactions.forEach((transaction: TransactionInterface) => {
             if(transaction.amount < 0){
@@ -85,9 +92,9 @@ export default function Dashboard() {
           });
         }
 
-        setOverview(accountData.historyCategoryAmountCount.map((category: CategoryInterface) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
+        setOverview(accountData.historyCategoryAmountCount.filter((transaction: TransactionInterface) => transaction.type !== 'transfer between accounts').map((category: CategoryInterface) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
         setDataStatistics(newStatistics);
-        setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance })));
+        setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance, id: account.id })));
         setTransactions(accountData.history.slice(0, 7).map((transaction: TransactionInterface) => ({ type: transaction.type, amount: transaction.amount, category: transaction.category, date: transaction.date })));
         
       } catch (error) {
@@ -108,14 +115,18 @@ export default function Dashboard() {
 
         <div className='accounts_balance'>
 
-          {userAccounts.length > 0 && userAccounts.map((account, index) => (
-            <AccountCard key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100}/>
+          {userAccounts.length > 0 && userAccounts.length > 4 && 
+            <Link className='seeAll' href={'/accounts'}>See all accounts<FaArrowRight /></Link>
+          }
+
+          {userAccounts.length > 0 && userAccounts.slice(0,4).map((account, index) => (
+            <AccountCard accountId={account.id} key={index} colorKey={index} accountName={account.name} balance={account.amount} fillPercent={(account.amount / account.totalBalance) * 100}/>
           ))}
 
-          {userAccounts.length > 0 && userAccounts.length < 4 && 
-            <div className='new_account'>
+          {userAccounts.length > 0 && userAccounts.length < 6 && 
+            <Link href={'/accounts?createAccount=true'} className='new_account'>
               <span><CiSquarePlus /></span>
-            </div>
+            </Link>
           }
         </div>
 
@@ -141,11 +152,14 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {loading &&
-          <div className='loading'>
-            <GridLoader color="#4d8bf7" size={10}/>
-          </div>
-        }
+      </div> 
+      
+      <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
+        {isClient ? (
+          <GridLoader color="#4d8bf7" size={10} />
+        ) : (
+          <StaticLoader/>
+        )}
       </div>
     </div>
   );

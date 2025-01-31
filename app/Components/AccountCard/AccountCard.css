@@ -16,7 +16,7 @@
   background-color: #efefef;
   position: relative;
   z-index: 2;
-  padding: 40px 20px;
+  padding: 40px 20px 20px;
   border-radius: 10px;
   overflow: hidden;
   color: #fff;
@@ -25,6 +25,8 @@
   transition: 0.5s;
   height: 146px;
   box-sizing: border-box;
+  border: none;
+  user-select: none;
 }
 
 .account:hover{
@@ -84,4 +86,99 @@
 
 .account .chart *{ 
   pointer-events: none;
+}
+
+.account .chart .fillPercent{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account .chart span{
+  font-size: 10px;
+  font-family: "GeneralSans Regular";
+  color: rgb(var(--background-color));
+  filter: brightness(0.9);
+}
+
+.account .iban{
+  margin-top: auto;
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  display: flex;
+  align-items: center; 
+  gap: 5px;
+}
+
+.copyButton{
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.copyButton:hover{
+  color: rgba(255, 255, 255, 1);
+}
+
+.account .accountHolder{
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.account .seeAccoutDetails{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  font-size: 14px;
+  font-family: "GeneralSans Regular";
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+  z-index: 21;
+}
+
+.account .seeAccoutDetails:hover{
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.01);
+}
+
+.account .seeAccoutDetails p{
+  font-size: 12px !important;
+}
+
+.account .balanceDistribution{
+  position: absolute;
+
+  top: 50%;
+  left: -100%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  font-family: "GeneralSans Regular";
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+  z-index: 21;
+  display: flex;
+  text-align: center;
+  color: rgba(var(--background-color), 1);
+  filter: brightness(0.9);
 }

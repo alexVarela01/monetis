@@ -52,7 +52,7 @@ function StatisticsPanel({ data, loading }: StatisticsPanelProps) {
             legend: {
               position: 'bottom',
               labels: {
-                color: '#fff',
+                color: '#000',
               },
             },
             tooltip: {
@@ -66,7 +66,7 @@ function StatisticsPanel({ data, loading }: StatisticsPanelProps) {
           scales: {
             y: {
               ticks: {
-                color: '#fff',
+                color: '#000',
                 callback: function (value) {
                   return value + '€';
                 },
@@ -74,7 +74,7 @@ function StatisticsPanel({ data, loading }: StatisticsPanelProps) {
             },
             x: {
               ticks: {
-                color: '#fff',
+                color: '#000',
               },
             },
           },

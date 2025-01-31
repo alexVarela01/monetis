@@ -1,10 +1,14 @@
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
+import { parse } from "cookie";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const { token } = await req.json();
+    const cookies = parse(req.headers.get("cookie") || "");
+    const token = cookies.token;
+    const accountHolder = cookies.userName;
+
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_secret_key");
       // Check if the email in the token matches the user's email
@@ -13,12 +17,14 @@ export async function POST(req: Request) {
         const userHistory = await getUserHistory(decoded.id);
         const userHistoryCategoryAmountCount = await getUserHistoryCategoryAmount(decoded.id);
 
-        return new Response(JSON.stringify({accounts: userAccounts, history: userHistory, historyCategoryAmountCount: userHistoryCategoryAmountCount}), {
+        return new Response(JSON.stringify({accounts: userAccounts, history: userHistory, historyCategoryAmountCount: userHistoryCategoryAmountCount, accountHolder: accountHolder}), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         });
       }
-    } 
+    } else{
+      throw new Error("Invalid token");
+    }
   } catch (error) {
     // Token is invalid
     return new Response(JSON.stringify({ error: error}), {

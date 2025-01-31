@@ -6,16 +6,17 @@
     flex: 0.90;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     padding: 20px 60px;
     position: relative;
-    margin-top: 40px;
+    margin-top: 35px;
   }
 
   h1{
     font-family: "GeneralSans SemiBold";
     font-size: 25px;
     margin: 0;
+    margin-bottom: 5px;
   }
 }
 
@@ -25,6 +26,7 @@
   align-items: center;
   gap: 10px;
   height: 20%;
+  position: relative;
 }
 
 .dashboard .accounts_balance > div:nth-child(1) .background img{
@@ -151,15 +153,26 @@
   opacity: 0.5;
 }
 
-.dashboard .loading{
+.dashboard .accounts_balance .seeAll{
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  z-index: 3;
+  top: -15px;
+  right: 0px;
+  font-size: 15px;
+  z-index: 2;
+  cursor: pointer;
+  font-family: "GeneralSans Regular";
+  text-decoration: none;
+  color: #000;
+  transition: 0.5s;
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 5px;
+}
+
+.dashboard .accounts_balance .seeAll svg{
+  font-size: 12px;
+}
+
+.dashboard .accounts_balance .seeAll:hover{
+  color: #4d8bf7;
 }
