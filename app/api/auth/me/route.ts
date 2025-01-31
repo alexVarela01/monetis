@@ -11,6 +11,6 @@ export async function GET(req: Request) {
   try {
     return new Response(JSON.stringify({ authenticated: true }), { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (error) {
-    return new Response(JSON.stringify({ authenticated: false }), { status: 200, headers: { "Content-Type": "application/json" } });
+    return new Response(JSON.stringify({ authenticated: false, error: error }), { status: 400, headers: { "Content-Type": "application/json" } });
   }
 }

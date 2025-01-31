@@ -6,7 +6,6 @@ import logoImage from '@/public/Logo.png';
 import { MdDashboard, MdCompareArrows, MdArrowOutward, MdCreditCard, MdOutlineSettings, MdLogout } from "react-icons/md";
 
 
-
 function Navigation() {
   const [currentPage, setCurrentPage] = useState("");
 
@@ -23,7 +22,7 @@ function Navigation() {
       headers: { 'Content-Type': 'application/json' },
     })
     .then((response) => response.json())
-    .then((data) => {
+    .then(() => {
       router.push('/login');
     })
   };
