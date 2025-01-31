@@ -18,6 +18,7 @@ export async function POST(req: Request) {
       });
 
       if (!userAccount) errorsList.push('Account not found');
+      else if (userAccount.type === 'checking' || userAccount.type === 'savings') errorsList.push('Cannot delete this account');
       
       if(errorsList.length > 0) {
         return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });

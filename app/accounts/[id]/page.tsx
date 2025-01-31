@@ -112,6 +112,14 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
     const { value } = e.target;
     // check if is Number. can be decimal
     if (isNaN(Number(value))) return;
+
+    // allow max 2 decimals
+    if (value.includes('.')) {
+      const parts = value.split('.');
+      if (parts[1].length > 2) {
+        return;
+      }
+    }
     setTransactionAmount(value);
   };
 
@@ -236,15 +244,18 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
                 </>
               )}
 
-              <div className={userAccount?.isSystemAccount ? 'action disabled' : 'action'} onClick={() => setOpenedModal("edit")}>
-                <AiOutlineEdit />
-                <div>Edit</div>
-              </div>
-              <div className={userAccount?.isSystemAccount ? 'action disabled' : 'action'} onClick={() => setOpenedModal("delete")}>
-                <AiOutlineDelete />
-                <div>Delete</div>
-              </div>
-
+              {!userAccount?.isSystemAccount && (
+                <>
+                  <div className={userAccount?.isSystemAccount ? 'action disabled' : 'action'} onClick={() => setOpenedModal("edit")}>
+                    <AiOutlineEdit />
+                    <div>Edit</div>
+                  </div>
+                  <div className={userAccount?.isSystemAccount ? 'action disabled' : 'action'} onClick={() => setOpenedModal("delete")}>
+                    <AiOutlineDelete />
+                    <div>Delete</div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -427,7 +438,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
                 type="text"
                 name="amount"
                 value={accountName}
-                maxLength={15}
+                maxLength={25}
                 onChange={(e) => setAccountName(e.target.value)}
                 required
               />

@@ -58,8 +58,6 @@ export default function Accounts() {
       });
       
       const accountData = await response.json();
-      console.log(accountData);
-      console.log(accountData.accountHolder);
       const totalBalanceFromAccounts = accountData.accounts.reduce((acc: number, account: AccountInterface) => acc + account.amount, 0);
 
       setAccountHolder(accountData.accountHolder);
@@ -201,7 +199,7 @@ export default function Accounts() {
               <input
                 type="text"
                 name="name"
-                maxLength={15}
+                maxLength={25}
                 placeholder="John"
                 // with dd/mm/yyyy format
                 value={(new Date()).toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })}

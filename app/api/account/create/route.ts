@@ -9,7 +9,8 @@ export async function POST(req: Request) {
   const token = cookies.token;
 
   const { formData } = await req.json();
-  const { name, amount } = formData;
+  let { name, amount } = formData;
+  amount = Math.floor(amount * 100) / 100;
 
   const errorsList = [];
   if (token) {
@@ -20,8 +21,8 @@ export async function POST(req: Request) {
         errorsList.push('Required fields are missing');
       }
 
-      if (name.length > 15) {
-        errorsList.push('Name must be less than 15 characters');
+      if (name.length > 25) {
+        errorsList.push('Name must be less than 25 characters');
       }
 
       // check if amount is a positive and multiple of 10. Minimum should be 10

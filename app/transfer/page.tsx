@@ -37,7 +37,7 @@ export default function Transfer() {
       <Navigation />
 
       <div className='content'>
-        <h1>Transfer</h1>
+        <h1>Transfer - Under development</h1>
 
       </div>
       <div className={`loading_screen ${!loading ? "hidden" : ""}`}>
