@@ -39,6 +39,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
   const [checkingBalance, setCheckingBalance] = useState<number>(0);
 
   const [transactionAmount, setTransactionAmount] = useState<string>("");
+  const [accountName, setAccountName] = useState<string>("");
 
 
 
@@ -71,6 +72,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
       setCheckingBalance(accountData.checkingBalance);
       setTotalBalance(totalBalance._sum.amount);
       setAccountHolder(accountData.accountHolder);
+      setAccountName(account.name);
       setUserAccount({ 
         id: account.id, 
         index: index, 
@@ -129,6 +131,12 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
     e.preventDefault();
     setLoadingAction(true);
     launchRequest(e, '/api/account/delete', {account_id: userAccount?.id}, true);
+  }
+
+  const editAccount = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoadingAction(true);
+    launchRequest(e, '/api/account/edit', {newName: accountName, account_id: userAccount?.id});
   }
 
   const launchRequest = async (e: FormEvent<HTMLFormElement>, url: string, data: object, redirect?: boolean) => {
@@ -406,6 +414,31 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
               {loadingAction ? <ClipLoader color="#fff" size={11} /> : 'Delete account'}
             </button>
           </div>
+        </form>
+      </Dialog>
+
+      <Dialog title="Edit account" isOpen={openedModal === "edit"} onClose={() => setOpenedModal("")}>
+        <form onSubmit={editAccount}>
+
+          <div className='row'>
+            <div className='column required'>
+              <label htmlFor="name">Account name</label>
+              <input
+                type="text"
+                name="amount"
+                value={accountName}
+                maxLength={15}
+                onChange={(e) => setAccountName(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <span className='helpText'>Amount will be transfered from the checking account to this account!</span>
+
+          <button type="submit" disabled={loadingAction}>
+            {loadingAction ? <ClipLoader color="#fff" size={11} /> : 'Update'}
+          </button>
         </form>
       </Dialog>
 
