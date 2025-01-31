@@ -129,6 +129,11 @@ form button:disabled{
   opacity: 0.6;
 }
 
+button.delete{
+  background-color: #d33636 !important;
+  border: 1px solid #d33636 !important;
+}
+
 form .row{
   display: flex;
   gap: 10px;

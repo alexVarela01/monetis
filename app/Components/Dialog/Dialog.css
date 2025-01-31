@@ -89,3 +89,14 @@
   margin-bottom: 20px;
   margin-top: -15px;
 }
+
+.dialog .text{
+  font-size: 15px;
+  font-family: "GeneralSans Regular";
+  color: #000;
+  text-align: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+  margin-top: -15px;
+}
