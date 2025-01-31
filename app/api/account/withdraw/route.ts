@@ -7,7 +7,10 @@ export async function POST(req: Request) {
   const cookies = parse(req.headers.get("cookie") || "");
   const token = cookies.token;
 
-  let { amount, account_id } = await req.json();
+  const requestBody = await req.json();
+  const { account_id } = requestBody;
+  let { amount } = requestBody;
+  
   amount = Math.floor(amount * 100) / 100;
   const errorsList = [];
 
