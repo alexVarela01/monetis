@@ -45,7 +45,7 @@ export default function Dashboard() {
   const [transactions, setTransactions] = useState<Array<TransactionInterface>>([]);
   const [dataStatistics, setDataStatistics] = useState<{income: number[]; expenses: number[];}>({ income: Array(10).fill(0), expenses: Array(10).fill(0),});
   const [overview, setOverview] = useState<Array<{ type: string; amount: number, category: string, count?: number }>>([]);
-
+  const [accountHolder, setAccountHolder] = useState<string>('');
 
   useEffect(() => {
     document.title = 'Monetis | Dashboard';
@@ -90,6 +90,7 @@ export default function Dashboard() {
           });
         }
 
+        setAccountHolder(accountData.accountHolder);
         setOverview(accountData.historyCategoryAmountCount.filter((transaction: TransactionInterface) => transaction.type !== 'transfer between accounts').map((category: CategoryInterface) => ({ type: category.type, amount: category._sum.amount, category: category.category, count: category._count.id })));
         setDataStatistics(newStatistics);
         setUserAccounts(accountData.accounts.map((account: AccountInterface) => ({ name: account.name, amount: account.amount, totalBalance, id: account.id })));
@@ -109,7 +110,7 @@ export default function Dashboard() {
       <Navigation />
 
       <div className='content'>
-        <h1>Dashboard</h1>
+        <h1>Welcome, {accountHolder}</h1>
 
         <div className='accounts_balance'>
 
