@@ -8,7 +8,20 @@ const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
 export async function POST(req: Request) {
   try {
-    const { email, password } = await req.json();
+
+    const requestBody = await req.json().catch(() => null);
+    if (!requestBody || requestBody.length === 0) {
+      return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
+    }
+
+    const { email, password } = requestBody;
+
+    if (!email || !password) {
+      return new Response(
+        JSON.stringify({ error: "Email and password are required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     const user = await prisma.user.findUnique({ where: { email } });
 
@@ -39,7 +52,7 @@ export async function POST(req: Request) {
     return response;
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: error }),
+      JSON.stringify({ error: error?.toLocaleString() }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

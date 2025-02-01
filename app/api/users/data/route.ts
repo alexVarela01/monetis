@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { parse } from "cookie";
 const prisma = new PrismaClient();
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
     const cookies = parse(req.headers.get("cookie") || "");
     const token = cookies.token;
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     // Token is invalid
-    return new Response(JSON.stringify({ error: error}), {
+    return new Response(JSON.stringify({ error: error?.toLocaleString()}), {
       status: 401,
       headers: { "Content-Type": "application/json" },
     });

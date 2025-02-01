@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     // Token is invalid
-    return new Response(JSON.stringify({ error: error, clearSession: true }), {
+    return new Response(JSON.stringify({ error: error?.toLocaleString(), clearSession: true }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
     });

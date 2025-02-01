@@ -53,7 +53,7 @@ export default function Accounts() {
     try {
       
       const response = await fetch('/api/users/data', {
-        method: 'POST',
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
       

@@ -54,11 +54,9 @@ export default function Dashboard() {
     
     async function fetchUsers() {
       try {
-        const token = sessionStorage.getItem('authToken');
         const response = await fetch('/api/users/data', {
-          method: 'POST',
+          method: 'GET',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token }),
         });
   
         const accountData = await response.json();
