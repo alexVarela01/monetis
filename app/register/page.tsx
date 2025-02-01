@@ -153,6 +153,7 @@ export default function Register() {
               <input
                 type="text"
                 name="name"
+                maxLength={20}
                 placeholder="John"
                 value={formData.name}
                 onChange={handleChange}
@@ -165,6 +166,7 @@ export default function Register() {
               <input
                 type="text"
                 name="surname"
+                maxLength={20}
                 placeholder="Doe"
                 value={formData.surname}
                 onChange={handleChange}
@@ -179,6 +181,7 @@ export default function Register() {
               <input
                 type="email"
                 name="email"
+                maxLength={50}
                 placeholder="johndoe@me.com"
                 value={formData.email}
                 onChange={handleChange}
@@ -204,6 +207,7 @@ export default function Register() {
               <input
                 type="text"
                 name="street_address"
+                maxLength={50}
                 placeholder="Sttr. Example, 123"
                 value={formData.street_address}
                 onChange={handleChange}
@@ -215,6 +219,7 @@ export default function Register() {
               <input
                 type="text"
                 name="postal_code"
+                maxLength={20}
                 placeholder="12345-678"
                 value={formData.postal_code}
                 onChange={handleChange}
@@ -230,6 +235,7 @@ export default function Register() {
               <input
                 type="text"
                 name="city"
+                maxLength={20}
                 placeholder="London"
                 value={formData.city}
                 onChange={handleChange}

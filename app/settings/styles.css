@@ -18,3 +18,74 @@
     margin: 0;
   }
 }
+
+
+.settings .content h3{
+  margin: 20px 0px 0px 0px;
+  font-family: "GeneralSans SemiBold";
+}
+
+.settings .content h3:first-of-type{
+  margin: 0px 0px 0px 0px;
+}
+
+.settings .content h2{
+  text-align: start;
+  width: 40%;
+  font-family: "GeneralSans Bold";
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+
+.settings .content form{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: "GeneralSans Regular";
+  position: relative;
+}
+
+.settings .content hr{
+  width: 100%;
+  opacity: 0.1;
+  margin-top: -5px;
+}
+
+.settings .tabs {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.settings .tabs div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+  font-size: 15px;
+  gap: 10px;
+  font-family: "GeneralSans Medium";
+  user-select: none;
+}
+
+.settings .tabs .active{
+  font-family: "GeneralSans SemiBold";
+}
+
+.settings .tabs div:hover{
+  transform: scale(1.01);
+}
+
+.settings .helpText{
+  font-size: 13px;
+  font-family: "GeneralSans Regular";
+  color: #6c6c6c;
+}
+
+.settings .helpText:last-of-type{
+  margin-top: -10px;
+  color: #eb1212 !important;
+}
