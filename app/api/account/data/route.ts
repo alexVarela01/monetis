@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     const id = url.searchParams.get("id");
 
     if (!token || !id) {
-      return new Response(JSON.stringify({ error: "Missing token or id" }), {
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });

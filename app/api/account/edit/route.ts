@@ -7,7 +7,12 @@ export async function POST(req: Request) {
   const cookies = parse(req.headers.get("cookie") || "");
   const token = cookies.token;
 
-  const { newName, account_id } = await req.json();
+  const requestBody = await req.json().catch(() => null);
+  if (!requestBody) {
+    return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
+  }
+
+  const { newName, account_id } = requestBody
   const errorsList = [];
 
   if (token) {

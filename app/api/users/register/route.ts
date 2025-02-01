@@ -5,11 +5,17 @@ import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
-  const { name, surname, email, phone_number, street_address, postal_code, city, country, password, confirmPassword } = await req.json();
+  const requestBody = await req.json().catch(() => null);
+  if (!requestBody) {
+    return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
+  }
+
+  const { name, surname, email, phone_number, street_address, postal_code, city, country, password, confirmPassword } = requestBody;
   const errorsList = [];
 
   if (!name || !surname || !email || !street_address || !postal_code || !city || !country || !password) {
     errorsList.push('Required fields are missing');
+    return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
   }
 
   // check if email is already in use
@@ -38,8 +44,6 @@ export async function POST(req: Request) {
 
   // encrypt password
   const hashedPassword = await bcrypt.hash(password, 10);
-
-
   const newUser = await prisma.user.create({
     data: {
       name, surname, email, phone_number, street_address, postal_code, city, country, password: hashedPassword,

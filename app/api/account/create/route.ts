@@ -8,7 +8,12 @@ export async function POST(req: Request) {
   const cookies = parse(req.headers.get("cookie") || "");
   const token = cookies.token;
 
-  const { formData } = await req.json();
+  const requestBody = await req.json().catch(() => null);
+  if (!requestBody) {
+    return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
+  }
+
+  const { formData } = requestBody;
   const { name } = formData;
   let { amount } = formData;
   amount = Math.floor(amount * 100) / 100;
