@@ -95,7 +95,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
   return (
     <div className='overall-panel'>
       <div className='container overview'>
-        <h2>Expenses Overview</h2>
+        <h2>Expenses Distribution</h2>
 
         {!loading && 
           <div className='overview-list'>
