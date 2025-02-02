@@ -99,7 +99,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
 
         {!loading && 
           <div className='overview-list'>
-            {data.toSorted((a, b) => b.count! - a.count!).slice(0, 4).map((item, index) => (
+            {data.filter((item) => item.type === 'payment').toSorted((a, b) => b.count! - a.count!).slice(0, 4).map((item, index) => (
               <div className='overview-item' key={index}>
                 <div className='progress'>
                   <div className='progress-bar' style={{ width: `${((item.count ? item.count : 0) / totalExpensesCount) * 100}%` }}>
@@ -110,7 +110,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
               </div>
             ))}
 
-            {data.length === 0 &&
+            {data.filter((item) => item.type === 'payment').length === 0 &&
              <p className='no-data'>Nothing to display at the moment. <br />We&apos;ll track your expenses here!</p>
             }
           </div>
@@ -134,7 +134,7 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
         <div className='chart'>
           <canvas ref={chartIncomeRef}></canvas>
 
-          {data.filter((item) => item.type === 'transfer').length === 0 &&
+          {data.filter((item) => item.type === 'transfer').filter((item) => item.amount > 0).length === 0 &&
             <p className='no-data'>Nothing to display at the moment. <br />We&apos;ll track your income here!</p>
           }
         </div>
