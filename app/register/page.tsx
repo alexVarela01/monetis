@@ -228,7 +228,6 @@ export default function Register() {
             </div>
           </div>
 
-
           <div className='row'>
             <div className='column required' style={{ width: 'calc(35% - 20px)' }}>
               <label htmlFor="city">City</label>

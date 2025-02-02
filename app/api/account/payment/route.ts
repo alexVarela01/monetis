@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
   }
 
-  const { account_id, sourceAccount } = requestBody;
+  const { account_id, category } = requestBody;
   let { amount } = requestBody;
 
   amount = Math.floor(amount * 100) / 100;
@@ -21,20 +21,14 @@ export async function POST(req: Request) {
   if (token) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_secret_key");
     if(typeof decoded !== 'string') {
-      const userAccount = await prisma.userAccount.findFirst({
-        where: { user_id: decoded.id, id: Number(account_id) },
-      });
-
-      const selectedAccount = !sourceAccount ? await prisma.userAccount.findFirst({
-        where: { user_id: decoded.id, type: 'checking' },
-      }) : await prisma.userAccount.findFirst({
-        where: { user_id: decoded.id, id: Number(sourceAccount)},
+      const selectedAccount = await prisma.userAccount.findFirst({
+        where: { user_id: decoded.id, id: Number(account_id)},
       })
 
       if(!amount) errorsList.push('Required fields are missing');
       if(amount <= 0) errorsList.push('Amount must be greater than 0');
-      if(!userAccount) errorsList.push('Account not found');
-      if(selectedAccount && selectedAccount.amount < Number(amount)) errorsList.push('Insufficient balance in checking account');
+      if(!selectedAccount) errorsList.push('Account not found');
+      if(selectedAccount && selectedAccount.amount < Number(amount)) errorsList.push('Insufficient balance in this account');
       
       if(errorsList.length > 0) {
         return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
@@ -43,28 +37,16 @@ export async function POST(req: Request) {
       // update user balance on userAccount
       await prisma.userAccount.updateMany({
         where: { user_id: decoded.id, id: Number(account_id) },
-        data: { amount: { increment: Number(amount) } },
+        data: { amount: { decrement: Number(amount) } },
       });
-
-      if(!sourceAccount){
-        await prisma.userAccount.updateMany({
-          where: { user_id: decoded.id, type: 'checking' },
-          data: { amount: { decrement: Number(amount) } },
-        });
-      }else{
-        await prisma.userAccount.updateMany({
-          where: { user_id: decoded.id, id: Number(sourceAccount) },
-          data: { amount: { decrement: Number(amount) } },
-        });
-      }
-
+      
       // add transaction history
       await prisma.history.create({
         data: {
           user_id: decoded.id,
-          amount: Number(amount),
-          type: 'transfer between accounts',
-          category: selectedAccount?.name + ' to ' + userAccount?.name,
+          amount: -Number(amount),
+          type: 'payment',
+          category: category,
         },
       });
 
