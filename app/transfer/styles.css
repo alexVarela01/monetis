@@ -17,4 +17,256 @@
     font-size: 25px;
     margin: 0;
   }
+
+  h2{
+    font-family: "GeneralSans SemiBold";
+    font-size: 20px;
+    margin: 30px 0px 20px;
+  }
+}
+
+.transfer .panels{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 30px
+}
+.transfer .left{
+  flex: 0.25;
+}
+
+.transfer .right{
+  flex: 0.75;
+}
+
+.transfer .left .select > div:first-of-type{
+  background-color: #030303;
+  color: #fff !important;
+  font-family: "GeneralSans Regular";
+  border: 0px !important;
+  box-shadow: none !important;
+  height: 50px;
+  cursor: pointer;
+}
+
+.transfer .right .select > div:first-of-type{
+  border: 1px solid #efefef !important; 
+  box-shadow: 0px 0px 3px #e9e9e9;
+  border-radius: 5px;
+  outline: none;
+  font-size: 13px;
+  font-family: "GeneralSans Regular";
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.transfer .right .select > div{
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+  border: 0px !important;
+}
+
+.transfer .right .select > div:not(:first-of-type) > div > div:hover{
+  cursor: pointer;
+}
+
+.transfer .left .select > div:first-of-type > div > div{
+  color: #fff !important;
+}
+
+.transfer .left .select > div:first-of-type > div ~ div span {
+  display: none;
+}
+
+.transfer .left .select > div:first-of-type > div ~ div > div > svg{
+  transform: scale(0.8);
+}
+
+.transfer .left .select > div{
+  background-color: #030303;
+  color: #fff;
+  font-family: "GeneralSans Regular";
+  border: 0px !important;
+  box-shadow: none !important;
+}
+
+.transfer .left .select > div:not(:first-of-type){
+  margin-top: 2px;
+}
+
+.transfer .left .select > div:not(:first-of-type) > div > div{
+  background-color: transparent !important;
+}
+
+.transfer .left .select > div:not(:first-of-type) > div > div:hover{
+  background-color: rgb(42, 42, 42) !important;
+  cursor: pointer;
+}
+
+.transfer .accountInformation{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-family: "GeneralSans Regular";
+  padding: 20px;
+  box-shadow: 0px 0px 5px #e9e9e9;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 10px;
+}
+
+.transfer .accountInformation .item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-family: "GeneralSans Regular";
+  font-size: 14px;
+}
+
+.transfer .accountInformation hr{
+  width: 100%;
+  opacity: 1;
+  border-top: 0px;
+}
+
+.transfer .accountInformation .item span, .transfer .accountInformation .item.balance span{
+  font-family: "GeneralSans SemiBold";
+  font-size: 14px;
+  color: #000;
+}
+
+.transfer .accountInformation .item.name{
+  font-family: "GeneralSans SemiBold";
+  font-size: 25px;
+}
+
+.transfer .accountInformation .item.balance{
+  font-size: 30px;
+  color: #438734;
+}
+
+.transfer .button{
+  width: 100%;
+  background-color: #565656;
+  border-color: #565656;
+  margin-top: 5px;
+}
+
+.transfer .status{
+  display: flex;
+  align-items: center;
+  height: 43px;
+}
+
+.transfer .status hr{
+  flex: 1;
+  opacity: 1;
+  border-top: 0px;
+  border-color: #efefef;
+  margin: 0px;
+  border-left: none;
+}
+
+.transfer .status .item{
+  position: relative;
+}
+
+.transfer .status .item span{
+  position: absolute;
+  top: -30px;
+  left: 50%; 
+  width: fit-content;
+  text-align: center;
+  transform: translateX(-50%);
+  font-size: 15px;
+  font-family: "GeneralSans Regular";
+}
+
+.transfer .status .item .circle{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+}
+
+.transfer .status .item.active .circle{
+  background-color: rgba(76, 137, 250, 0.724);
+  border-color: rgb(76, 137, 250);
+}
+
+.transfer .status .item.active span{
+  font-family: "GeneralSans Medium";
+}
+
+.transfer .status hr.active{
+  border-color: rgb(76, 137, 250) !important;
+}
+
+.transfer .accounts-radio{
+  display: flex;
+  gap: 20px;
+  font-family: "GeneralSans Regular";
+  cursor: pointer;
+  font-size: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 20px;
+  user-select: none;
+}
+
+.transfer .accounts-radio div.active{
+  font-family: "GeneralSans Medium";
+}
+
+.transfer form{
+  width: 60%;
+}
+
+.transfer form .row {
+  margin-top: 20px;
+}
+
+.transfer form button {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.transfer form label{
+  font-family: "GeneralSans Regular";
+}
+
+.transfer .text{
+  font-size: 15px;
+  font-family: "GeneralSans Regular";
+  color: #000;
+  text-align: left;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+  margin-top: -15px;
+}
+
+.transfer .text.info{
+  margin-top: 30px;
+}
+
+.transfer .text .balance{
+  color: #438734;
+  font-size: 20px;
+}
+
+.transfer .text .balance-negative{
+  color: #b62f2b;
+  font-size: 20px;
 }

@@ -99,24 +99,30 @@ export default function Login() {
         <h2>Log in</h2>
         <form onSubmit={tryToLogin}>
           <label htmlFor="email">Email address</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+          <div className="row">
+            <input
+              type="text"
+              name="email"
+              style={{ flex: '1' }}
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+            <div className="row" > 
+              <input
+                type="password"
+                style={{ flex: '1' }}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
           <button type="submit" disabled={loading}>
             {loading ? <ClipLoader color="#fff" size={11}/> : 'Log in'}
           </button>
