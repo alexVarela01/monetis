@@ -1,6 +1,6 @@
 import React from 'react';
 import './TransactionItem.css';
-import { MdShoppingCart, MdFastfood, MdAttachMoney, MdMovie, MdLocalMall, MdReceipt } from "react-icons/md";
+import { MdShoppingCart, MdFastfood, MdAttachMoney, MdMovie, MdLocalMall, MdReceipt, MdDirectionsCar, MdPhoneIphone, MdHouse, MdAirplanemodeActive } from "react-icons/md";
 import { BiTransfer } from "react-icons/bi";
 import { formatBalance } from '@/app/utils/helpers';
 
@@ -30,6 +30,22 @@ const categories: { [key: string]: { icon: React.ComponentType; color: string } 
   ["Bills"]: {
     icon: MdReceipt,
     color: '#AED6F1' 
+  },
+  ["Car"]: {
+    icon: MdDirectionsCar,
+    color: '#A1AFE3'
+  },
+  ["Mobile"]: {
+    icon: MdPhoneIphone,
+    color: '#DAE3A1'
+  },
+  ["House"]: {
+    icon: MdHouse,
+    color: '#619184'
+  },
+  ["Travel"]: {
+    icon: MdAirplanemodeActive,
+    color: '#416EA5'
   },
   ["Other"]: {
     icon: MdAttachMoney,

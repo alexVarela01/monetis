@@ -5,7 +5,7 @@ import { TbExternalLink } from "react-icons/tb";
 import Chart from 'chart.js/auto';
 import './AccountCard.css';
 import { FaArrowRight, FaCopy } from "react-icons/fa";
-import { formatBalance } from '@/app/utils/helpers';
+import { formatBalance, formatIban, formatDate } from '@/app/utils/helpers';
 import { AiOutlineBank , AiOutlineUser, AiOutlineInfoCircle, AiOutlineDollar  } from "react-icons/ai";
 
 interface AccountCardProps {
@@ -62,18 +62,6 @@ function AccountCard({ accountName, balance, colorKey, fillPercent, iban, accoun
       chartInstance.current?.destroy();
     };
   }, [balance, fillPercent, colorKey]);
-
-  function formatIban(iban: string) {
-    return "PT50 " + iban.slice(0, 4) + ' ' + iban.slice(4, 8) + ' ' + iban.slice(8, 12) + ' ' + iban.slice(12, 16) + ' ' + iban.slice(16, 20) + ' ' + iban.slice(20, 21);
-  }
-
-  function formatDate(date: string) {
-    const dateObj = new Date(date);
-    const day = String(dateObj.getDate()).padStart(2, '0');
-    const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const year = dateObj.getFullYear();
-    return `${day}.${month}.${year}`;
-  }
 
   function copyToClipboard(iban: string) {
     navigator.clipboard.writeText(iban)
