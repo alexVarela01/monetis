@@ -128,7 +128,7 @@ export default function Payment() {
     setFormData((prevData) => ({ ...prevData, targetAccount: 0 }));
   };
 
-  const launchRequest = async (e: FormEvent<HTMLFormElement>, url: string, data: object, redirect?: boolean) => {
+  const launchRequest = async (e: FormEvent<HTMLFormElement>, url: string, data: object) => {
     try {
       const requestResponse = await fetch(url, {
         method: 'POST',
@@ -181,7 +181,11 @@ export default function Payment() {
                     <Select 
                       options={userAccounts.map((account: AccountInterface) => ({value: account.id, label: account.name }))} 
                       defaultValue={{value: userAccounts[0].id, label: userAccounts[0]?.name}}  
-                      onChange={(selectedOption: any) => handleAccountChange(selectedOption.value)}
+                      onChange={(newValue) => {
+                        if (newValue) {
+                          handleAccountChange(newValue.value);
+                        }
+                      }}
                       className='select'/>
                   </>
                 }
@@ -289,7 +293,11 @@ export default function Payment() {
                     {isClient &&
                       <Select 
                         options={categories.map((value: string) => ({value: value, label: value }))} 
-                        onChange={(selectedOption: any) => setFormData({ ...formData, category: selectedOption.value })} 
+                        onChange={(newValue) => {
+                          if (newValue) {
+                            setFormData({ ...formData, category: newValue.value });
+                          }
+                        }}
                         className='select'
                         name='targetAccount'
                         value={formData.category && {value: formData?.category, label: formData?.category}}

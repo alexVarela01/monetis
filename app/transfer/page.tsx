@@ -120,7 +120,7 @@ export default function Transfer() {
     setFormData((prevData) => ({ ...prevData, targetAccount: 0 }));
   };
 
-  const launchRequest = async (e: FormEvent<HTMLFormElement>, url: string, data: object, redirect?: boolean) => {
+  const launchRequest = async (e: FormEvent<HTMLFormElement>, url: string, data: object) => {
     try {
       const requestResponse = await fetch(url, {
         method: 'POST',
@@ -173,7 +173,11 @@ export default function Transfer() {
                     <Select 
                       options={userAccounts.map((account: AccountInterface) => ({value: account.id, label: account.name }))} 
                       defaultValue={{value: userAccounts[0].id, label: userAccounts[0]?.name}}  
-                      onChange={(selectedOption: any) => handleAccountChange(selectedOption.value)}
+                      onChange={(newValue) => {
+                        if (newValue) {
+                          handleAccountChange(newValue.value);
+                        }
+                      }}
                       className='select'/>
                   </>
                 }
@@ -253,7 +257,11 @@ export default function Transfer() {
 
                   <Select 
                     options={userAccounts.filter((account: AccountInterface) => account.id !== formData?.sourceAccount).map((account: AccountInterface) => ({value: account.id, label: account.name }))} 
-                    onChange={(selectedOption: any) => setFormData({ ...formData, targetAccount: selectedOption.value })} 
+                    onChange={(newValue) => {
+                      if (newValue) {
+                        setFormData({ ...formData, targetAccount: newValue.value })
+                      }
+                    }}
                     className='select'
                     name='targetAccount'
                     value={formData.targetAccount && {value: formData?.targetAccount, label: userAccounts.filter((account: AccountInterface) => account.id === formData?.targetAccount)[0]?.name}}
