@@ -76,8 +76,24 @@ export default function Transfer() {
   const moveToConfirmationPhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log("here")
     if ((userAccounts?.find((account: AccountInterface) => account.id === formData.sourceAccount)?.amount ?? 0) < formData.amount) {
       toast.error("Insufficient balance in source account", {
+        position: "bottom-right",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    // check if iban has PT50 + 21 digits format
+    if(!formData.targetOwnAccount && (!formData?.iban?.match(/PT50\d{21}/) || formData?.iban.length!=25)) {
+      toast.error("Invalid IBAN. Please use the following format PT50 + 21 digits (PT50221687048179766099894)", {
         position: "bottom-right",
         autoClose: false,
         hideProgressBar: true,
@@ -112,6 +128,16 @@ export default function Transfer() {
   
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleChangeIban = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    let { value } = e.target;
+
+    console.log(value)
+
+    value = value.replaceAll(" ","")
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -276,10 +302,9 @@ export default function Transfer() {
                       <input
                         type="text"
                         name="iban"
-                        maxLength={25}
                         placeholder="PT50000000000000000000000"
                         value={formData.iban}
-                        onChange={handleChange}
+                        onChange={handleChangeIban}
                         required
                       />
                     </div>
