@@ -76,7 +76,6 @@ export default function Transfer() {
   const moveToConfirmationPhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("here")
     if ((userAccounts?.find((account: AccountInterface) => account.id === formData.sourceAccount)?.amount ?? 0) < formData.amount) {
       toast.error("Insufficient balance in source account", {
         position: "bottom-right",
@@ -134,8 +133,6 @@ export default function Transfer() {
   const handleChangeIban = (e: ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     let { value } = e.target;
-
-    console.log(value)
 
     value = value.replaceAll(" ","")
     setFormData((prevData) => ({ ...prevData, [name]: value }));
