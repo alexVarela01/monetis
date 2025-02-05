@@ -15,10 +15,11 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
   const chartExpensesInstance = useRef<Chart | null>(null);
   const chartIncomeRef = useRef<HTMLCanvasElement | null>(null);
   const chartIncomeInstance = useRef<Chart | null>(null);
-  const [totalExpensesCount, setTotalExpensesCount] = useState<number>(0);
+  const [totalExpensesAmount, setTotalExpensesAmount] = useState<number>(0);
 
   useEffect(() => {
-    setTotalExpensesCount(data.filter((item) => item.type === 'payment').reduce((acc, item) => acc + item.count!, 0));
+    console.log(data.filter((item) => item.type === 'payment'));
+    setTotalExpensesAmount(data.filter((item) => item.type === 'payment').reduce((acc, item) => acc + item.amount, 0) * -1);
 
     if (chartExpensesRef.current) {
       if (chartExpensesInstance.current) {
@@ -99,11 +100,11 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
 
         {!loading && 
           <div className='overview-list'>
-            {data.filter((item) => item.type === 'payment').toSorted((a, b) => b.count! - a.count!).slice(0, 4).map((item, index) => (
+            {data.filter((item) => item.type === 'payment').toSorted((a, b) => a.amount - b.amount).slice(0, 4).map((item, index) => (
               <div className='overview-item' key={index}>
                 <div className='progress'>
-                  <div className='progress-bar' style={{ width: `${((item.count ? item.count : 0) / totalExpensesCount) * 100}%` }}>
-                    <span className='percentage'>{(((item.count ? item.count : 0) / totalExpensesCount) * 100).toFixed(0)}%</span>
+                  <div className='progress-bar' style={{ width: `${((item.amount ? item.amount : 0) / -totalExpensesAmount) * 100}%` }}>
+                    <span className='percentage'>{(((item.amount ? item.amount : 0) / -totalExpensesAmount) * 100).toFixed(0)}%</span>
                   </div>
                 </div>
                 <span className='category'>{item.category}</span>

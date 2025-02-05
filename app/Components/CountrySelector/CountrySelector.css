@@ -13,3 +13,8 @@
   font-size: 13px;
   font-family: "GeneralSans Regular";
 }
+
+.countrySelect input{
+  position: absolute !important;
+  box-shadow: none !important;
+}
