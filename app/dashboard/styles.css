@@ -128,9 +128,6 @@
   flex-direction: column;
 }
 
-.dashboard .right .transactions h2{
-  height: 7%;
-}
 
 .dashboard .right .transactions .transaction-list{
   overflow: auto;
@@ -175,4 +172,26 @@
 
 .dashboard .accounts_balance .seeAll:hover{
   color: #4d8bf7;
+}
+
+.dashboard .transactions .seeAll{
+  font-size: 15px;
+  z-index: 2;
+  cursor: pointer;
+  font-family: "GeneralSans Regular";
+  text-decoration: none;
+  color: #000;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dashboard .transactions .header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
+  gap: 10px;
+  height: 7%;
 }

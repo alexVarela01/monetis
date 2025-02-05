@@ -2,12 +2,14 @@ import React from 'react';
 import './TransactionItem.css';
 import { MdShoppingCart, MdFastfood, MdAttachMoney, MdMovie, MdLocalMall, MdReceipt, MdDirectionsCar, MdPhoneIphone, MdHouse, MdAirplanemodeActive } from "react-icons/md";
 import { BiTransfer } from "react-icons/bi";
-import { formatBalance } from '@/app/utils/helpers';
+import { formatBalance, formatDate } from '@/app/utils/helpers';
 
 interface TransactionItemProps {
   type: string;
   amount: number;
   category: string;
+  date?: string;
+  table?: boolean;
 }
 
 const categories: { [key: string]: { icon: React.ComponentType; color: string } } = {
@@ -53,16 +55,21 @@ const categories: { [key: string]: { icon: React.ComponentType; color: string } 
   },
 };
 
-function TransactionItem({ type, amount, category }: TransactionItemProps) {
+function TransactionItem({ type, amount, category, table, date }: TransactionItemProps) {
   const categoryDetails = type.includes('transfer') ? { icon: BiTransfer, color: '#68c9c4' } : categories[category] || categories['Other'];
   return (
-    <div className='transaction'>
+    <div className={'transaction' + (table ? ' table' : '')}>
+      {table && 
+        <div className='date'>{formatDate(date || '')}</div>
+      }
 
       {categoryDetails && React.createElement(categoryDetails.icon as React.ComponentType<{ style: React.CSSProperties, className?: string }>, { style: { backgroundColor: categoryDetails.color }, className: 'icon' })}
       <div>
         <div className='type'>{type}</div>
         <div className='category'>{category}</div>
       </div>
+
+
       <span className='amount' style={{ color: amount >= 0 ? '#68c9c4' : 'initial' }}>{formatBalance(amount)} €</span>
     </div>
   );

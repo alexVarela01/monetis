@@ -16,7 +16,6 @@ export async function POST(req: Request) {
 
   const { confirmDeletePassword } = requestBody;
 
-  console.log(confirmDeletePassword)
   const errorsList = [];
   if (token) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_secret_key");
