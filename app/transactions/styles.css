@@ -18,3 +18,97 @@
     margin: 0;
   }
 }
+
+.transactions .loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "GeneralSans Regular";
+  font-size: 20px;
+  color: #b8b8b8;
+  text-align: center;
+}
+
+.transactions .filters{
+  margin-top: 20px;
+}
+
+.transactions .filters hr{
+  margin-top: 20px;
+  margin-bottom: 0px;
+  border-color: #e2e2e2;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.transactions .select {
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+}
+
+.transactions .filters .row{
+  display: flex;
+  gap: 10px;
+  align-items: end;
+}
+
+.transactions .filters .row > span{
+  margin-bottom: 12px;
+}
+
+.transactions .filters .column{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 200px;
+}
+
+.transactions .filters label{
+  font-family: "GeneralSans Regular";
+  color: #000;
+  font-size: 15px;
+}
+
+.transactions .transactions-list{
+  transition: 0.2s;
+  flex: 1;
+  overflow: auto;
+}
+
+.transactions .transactions-list.loading-data{
+  opacity: 0.5;
+}
+
+.transactions .pagination{
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
+}
+
+.transactions .pagination button{
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+  transition: 0.5s;
+  margin-right: 5px;
+}
+
+.transactions .pagination button.disabled{
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.transactions .pagination button:hover{
+  background-color: #f2f2f2;
+}
+
+.transactions .pagination button.active{
+  border: 1px solid #4d8bf7;
+  color: #4d8bf7;
+}
