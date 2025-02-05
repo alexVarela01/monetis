@@ -137,7 +137,10 @@ export default function Dashboard() {
 
           <div className='right'>
             <div className='transactions'>
-              <h2>Transactions</h2>
+              <div className='header'>
+                <h2>Transactions</h2>
+                <Link className='seeAll' href={'/transactions'}>See all transactions<FaArrowRight /></Link>
+              </div>
               <div className='transaction-list'>
                 {transactions.map((transaction, index) => (
                   <TransactionItem key={index} type={transaction.type} amount={transaction.amount} category={transaction.category}/>

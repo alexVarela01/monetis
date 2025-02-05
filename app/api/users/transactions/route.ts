@@ -40,7 +40,6 @@ async function getUserHistory(user_id: number, page: number, type: string | unde
   type = type === 'All' ? undefined : type?.toString().toLowerCase();
   category = category === 'All' ? undefined : category;
 
-  console.log(user_id, page, type, category);
   const userAccounts = await prisma.history.findMany({
     where: { user_id: user_id, type: type, category: category },
     orderBy: { id: 'desc' },

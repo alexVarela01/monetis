@@ -18,7 +18,6 @@ function OverallPanel({ data, loading}: { data: OverallPanelProps[], loading: bo
   const [totalExpensesAmount, setTotalExpensesAmount] = useState<number>(0);
 
   useEffect(() => {
-    console.log(data.filter((item) => item.type === 'payment'));
     setTotalExpensesAmount(data.filter((item) => item.type === 'payment').reduce((acc, item) => acc + item.amount, 0) * -1);
 
     if (chartExpensesRef.current) {
