@@ -4,8 +4,12 @@ body{
 
 .logo{
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  z-index: 1;
 }
 
 .logo img{
@@ -91,4 +95,27 @@ body{
 
 .registerContainer .helpText a{
   color: #4d8bf7;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 600px) {
+  .register{
+    margin-top: 150px;
+    display: block !important;
+  }
+
+  .registerContainer .register form{
+    padding-bottom: 50px !important;
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width:1150px) {
+  .registerContainer .register h2{
+    width: 80%;
+  }
+  .registerContainer .register form{
+    width: 80%;
+  }
 }

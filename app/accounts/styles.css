@@ -144,3 +144,67 @@
   transform: scale(1.0);
   cursor: initial;
 }
+
+/* media queries */
+@media only screen and (max-width:800px) {
+  .accounts .account{
+    width: 100% !important;
+  }
+  .accounts .top .totalBalance{
+    font-size: 12px;
+    padding: 5px 15px;
+  }
+  .accounts .accounts_balance .new_account{
+    width: 100%;
+  }
+  .accounts .seeAccoutDetails{
+    transform: scale(0.8) !important;
+    transform-origin: bottom right;
+  }
+
+  .accounts .seeAccoutDetails:hover{
+    transform: scale(0.9) !important;
+  }
+}
+
+@media only screen and (max-width:1150px) {
+  .accounts .account h2{
+    font-size: 16px;
+  }
+
+  .accounts .account p{
+    font-size: 18px;
+  }
+
+  .accounts .account .iban, .accounts .accountHolder{
+    font-size: 10px !important;
+  }
+  .accounts .accounts_balance .new_account{
+    height: 190px !important;
+  }
+  .accounts .account{
+    padding: 30px 20px 20px;
+    height: 190px !important;
+  }
+
+  .accounts .account .chart{
+    width: 80px;
+  }
+
+  .accounts .seeAccoutDetails{
+    transform: scale(0.6);
+    transform-origin: bottom right;
+  }
+
+  .accounts .seeAccoutDetails:hover{
+    transform: scale(0.7) !important;
+  }
+
+  .accounts .account .chart span{
+    font-size: 13px;
+  }
+  
+  .accounts .copyButton{
+    font-size: 10px;
+  }
+}

@@ -163,3 +163,29 @@
 .user_account .account h2{
   font-size: 25px;
 }
+
+@media only screen and (max-width:1150px) {
+  .user_account .actions_container .action{
+    flex: 1;
+    flex-basis: 33%;
+  }
+  .user_account .info{
+    flex-wrap: wrap;
+  }
+  .user_account .info-item{
+    flex-basis: 100% !important;
+  }
+
+  .user_account .account {
+    height: 150px;
+  }
+
+  .user_account .account .chart{
+    width: 100px !important;
+  }
+
+  .user_account .balanceDistribution{
+    font-size: 12px !important;
+    left: -80% !important;
+  }
+}

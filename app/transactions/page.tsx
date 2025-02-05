@@ -161,7 +161,7 @@ export default function Transactions() {
               </button>
             ))}
 
-            <button onClick={() => setPage(page + 1)} className={transactions.length < 10 ? 'disabled' : ''}>Next</button>
+            <button onClick={() => setPage(page + 1)} className={page === Math.ceil(totalFilteredResults / 10) ? 'disabled' : ''}>Next</button>
           </div>
         }
       </div>
