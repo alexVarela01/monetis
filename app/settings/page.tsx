@@ -299,7 +299,7 @@ export default function Settings() {
     
     
             <div className='row'>
-              <div className='column required' style={{ width: 'calc(35% - 20px)' }}>
+              <div className='column required'>
                 <label htmlFor="city">City</label>
                 <input
                   type="text"
@@ -311,7 +311,7 @@ export default function Settings() {
                   required
                 />
               </div>
-              <div className='column required disabled' style={{ width: 'calc(30% - 20px)' }}>
+              <div className='column required disabled'>
                 <label htmlFor="country">Country</label>
                 <CountrySelector
                   required

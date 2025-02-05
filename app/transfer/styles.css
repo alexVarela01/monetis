@@ -10,6 +10,7 @@
     padding: 20px 60px;
     position: relative;
     margin-top: 40px;
+    overflow: auto;
   }
 
   h1{
@@ -269,4 +270,26 @@
 .transfer .text .balance-negative{
   color: #b62f2b;
   font-size: 20px;
+}
+
+@media only screen and (max-width:1150px) {
+  .transfer .panels{
+    flex-direction: column !important;
+  }
+  .transfer form{
+    width: 100%;
+    padding-bottom: 10px;
+  }
+  .transfer .status{
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (min-width:1150px) and (max-width:1350px) {
+  .transfer .left{
+    flex: 0.5;
+  }
+  .transfer form{
+    width: 100%;
+  }
 }

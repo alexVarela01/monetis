@@ -229,7 +229,7 @@ export default function Register() {
           </div>
 
           <div className='row'>
-            <div className='column required' style={{ width: 'calc(35% - 20px)' }}>
+            <div className='column required'>
               <label htmlFor="city">City</label>
               <input
                 type="text"
@@ -241,7 +241,7 @@ export default function Register() {
                 required
               />
             </div>
-            <div className='column required' style={{ width: 'calc(30% - 20px)' }}>
+            <div className='column required'>
               <label htmlFor="country">Country</label>
               <CountrySelector
                 required
