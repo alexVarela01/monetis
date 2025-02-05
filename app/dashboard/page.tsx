@@ -139,7 +139,9 @@ export default function Dashboard() {
             <div className='transactions'>
               <div className='header'>
                 <h2>Transactions</h2>
-                <Link className='seeAll' href={'/transactions'}>See all transactions<FaArrowRight /></Link>
+                {transactions.length >= 7 &&
+                  <Link className='seeAll' href={'/transactions'}>See all transactions<FaArrowRight /></Link>
+                }
               </div>
               <div className='transaction-list'>
                 {transactions.map((transaction, index) => (
