@@ -1,9 +1,27 @@
 import { PrismaClient } from "@prisma/client";
+import { ibanCodes } from "@/app/api/ibanCodes";
+
 const prisma = new PrismaClient();
 
-async function generateUniqueIban() {
+// Define the type of keys in ibanCodes
+type CountryCode = keyof typeof ibanCodes;
+
+async function generateUniqueIban(countryCode: CountryCode = "PT") {
+  let countryData = ibanCodes[countryCode];
+
+  if (!countryData) {
+    countryData = ibanCodes["PT"];
+  }
+
+  const { code, length } = countryData;
+
   function generateRandomIban() {
-    return "PT50" + Array.from({ length: 21 }, () => Math.floor(Math.random() * 10)).join('');
+    const randomDigits = Array.from(
+      { length: length - countryCode.length - code.toString().length },
+      () => Math.floor(Math.random() * 10)
+    ).join("");
+
+    return `${countryCode}${code}${randomDigits}`;
   }
 
   let iban = generateRandomIban();

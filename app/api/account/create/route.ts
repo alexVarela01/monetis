@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { generateUniqueIban } from "../../helper";
 import { parse } from "cookie";
 import jwt from "jsonwebtoken";
+import { ibanCodes } from '@/app/api/ibanCodes';
 
 const prisma = new PrismaClient();
 export async function POST(req: Request) {
@@ -47,7 +48,10 @@ export async function POST(req: Request) {
 
       if (errorsList.length > 0) return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
 
-      const generatedIban = await generateUniqueIban();
+      const user = await prisma.user.findUnique({where: { id: decoded.id }});
+      const countryCode = (user?.country && user?.country in ibanCodes) ? user?.country as keyof typeof ibanCodes : "PT";
+
+      const generatedIban = await generateUniqueIban(countryCode);
       const account = await prisma.userAccount.create({
         data: {
           user_id: decoded.id,

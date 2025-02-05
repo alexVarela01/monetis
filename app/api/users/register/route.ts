@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { generateUniqueIban } from "../../helper";
 import bcrypt from "bcrypt";
+import { ibanCodes } from '@/app/api/ibanCodes';
 
 const prisma = new PrismaClient();
 
@@ -52,8 +53,10 @@ export async function POST(req: Request) {
 
   if (newUser) {
 
+    const countryCode = (newUser.country && newUser.country in ibanCodes) ? newUser.country as keyof typeof ibanCodes : "PT";
+
     // generate unique iban for checking and saving, check if it already exists
-    const checkingIban = await generateUniqueIban();
+    const checkingIban = await generateUniqueIban(countryCode);
     await prisma.userAccount.create({
       data: {
         user_id: newUser.id,
@@ -65,7 +68,7 @@ export async function POST(req: Request) {
     });
 
     // generate unique iban for checking and saving, check if it already exists
-    const savingsIban = await generateUniqueIban();
+    const savingsIban = await generateUniqueIban(countryCode);
     await prisma.userAccount.create({
       data: {
         user_id: newUser.id,

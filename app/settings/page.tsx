@@ -6,7 +6,6 @@ import './styles.css';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { ClipLoader, GridLoader } from 'react-spinners';
 import StaticLoader from '../Components/StaticLoader/StaticLoader';
-import { SingleValue } from 'react-select';
 import CountrySelector from '../Components/CountrySelector/CountrySelector';
 import { RiUserSettingsLine, RiLockPasswordLine, RiDeleteBin7Line } from "react-icons/ri";
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,11 +32,6 @@ interface ChangePassword {
 
 interface DeleteAccount {
   confirmDeletePassword: string
-}
-
-interface CountryOption {
-  label: string;
-  value: string;
 }
 
 export default function Settings() {
@@ -115,13 +109,6 @@ export default function Settings() {
     if (isNaN(Number(value))) return;
     setUserData((prevData) => ({ ...prevData, [name]: value }));
   }
-
-  const setSelectedCountry = (country: SingleValue<CountryOption>) => {
-    setUserData((prevData) => ({
-      ...prevData,
-      country: country ? country.value : '', // Ensure that country is not null
-    }));
-  };
 
   const updateSettings = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -324,12 +311,12 @@ export default function Settings() {
                   required
                 />
               </div>
-              <div className='column required' style={{ width: 'calc(30% - 20px)' }}>
+              <div className='column required disabled' style={{ width: 'calc(30% - 20px)' }}>
                 <label htmlFor="country">Country</label>
                 <CountrySelector
                   required
                   value={userData?.country}
-                  onChange={(country) => setSelectedCountry(country)}
+                  onChange={() => {}}
                 />
               </div>
             </div>

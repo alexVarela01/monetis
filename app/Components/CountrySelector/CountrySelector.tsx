@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import Select, { SingleValue } from 'react-select';
 import countryList from 'react-select-country-list';
 import './CountrySelector.css';
+import { ibanCodes } from '@/app/api/ibanCodes';
 
 interface CountryOption {
   label: string;
@@ -15,10 +16,10 @@ interface CountrySelectorProps {
 }
 
 function CountrySelector({ value, onChange, required }: CountrySelectorProps) {
-  const [options, setOptions] = useState<CountryOption[]>([]);
-
-  useEffect(() => {
-    setOptions(countryList().getData() as CountryOption[]);
+  const options = useMemo(() => {
+    return countryList()
+      .getData()
+      .filter((country) => Object.keys(ibanCodes).includes(country.value));
   }, []);
 
   const selectedOption = options.find(option => option.value === value) || null;
