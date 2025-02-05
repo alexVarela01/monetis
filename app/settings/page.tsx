@@ -168,18 +168,21 @@ export default function Settings() {
         return;
       }
 
-      await fetchSettings(); 
-      toast.dismiss();
-      toast.success(successMessage, {
-        position: "bottom-right",
-        autoClose: false,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-      });
+      if(!logout){
+        await fetchSettings(); 
+        toast.dismiss();
+        toast.success(successMessage, {
+          position: "bottom-right",
+          autoClose: false,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+
 
       if(logout){
         fetch('/api/auth/logout', {
