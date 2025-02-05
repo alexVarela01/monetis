@@ -16,14 +16,14 @@
   cursor: pointer;
 }
 
-.navigation .options{
+.navigation .options, .navigation-mobile-options{
   display: flex;
   flex-direction: column;
   height: calc(100% - 100px);
   gap: 5px;
 }
 
-.navigation .options > div, .navigation .options button{
+.navigation .options > div, .navigation .options button, .navigation-mobile-options > div, .navigation-mobile-options button{
   text-decoration: none;
   color: #1c1c1c;
   font-family: "GeneralSans Regular";
@@ -41,15 +41,100 @@
   border-radius: 5px;
 }
 
-.navigation .options svg{
+.navigation .options svg, .navigation-mobile-options svg{
   width: 18px;
   height: 18px;
 }
 
-.navigation .options > div.active, .navigation .options button.active{
+.navigation .options > div.active, .navigation .options button.active, .navigation-mobile-options > div.active, .navigation-mobile-options button.active{
   font-family: "GeneralSans Medium";
 }
 
-.navigation .options > div:hover, .navigation .options button:hover{
+.navigation .options > div:hover, .navigation .options button:hover, .navigation-mobile-options > div:hover, .navigation-mobile-options button:hover{
   background-color: rgb(245, 245, 245);
+}
+
+.navigation-mobile{
+  display: none;
+  position: absolute;
+  height: fit-content;
+  background-color: white;
+  z-index: 123;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation-mobile svg{
+  margin-right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.5s;
+  user-select: none;
+}
+
+.navigation-mobile-options{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  position: absolute;
+  right: 0px;
+  top: 80px;
+  z-index: 112;
+  background-color: white;
+  height: calc(100% - 120px);
+}
+
+.navigation-mobile svg:hover{
+  color: #4d8bf7;
+}
+
+
+.navigation-mobile .logo{
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  cursor: pointer;
+  padding: 10px 20px;
+  height: 60px;
+}
+
+.nav-background{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 111;
+}
+
+/* media queries */
+@media only screen and (max-width:600px) {
+  .navigation{
+    display: none;
+  }
+  .content{
+    padding: 80px 20px 30px !important;
+    flex: 1 !important;
+  }
+  .navigation-mobile{
+    display: flex !important;
+  }
+}
+
+@media only screen and (max-width:1150px) {
+  .navigation{
+    padding: 10px;
+    
+    .logo{
+      height: 40px;
+    }
+  }
+  .navigation .options > div, .navigation .options button{
+    font-size: 10px;
+  }
+  .navigation .options svg{
+    width: 15px;
+    height: 15px;
+  }
 }

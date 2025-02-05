@@ -10,6 +10,7 @@
     padding: 20px 60px;
     position: relative;
     margin-top: 35px;
+    overflow: auto;
   }
 
   h1{
@@ -194,4 +195,64 @@
   justify-items: center;
   gap: 10px;
   height: 7%;
+}
+
+@media only screen and (max-width:1150px) {
+  .dashboard .panels{
+    flex-direction: column !important;
+  }
+  .dashboard .accounts_balance{
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+  .dashboard .account{
+    flex-basis: 49%;
+  }
+  .dashboard .overall-panel{
+    flex-wrap: wrap;
+  }
+  .dashboard .overall-panel .container{
+    flex: 1 !important;
+  }
+  .dashboard .overall-panel .container.overview{
+    flex-basis: 100% !important;
+    h2{
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width:1350px) {
+  .dashboard .panels{
+    flex-direction: column !important;
+  }
+  .dashboard .left{
+    height: fit-content;
+  }
+  .account .chart {
+    width: 50px;
+  }
+}
+
+@media only screen and (max-width:1600px) {
+  .dashboard .account h2{
+    font-size: 16px;
+  }
+
+  .dashboard .account p{
+    font-size: 18px;
+  }
+  
+  .dashboard .new_account{
+    display: none;
+  }
+
+  .dashboard .account{
+    height: 106px;
+    padding: 30px 20px 20px;
+  }
+
+  .account .chart {
+    width: 70px;
+  }
 }
