@@ -8,7 +8,7 @@ import { ClipLoader, GridLoader } from 'react-spinners';
 import StaticLoader from '../Components/StaticLoader/StaticLoader';
 import { SingleValue } from 'react-select';
 import CountrySelector from '../Components/CountrySelector/CountrySelector';
-import { RiUserSettingsLine, RiLockPasswordLine } from "react-icons/ri";
+import { RiUserSettingsLine, RiLockPasswordLine, RiDeleteBin7Line } from "react-icons/ri";
 import { ToastContainer, toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 
@@ -29,6 +29,10 @@ interface ChangePassword {
   oldPassword: string,
   newPassword: string,
   confirmNewPassword: string
+}
+
+interface DeleteAccount {
+  confirmDeletePassword: string
 }
 
 interface CountryOption {
@@ -61,6 +65,10 @@ export default function Settings() {
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: ''
+  });
+
+  const [deleteAccountData, setDeleteAccountData] = useState<Omit<DeleteAccount, 'id'>>({
+    confirmDeletePassword: ''
   });
 
   useEffect(() => {
@@ -125,6 +133,12 @@ export default function Settings() {
     e.preventDefault();
     setLoadingAction(true);
     sendRequest('/api/users/updatePassword', passwordData, "Password changed!", true);
+  };
+
+  const deleteAccount = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoadingAction(true);
+    sendRequest('/api/users/deleteAccount', deleteAccountData, "Account deleted", true);
   };
 
   async function sendRequest(url: string, data: object, successMessage: string, logout?: boolean) {
@@ -201,8 +215,11 @@ export default function Settings() {
             <RiLockPasswordLine />
             <span>Change Password</span>
           </div>
+          <div onClick={() => setCurrentTab('deleteAccount')} className={currentTab === 'deleteAccount' ? 'active' : ''}>
+            <RiDeleteBin7Line />
+            <span>Delete account</span>
+          </div>
         </div>
-
 
         {currentTab === 'settings' && (
           <form onSubmit={updateSettings} autoComplete="off">
@@ -383,6 +400,32 @@ export default function Settings() {
     
             <button type="submit" disabled={loadingAction}>
               {loadingAction ? <ClipLoader color="#fff" size={11} /> : 'Update password'}
+            </button>
+          </form>
+        )}
+
+        {currentTab === 'deleteAccount' && (
+          <form onSubmit={deleteAccount} autoComplete="off">
+            <hr/>
+            <h3>Delete account</h3>
+            <div className='row'>
+              <div className='column required'>
+                <label htmlFor="confirmDeletePassword">Confirm password</label>
+                <input
+                  type="password"
+                  name="confirmDeletePassword"
+                  autoComplete='new-password'
+                  value={deleteAccountData?.confirmDeletePassword}
+                  onChange={(e) => {setDeleteAccountData((prevData) => ({ ...prevData, confirmDeletePassword: e.target.value }));}}
+                  required
+                />
+              </div>
+            </div>
+
+            <span className='helpText'>This action is irreversible. After deleting your account, you will be logged out! Type your password to confirm deletion</span>
+    
+            <button type="submit" disabled={loadingAction} className='delete'>
+              {loadingAction ? <ClipLoader color="#fff" size={11} /> : 'Confirm delete'}
             </button>
           </form>
         )}
