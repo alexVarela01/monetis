@@ -128,3 +128,23 @@
   transform: translate(-50%, -50%);
   opacity: 0.5;
 }
+
+@media only screen and (max-width:1150px) {
+  .transactions .transaction .type{
+    font-size: 13px;
+  }
+  .transactions .transaction .category{
+    font-size: 13px;
+  }
+  .transactions .transaction .amount{
+    font-size: 15px !important;
+  }
+  .transaction.table .icon{
+    font-size: 12px !important;
+    padding: 10px !important;
+  }
+  .transaction.table .date{
+    padding: 10px !important;
+    margin-right: 5px !important;
+  }
+}

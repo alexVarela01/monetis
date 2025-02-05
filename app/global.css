@@ -188,3 +188,13 @@ form .column .suffix_container{
     justify-content: center;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  form .row{
+    flex-direction: column;
+  }
+
+  form .column{
+    width: 100%;
+  }
+}

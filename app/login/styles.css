@@ -1,7 +1,10 @@
 .logo{
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 20px;
+  z-index: 1;
 }
 
 .logo img{
@@ -52,7 +55,7 @@
 }
 
 .loginContainer .login h2{
-  text-align: info;
+  text-align: start;
   width: 40%;
   font-family: "GeneralSans Bold";
   font-weight: 500;
@@ -86,4 +89,25 @@
   font-size: 13px;
   font-family: "GeneralSans Regular";
   cursor: pointer;
+}
+
+/* media queries */
+
+@media only screen and (max-width: 600px) {
+  .loginContainer .login form{
+    width: 80%;
+  }
+
+  .loginContainer .login h2{
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width:1150px) {
+  .info{
+    display: none ! important;
+  }
+  .loginContainer .login{
+    flex: 1;
+  }
 }

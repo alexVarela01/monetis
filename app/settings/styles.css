@@ -89,3 +89,16 @@
   margin-top: -10px;
   color: #eb1212 !important;
 }
+
+@media only screen and (max-width:1150px) {
+  .settings form{
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width:800px) {
+ .settings .tabs{
+  flex-direction: column;
+  align-items: start;
+ }
+}
