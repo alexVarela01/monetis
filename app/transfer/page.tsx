@@ -91,8 +91,8 @@ export default function Transfer() {
     }
 
     // check if iban has PT50 + 21 digits format
-    if(!formData.targetOwnAccount && (!formData?.iban?.match(/PT50\d{21}/) || formData?.iban.length!=25)) {
-      toast.error("Invalid IBAN. Please use the following format PT50 + 21 digits (PT50221687048179766099894)", {
+    if(!formData.targetOwnAccount && (!formData?.iban?.match(/^[A-Za-z]{2}\d+$/))) {
+      toast.error("Invalid IBAN. Please use the following format Country Code (PT) + Bank Code (50) + digits (PT50221687048179766099894)", {
         position: "bottom-right",
         autoClose: false,
         hideProgressBar: true,

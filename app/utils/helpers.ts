@@ -3,7 +3,7 @@ function formatBalance(balance: number): string {
 }
 
 function formatIban(iban: string) {
-  return iban.slice(0, 4) + ' ' + iban.slice(4, 8) + ' ' + iban.slice(8, 12) + ' ' + iban.slice(12, 16) + ' ' + iban.slice(16, 20) + ' ' + iban.slice(20, 24) + ' ' + iban.slice(24, 25);
+  return iban.match(/.{1,4}/g)?.join(" ") || iban;
 }
 
 function formatDate(date: string) {

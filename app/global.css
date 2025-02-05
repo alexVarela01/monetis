@@ -152,6 +152,11 @@ form .column.required label::after{
   margin-left: 5px;
 }
 
+form .column.disabled{
+  opacity: 0.6;
+  pointer-events: none;
+}
+
 form input:read-only{
   opacity: 0.6;
   background-color: #fafafa;
