@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "@vercel/speed-insights": "^1.1.0",
     "bcrypt": "^5.1.1",
     "chart.js": "^4.4.7",
     "cookie": "^1.0.2",
