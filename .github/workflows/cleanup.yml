@@ -12,5 +12,12 @@ jobs:
     steps:
       - name: Call Cleanup API
         run: |
-          curl -X POST https://monetis-delta.vercel.app/api/cleanup \
-          -H "API_KEY: ${{ secrets.CLEANUP_API_KEY }}"
+          RESPONSE=$(curl -s -o response.json -w "%{http_code}" -X POST https://monetis-delta.vercel.app/api/cleanup \
+            -H "Authorization: Bearer ${{ secrets.CLEANUP_API_KEY }}" \
+            -H "Content-Type: application/json")
+
+          if [ "$RESPONSE" -ne 200 ]; then
+            echo "Cleanup API failed with status code $RESPONSE"
+            cat response.json  # Print error message from API
+            exit 1  # Fail the GitHub Action
+          fi
