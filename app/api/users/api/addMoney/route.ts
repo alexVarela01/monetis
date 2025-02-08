@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       });
     }
 
-    if(amount <= 0) return new Response(JSON.stringify({ error: "Amount must be greater than 0" }), {status: 401, headers: { "Content-Type": "application/json" }});
+    if(!amount || amount <= 0) return new Response(JSON.stringify({ error: "Amount must be greater than 0" }), {status: 401, headers: { "Content-Type": "application/json" }});
 
     // Update user balance
     await prisma.userAccount.updateMany({
