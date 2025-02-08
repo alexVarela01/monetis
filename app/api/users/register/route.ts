@@ -38,6 +38,10 @@ export async function POST(req: Request) {
     errorsList.push('Password must contain at least 8 characters, including one letter, one number, and one of the following special characters: @$!%*?&+=#^()-');
   }
   
+  if(!country || !(country in ibanCodes)) {
+    errorsList.push('Invalid country');
+  }
+  
   // check if password and confirmPassword match
   if (password !== confirmPassword)errorsList.push('Passwords do not match');
 
