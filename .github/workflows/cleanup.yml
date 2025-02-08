@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Call Cleanup API
         run: |
-          curl -X POST monetis-delta.vercel.app/api/cleanup \
+          curl -X POST https://monetis-delta.vercel.app/api/cleanup \
           -H "API_KEY: ${{ secrets.CLEANUP_API_KEY }}"
