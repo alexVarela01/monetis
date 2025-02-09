@@ -79,7 +79,7 @@ export default function Payment() {
   }
 
   useEffect(() => {
-    document.title = 'Monetis | Payment';
+    document.title = 'MONETIS | Payment';
     setLoading(true);
     setIsClient(true);
     setFormPhase(1);
