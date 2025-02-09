@@ -66,7 +66,7 @@ export default function Transfer() {
   }
 
   useEffect(() => {
-    document.title = 'Monetis | Transfer';
+    document.title = 'MONETIS | Transfer';
     setLoading(true);
     setIsClient(true);
     setFormPhase(1);

@@ -22,7 +22,7 @@ export default function Login() {
   });
 
   useEffect(() => {
-    document.title = 'Monetis | Login';
+    document.title = 'MONETIS | Login';
     fetch('/api/auth/me', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
@@ -133,7 +133,7 @@ export default function Login() {
 
       <div className='info'>
         <Image src="/login.svg" alt="Login" width={500} height={300}></Image>
-        <h2>Monetis, Seamless Banking, Anytime, Anywhere.</h2>
+        <h2>MONETIS, Seamless Banking, Anytime, Anywhere.</h2>
         <p>Manage your finances with ease. Accounts, savings and more, all in one place.</p>
       </div>
 

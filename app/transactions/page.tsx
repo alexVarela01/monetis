@@ -73,7 +73,7 @@ export default function Transactions() {
   }
 
   useEffect(() => {
-    document.title = 'Monetis | Transactions';
+    document.title = 'MONETIS | Transactions';
     
     setLoading(true);
     setIsClient(true);
@@ -81,7 +81,7 @@ export default function Transactions() {
   }, []);
 
   useEffect(() => {
-    document.title = `Monetis | Transactions - Page ${page}`;
+    document.title = `MONETIS | Transactions - Page ${page}`;
     fetchTransactions();
   }, [page]);
 
