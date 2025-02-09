@@ -49,7 +49,7 @@ export default function Register() {
 
   // Handle user already logged in
   useEffect(() => {
-    document.title = 'Monetis | Register';
+    document.title = 'MONETIS | Register';
     fetch('/api/auth/me', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },

@@ -43,7 +43,7 @@ export default function Accounts() {
   });
 
   useEffect(() => {
-    document.title = 'Monetis | Accounts';
+    document.title = 'MONETIS | Accounts';
     setLoading(true);
     setIsClient(true);
     fetchAccounts();

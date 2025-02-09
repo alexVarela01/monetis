@@ -66,7 +66,7 @@ export default function Settings() {
   });
 
   useEffect(() => {
-    document.title = 'Monetis | Settings';
+    document.title = 'MONETIS | Settings';
     setCurrentTab("settings");
       
     setLoading(true);

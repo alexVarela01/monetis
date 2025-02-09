@@ -68,7 +68,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
       const index = accountData.index;
       const totalBalance = accountData.totalBalance;
       
-      document.title = 'Monetis | Accounts - ' + account.name;
+      document.title = 'MONETIS | Accounts - ' + account.name;
       setCheckingBalance(accountData.checkingBalance);
       setTotalBalance(totalBalance._sum.amount);
       setAccountHolder(accountData.accountHolder);
