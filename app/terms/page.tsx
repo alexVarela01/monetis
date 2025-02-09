@@ -1,21 +1,21 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import "./styles.css";
-import logoImage from '@/public/Logo.png'
 import { useEffect } from 'react';
+import HomeNavigation from '../Components/HomeNavigation/HomeNavigation';
+import logoImage from '@/public/Logo_white.png';
+import Image from "next/image";
 
 export default function Terms() {
+  const curYear = new Date().getFullYear();
 
   useEffect(() => {
-    document.title = 'Monetis | Terms and Conditions';
+    document.title = 'MONETIS | Terms and Conditions';
   }, []);
 
   return (
     <div className='termsContainer'>
-
-      <Link href="/" className='logo'><Image src={logoImage} alt="Register"></Image></Link>
+      <HomeNavigation/>
 
       <div className="content">
         <h2>Terms and Conditions for Testing and Test Automation</h2>
@@ -39,10 +39,14 @@ export default function Terms() {
 
         <h2>6. Acceptance of Terms</h2>
         <p>By participating in this testing process, you agree to these Terms and Conditions. If you do not agree with these terms, please refrain from using the application.</p>
-
-        <h2>7. Contact Information</h2>
-        <p>If you have any questions or concerns about these terms, please contact us at varela.alexandre01.random@gmail.com</p>
       </div>
+
+      <footer>
+          <div className='copyright'>
+            <Image src={logoImage} alt="Register"></Image>
+            <p>&copy; {curYear} MONETIS. All rights reserved.</p>
+          </div>
+        </footer>
     </div>
   );
 }

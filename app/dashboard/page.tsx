@@ -48,7 +48,7 @@ export default function Dashboard() {
   const [accountHolder, setAccountHolder] = useState<string>('');
 
   useEffect(() => {
-    document.title = 'Monetis | Dashboard';
+    document.title = 'MONETIS | Dashboard';
     setLoading(true);
     setIsClient(true);
     

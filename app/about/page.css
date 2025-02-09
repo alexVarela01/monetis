@@ -1,27 +1,27 @@
 
-.homeContainer .mainSection{
+.aboutContainer .mainSection{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
   padding: 60px 20px 0px;
-  height: calc(100vh - 60px);
-  background-color: #f9fafb;
+  height: 40vh;
+  background-color: #fafbfc;
 }
 
-.homeContainer .mainSection h1{
+.aboutContainer .mainSection h1{
   font-family: "GeneralSans Bold";
   font-size: 60px;
   margin: 0;
   text-align: center;
 }
 
-.homeContainer .mainSection h1 span{
+.aboutContainer .mainSection h1 span{
   color: #4d8bf7;
 }
 
-.homeContainer .mainSection p{
+.aboutContainer .mainSection p{
   font-family: "GeneralSans Regular";
   font-size: 20px;
   text-align: center;
@@ -29,36 +29,14 @@
   margin: 0;
 }
 
-.homeContainer .mainSection a{
-  background-color: #4d8bf7;
-  border: 1px solid #4d8bf7;
-  font-family: "GeneralSans Medium";
-  border-radius: 125px;
-  padding: 20px 40px;
-  color: #fff;
-  text-transform: none;
-  transition: 0.5s;
-  text-decoration: none;
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.homeContainer .mainSection a:hover{
-  transform: scale(1.02);
-  color: #fff;
-}
-
-.homeContainer .featuresSection{
+.aboutContainer .featuresSection{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
   padding: 60px 20px;
-  background-color: white;
+  background-color: #fafbfc;
 }
 
 .featuresSection .features{
@@ -67,8 +45,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  width: 800px;
+  gap: 50px;
+  width: 900px;
   margin-top: 40px;
 }
 
@@ -77,13 +55,41 @@
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  background-color: #eff6ff;
+  gap: 20px;
+  padding: 40px;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #e9e9e9b9;
-  flex-basis: 48%;
+  flex-basis: 100%;
   box-sizing: border-box;
+}
+
+.featuresSection .features .feature a{
+  color: #4d8bf7;
+}
+
+.featuresSection .features .feature ul{
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+  color: #353535;
+}
+
+li::marker {
+  color: #4d8bf7;
+}
+
+.featuresSection .features .feature > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
 }
 
 .featuresSection .features .feature svg{
@@ -93,12 +99,11 @@
   padding: 10px;
   border-radius: 10px;
   align-self: flex-start;
-  margin-bottom: 10px;
 }
 
 .featuresSection .features .feature h3{
   font-family: "GeneralSans SemiBold";
-  font-size: 15px;
+  font-size: 20px;
   margin: 0;
 }
 
@@ -109,14 +114,7 @@
   margin: 0;
 }
 
-.featuresSection h2{
-  font-family: "GeneralSans SemiBold";
-  font-size: 30px;
-  text-align: center;
-  margin: 0;
-}
-
-.homeContainer footer{
+.aboutContainer footer{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -125,44 +123,7 @@
   background-color: #4d8bf7;
 }
 
-.homeContainer footer .getStarted{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 100px 20px;
-}
-
-.homeContainer footer .getStarted h3{
-  font-family: "GeneralSans SemiBold";
-  text-align: center;
-  font-size: 30px;
-  margin: 0;
-  color: #fff;
-}
-
-.homeContainer footer .getStarted a{
-  background-color: #fff;
-  border: 1px solid #fff;
-  font-family: "GeneralSans Medium";
-  border-radius: 125px;
-  padding: 20px 40px;
-  color: #4d8bf7;
-  text-transform: none;
-  transition: 0.5s;
-  text-decoration: none;
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.homeContainer footer .getStarted a:hover{
-  transform: scale(1.02);
-  color: #4d8bf7;
-}
-
-.homeContainer footer .copyright{
+.aboutContainer footer .copyright{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -176,22 +137,17 @@
   box-sizing: border-box;
 }
 
-.homeContainer footer .copyright img{
+.aboutContainer footer .copyright img{
   height: 40px;
   width: fit-content;
 }
 
 /* media queries */
 @media only screen and (max-width:600px) {
-  .featuresSection .features .feature{
-    flex-basis: 100%;
-  }
-
-  
-  .homeContainer .mainSection h1{
+  .aboutContainer .mainSection h1{
     font-size: 40px;
   }
-  .homeContainer .mainSection p{
+  .aboutContainer .mainSection p{
     font-size: 17px;
   }
 }

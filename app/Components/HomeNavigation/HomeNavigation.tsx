@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import './HomeNavigation.css';
 import logoImage from '@/public/Logo.png';
+import { MdMenu } from 'react-icons/md';
 
 function HomeNavigation() {
+  const [open, setOpen] = useState(false);
   return (
     <div className='home-navigation'>
       <Image src={logoImage} onClick={() => window.location.href = '/'} alt="Register" className='logo-home'></Image>
+      <MdMenu className='menu' onClick={() => setOpen(!open)}/>
 
-      <div className='options'>
+      <div className={'options ' + (open ? 'mobile-open' : '')}>
         <div onClick={() => window.location.href = "/about"}><span>About</span></div>
         <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div>
         <div onClick={() => window.location.href = "/login"} className='get-started'><span>Get Started</span></div>

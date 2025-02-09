@@ -3,7 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./global.css";
 
 export const metadata = {
-  title: "Monetis",
+  title: "MONETIS",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
