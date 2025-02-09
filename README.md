@@ -66,7 +66,11 @@ We welcome contributions! Feel free to fork this repository, submit issues, or c
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is dedicated to the public domain under The Unlicense.
+
+You can copy, modify, distribute, and perform the work, even for commercial purposes, all without asking permission.
+
+For more details, see the [LICENSE](./LICENSE) file.
 
 ---
 
