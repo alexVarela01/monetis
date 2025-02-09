@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MONETIS
+
+MONETIS is a dedicated testing playground for QA engineers and automation enthusiasts. It provides a safe and controlled environment to experiment with various testing tools, frameworks, and methodologies.
+
+## Purpose
+
+MONETIS is a purpose-built testing environment designed to help QA engineers and developers learn and practice automated testing techniques. The platform simulates a real-world banking system while ensuring a risk-free space for testing experiments.
+
+All data within the application is fictional and created specifically for testing purposes. This allows users to freely experiment with different testing approaches without the risk of affecting real financial data.
+
+## Testing Features
+
+- **API endpoints** designed for various testing scenarios
+- **Predictable test data** that resets periodically
+- **Common banking operations** for end-to-end testing
+- **Edge cases and error scenarios** for robust test coverage
 
 ## Getting Started
 
-First, run the development server:
+To start using MONETIS, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/monetis.git
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the application:
+   ```sh
+   npm run dev
+   ```
+4. Access the application in your browser at `http://localhost:3000`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To configure the application, create a `.env` file with the following variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **Database Configuration**
+- `DATABASE_URL` – Primary connection string for the database.
+- `DATABASE_URL_UNPOOLED` – Non-pooled version of the database connection.
+- `PGHOST` – Hostname or IP address of the PostgreSQL server.
+- `PGHOST_UNPOOLED` – Non-pooled PostgreSQL host.
+- `PGUSER` – Username for PostgreSQL authentication.
+- `PGDATABASE` – Name of the PostgreSQL database.
+- `PGPASSWORD` – Password for the PostgreSQL user.
 
-## Learn More
+### **PostgreSQL Connection Variants**
+- `POSTGRES_URL` – Full PostgreSQL connection URL.
+- `POSTGRES_URL_NON_POOLING` – Non-pooled PostgreSQL connection URL.
+- `POSTGRES_USER` – PostgreSQL database username.
+- `POSTGRES_HOST` – Hostname of the PostgreSQL server.
+- `POSTGRES_PASSWORD` – PostgreSQL database password.
+- `POSTGRES_DATABASE` – Name of the PostgreSQL database.
+- `POSTGRES_URL_NO_SSL` – PostgreSQL connection URL without SSL.
+- `POSTGRES_PRISMA_URL` – PostgreSQL connection string optimized for Prisma ORM.
 
-To learn more about Next.js, take a look at the following resources:
+### **Security & API Configuration**
+- `JWT_SECRET` – Secret key for signing JSON Web Tokens (JWTs).
+- `API_KEY` – API key for authentication in external integrations (used only for the cleanup process).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribution
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+We welcome contributions! Feel free to fork this repository, submit issues, or create pull requests to improve MONETIS.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+For more details or inquiries, please reach out to our team or check the official documentation.
