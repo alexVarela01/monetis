@@ -22,7 +22,7 @@ Follow these steps to set up MONETIS:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/monetis.git
+   git clone https://github.com/alexVarela01/monetis.git
    ```
 2. Install dependencies:
    ```sh
