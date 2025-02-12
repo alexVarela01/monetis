@@ -4,40 +4,47 @@ MONETIS is a dedicated testing playground for QA engineers and automation enthus
 
 ## Purpose
 
-MONETIS is a purpose-built testing environment designed to help QA engineers and developers learn and practice automated testing techniques. The platform simulates a real-world banking system while ensuring a risk-free space for testing experiments.
+MONETIS is a purpose-built testing environment designed to help QA engineers and developers learn and practice automated testing techniques. The platform simulates a real-world banking system in a risk-free space for testing experiments.
 
 All data within the application is fictional and created specifically for testing purposes. This allows users to freely experiment with different testing approaches without the risk of affecting real financial data.
 
-## Testing Features
+## Features
 
-- **API endpoints** designed for various testing scenarios
-- **Predictable test data** that resets periodically
-- **Common banking operations** for end-to-end testing
-- **Edge cases and error scenarios** for robust test coverage
+- **API endpoints** for various testing scenarios.
+- **Predictable test data** that resets periodically.
+- **Common banking operations** for end-to-end testing.
+- **Edge cases and error scenarios** for robust test coverage.
+- **Prisma ORM** for database management.
 
 ## Getting Started
 
-To start using MONETIS, follow these steps:
+Follow these steps to set up MONETIS:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/monetis.git
+   git clone https://github.com/alexVarela01/monetis.git
    ```
 2. Install dependencies:
    ```sh
    npm install
    ```
-3. Start the application:
+3. Set up your environment variables (see [Configuration](#configuration)).
+4. Run database migrations:
+   ```sh
+   npx prisma migrate dev --name init
+   ```
+5. Start the application:
    ```sh
    npm run dev
    ```
-4. Access the application in your browser at `http://localhost:3000`
+6. Access the application in your browser at `http://localhost:3000`
 
-## Environment Variables
+## Configuration
 
 To configure the application, create a `.env` file with the following variables:
 
-### **Database Configuration**
+### Database Configuration
+
 - `DATABASE_URL` – Primary connection string for the database.
 - `DATABASE_URL_UNPOOLED` – Non-pooled version of the database connection.
 - `PGHOST` – Hostname or IP address of the PostgreSQL server.
@@ -46,7 +53,8 @@ To configure the application, create a `.env` file with the following variables:
 - `PGDATABASE` – Name of the PostgreSQL database.
 - `PGPASSWORD` – Password for the PostgreSQL user.
 
-### **PostgreSQL Connection Variants**
+### PostgreSQL Connection Variants
+
 - `POSTGRES_URL` – Full PostgreSQL connection URL.
 - `POSTGRES_URL_NON_POOLING` – Non-pooled PostgreSQL connection URL.
 - `POSTGRES_USER` – PostgreSQL database username.
@@ -56,9 +64,14 @@ To configure the application, create a `.env` file with the following variables:
 - `POSTGRES_URL_NO_SSL` – PostgreSQL connection URL without SSL.
 - `POSTGRES_PRISMA_URL` – PostgreSQL connection string optimized for Prisma ORM.
 
-### **Security & API Configuration**
+### Security & API Configuration
+
 - `JWT_SECRET` – Secret key for signing JSON Web Tokens (JWTs).
 - `API_KEY` – API key for authentication in external integrations (used only for the cleanup process).
+
+## Prisma
+
+This project uses [Prisma](https://www.prisma.io/) as the ORM for database management.
 
 ## Contribution
 
@@ -66,12 +79,13 @@ We welcome contributions! Feel free to fork this repository, submit issues, or c
 
 ## License
 
-This project is dedicated to the public domain under The Unlicense.
+This project is open source and licensed under the MIT License.
 
-You can copy, modify, distribute, and perform the work, even for commercial purposes, all without asking permission.
+You are free to use, modify, distribute, and sublicense this project under the terms of the MIT License.
 
 For more details, see the [LICENSE](./LICENSE) file.
 
 ---
 
 For more details or inquiries, please reach out to our team or check the official documentation.
+
