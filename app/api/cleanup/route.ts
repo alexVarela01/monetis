@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-export async function POST(req: NextRequest) {
-  const apiKey = req.headers.get("API_KEY");
-
-  if (!apiKey || apiKey !== process.env.CLEANUP_API_KEY) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+ 
+export async function POST(request: NextRequest) {
+  const authHeader = request.headers.get('authorization');
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', {
+      status: 401,
+    });
   }
 
   try {
