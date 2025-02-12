@@ -67,7 +67,7 @@ To configure the application, create a `.env` file with the following variables:
 ### Security & API Configuration
 
 - `JWT_SECRET` – Secret key for signing JSON Web Tokens (JWTs).
-- `API_KEY` – API key for authentication in external integrations (used only for the cleanup process).
+- `CRON_SECRET` – CRON key for authentication in vercel cron (used only for the cleanup process).
 
 ## Prisma
 
