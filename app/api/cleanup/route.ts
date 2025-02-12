@@ -1,16 +1,25 @@
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const apiKey = req.headers.get("API_KEY");
 
-  if (apiKey === process.env.API_KEY) {
-    await prisma.userAccount.deleteMany({});
-    await prisma.history.deleteMany({});
-    await prisma.user.deleteMany({});
-    return new Response(JSON.stringify({ success: true }), { status: 200 });
-  } else {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  if (!apiKey || apiKey !== process.env.CLEANUP_API_KEY) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await prisma.$transaction([
+      prisma.userAccount.deleteMany({}),
+      prisma.history.deleteMany({}),
+      prisma.user.deleteMany({}),
+    ]);
+
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error("Database cleanup failed:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
