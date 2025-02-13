@@ -13,6 +13,7 @@ function HomeNavigation() {
 
       <div className={'options ' + (open ? 'mobile-open' : '')}>
         <div onClick={() => window.location.href = "/about"}><span>About</span></div>
+        <div onClick={() => window.location.href = "/documentation"}><span>Documentation</span></div>
         <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div>
         <div onClick={() => window.location.href = "/login"} className='get-started'><span>Get Started</span></div>
       </div>
