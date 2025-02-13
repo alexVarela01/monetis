@@ -1,0 +1,253 @@
+
+.docContainer .mainSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px 20px 0px;
+  padding-top: 15vh;
+  background-color: #fafbfc;
+}
+
+.docContainer .mainSection svg{
+  font-size: 60px;
+  color: #4d8bf7;
+}
+
+.docContainer .mainSection h1{
+  font-family: "GeneralSans Medium";
+  font-size: 40px;
+  margin: 0;
+  text-align: center;
+}
+.docContainer .mainSection p{
+  font-family: "GeneralSans Regular";
+  font-size: 20px;
+  text-align: center;
+  color: #353535;
+  margin: 0;
+}
+
+.docContainer .infoSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 20px;
+  background-color: #fafbfc;
+}
+
+.infoSection .infoContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: 900px;
+  margin-top: 40px;
+}
+
+.infoSection .infoContainer .subTitle{
+  align-self: flex-start;
+  margin-right: auto;
+  margin-bottom: -30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.infoSection .infoContainer .subTitle h2{
+  font-family: "GeneralSans SemiBold";
+  font-size: 25px;
+  margin: 0;
+}
+
+.infoSection .infoContainer .subTitle svg{
+  font-size:30px;
+  color: #4d8bf7;
+}
+
+.infoSection .infoContainer .info{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 25px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #e9e9e9b9;
+  flex-basis: 100%;
+  box-sizing: border-box;
+}
+
+.infoSection .infoContainer .info ul{
+  margin: 0;
+  margin-left: 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  color: #353535;
+}
+
+li::marker {
+  color: #4d8bf7;
+}
+
+.infoSection .infoContainer .info > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 0px;
+}
+
+.infoSection .infoContainer .info h3{
+  font-family: "GeneralSans Regular";
+  font-size: 18px;
+  margin: 0;
+}
+
+.infoSection .infoContainer .info p{
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  color: #353535;
+  margin: 0;
+}
+
+.infoSection .infoContainer .info pre{
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+  color: #353535;
+  margin: 0;
+  padding: 10px 20px;
+  background-color: #f9fafb;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+.infoSection .infoContainer .info h5{
+  font-family: "GeneralSans Regular";
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: -10px;
+}
+
+
+.infoSection .infoContainer .info hr{
+  height: 1px;
+  border-top: none;
+  background-color: #00000025;
+  width: calc(100% + 50px);
+  margin: 0;
+  margin-left: -25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.infoSection .infoContainer .info .endpoint{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.infoSection .infoContainer .info .endpoint code{
+  font-size: 13px;
+  margin: 0;
+}
+
+.infoSection .infoContainer .info .endpoint span{
+  font-family: "GeneralSans Medium";
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  color: #353535;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.infoSection .infoContainer .info .endpoint span.post{
+  background-color: #e8f6f0;
+  color: rgba(73, 204, 144, 0.7);
+}
+
+.infoSection .infoContainer .info .endpoint span.delete{
+  background-color: #fbe7e7;
+  color: rgba(249, 62, 62, 0.7);
+}
+
+.infoSection .infoContainer .info .warning{
+  display: flex;
+  align-items: left;
+  justify-content: start;
+  gap: 10px;
+  padding: 15px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fefce8;
+  color: #a66b14;
+  border-left: 4px solid #facc15;
+  font-family: "GeneralSans Regular";
+  font-size: 13px;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.infoSection .infoContainer .info .warning svg{
+  color:#facc15;
+  font-size: 20px;
+}
+
+
+.docContainer footer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #4d8bf7;
+}
+
+.docContainer footer .copyright{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  gap: 10px;
+  color: #fff;
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  width: 100%;
+  padding: 10px 30px;
+  box-sizing: border-box;
+}
+
+.docContainer footer .copyright img{
+  height: 40px;
+  width: fit-content;
+}
+
+/* media queries */
+@media only screen and (max-width:600px) {
+  .docContainer .mainSection h1{
+    font-size: 40px;
+  }
+  .docContainer .mainSection p{
+    font-size: 17px;
+  }
+}
+
+@media only screen and (max-width:1150px) {
+  .infoSection .infoContainer{
+    width: 100%;
+  }
+}
