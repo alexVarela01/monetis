@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-export async function POST(req: Request) {
+export async function DELETE(req: Request) {
   try {
     // Extract credentials from headers
     const username = req.headers.get("x-username");
