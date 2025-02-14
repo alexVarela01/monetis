@@ -29,6 +29,7 @@
   font-family: "GeneralSans Medium";
   font-size: 22px;
   margin-left: auto;
+  white-space: nowrap;
 }
 
 .transaction:hover{
