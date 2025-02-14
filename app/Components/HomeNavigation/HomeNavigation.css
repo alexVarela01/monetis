@@ -69,25 +69,36 @@
 }
 
 /* media queries */
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:680px) {
   .home-navigation{
     background-color: #fff !important;
     justify-content: space-between;
   }
 
-  .home-navigation .options.mobile-open{
+  .home-navigation .options.mobile-close{
     display: none;
   }
 
-  .home-navigation .options{
+  .home-navigation .options {
+    top: 80px;
     position: absolute;
-    bottom: -100%;
-    left: 0px;
+    left: 0;
     width: 100%;
     height: fit-content;
     padding: 20px 30px;
     background-color: #fff;
     box-sizing: border-box;
+    flex-direction: column;
+    border-bottom: 2px solid #e9e9e9;
+  }
+
+  .home-navigation .options > div{
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-navigation .options > .get-started{
+    justify-content: center;
   }
 
   .home-navigation .menu{
