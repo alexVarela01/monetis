@@ -11,7 +11,7 @@ function HomeNavigation() {
       <Image src={logoImage} onClick={() => window.location.href = '/'} alt="Register" className='logo-home'></Image>
       <MdMenu className='menu' onClick={() => setOpen(!open)}/>
 
-      <div className={'options ' + (open ? 'mobile-open' : '')}>
+      <div className={'options ' + (!open ? 'mobile-close' : '')}>
         <div onClick={() => window.location.href = "/about"}><span>About</span></div>
         <div onClick={() => window.location.href = "/documentation"}><span>Documentation</span></div>
         <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div>
