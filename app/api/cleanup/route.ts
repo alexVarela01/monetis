@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
     // List of protected user emails
     const protectedEmails = [
       "backstopjs@test.com",
+      "varela.alexandre01@gmail.com"
     ];
 
     // Find all protected users based on their emails

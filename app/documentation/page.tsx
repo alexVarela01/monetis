@@ -95,6 +95,23 @@ x-password: thisIsMyPassword!1
 x-password: thisIsMyPassword!1
 `}
               </pre>
+              <hr />
+
+               <div>
+                <h3>Transactions</h3>
+              </div>
+
+              <div className="endpoint">
+                <span className='get'>GET</span><code>/api/users/api/getIbanByEmail?email={"{email}"}</code>
+              </div>
+              <p>Retrieves the IBANs of all accounts associated with the target user using their email</p>
+              
+              <h5>Headers (Your account to access endpoint)</h5>
+              <pre>
+{`x-username: testingaccount@eshkay.dev
+x-password: thisIsMyPassword!1
+`}
+              </pre>
             </div>
 
             <div className="subTitle">

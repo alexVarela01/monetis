@@ -184,6 +184,11 @@ li::marker {
   color: rgba(249, 62, 62, 0.7);
 }
 
+.infoSection .infoContainer .info .endpoint span.get{
+  background-color: #ebf3fb;
+  color: rgba(97, 175, 254, 0.7);
+}
+
 .infoSection .infoContainer .info .warning{
   display: flex;
   align-items: left;
