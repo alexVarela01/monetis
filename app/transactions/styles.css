@@ -148,3 +148,27 @@
     margin-right: 5px !important;
   }
 }
+
+@media only screen and (max-width:800px) {
+  .transactions .filters .column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 50%;
+  }
+
+  .transactions .transaction.table{
+    position: relative;
+  }
+
+  .transactions .transaction .date{
+    position: absolute;
+    top: 0px;
+    right: 0;
+    border: none !important;
+  }
+
+  .transactions .transaction .amount{
+    margin-top: 10px;
+  }
+}

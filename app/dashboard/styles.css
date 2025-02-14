@@ -197,6 +197,18 @@
   height: 7%;
 }
 
+@media only screen and (max-width:500px) {
+  .dashboard .transaction .amount{
+    font-size: 15px;
+  }
+
+  .dashboard .transaction .type,
+  .dashboard .transaction .category{
+    font-size: 14px;
+  }
+}
+
+
 @media only screen and (max-width:1150px) {
   .dashboard .panels{
     flex-direction: column !important;
