@@ -139,7 +139,8 @@ x-password: thisIsMyPassword!1
 {`DELETE /api/users/api/deleteAccount
 
 // Headers
-// username and password from account you want to delete
+// username and password 
+// from account you want to delete
 x-username: testingaccount@eshkay.dev
 x-password: thisIsMyPassword!1
 `}
