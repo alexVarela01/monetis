@@ -249,6 +249,12 @@ li::marker {
   .docContainer .mainSection p{
     font-size: 17px;
   }
+
+  .docContainer footer .copyright{
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 0;
+  }
 }
 
 @media only screen and (max-width:1150px) {
