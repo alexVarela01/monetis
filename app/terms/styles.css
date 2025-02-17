@@ -86,6 +86,17 @@
   .logo img{
     width: 100px;
   }
+
+  .termsContainer footer .copyright{
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 0;
+  }
+
+  .termsContainer footer p{
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
 }
 
 @media only screen and (max-width:1150px) {
