@@ -161,14 +161,16 @@ export default function Transactions() {
         {currentView === "table" &&
           <div className={'transactions-table' + (loadingAction ? ' loading-data' : '')}>
             <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Category</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
+              {transactions.length > 0 &&
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Information</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+              }
               <tbody>
                 {transactions.map((transaction, index) => (
                   <tr key={index}>
@@ -178,6 +180,10 @@ export default function Transactions() {
                     <td className='amount' style={{ color: transaction.amount >= 0 ? '#68c9c4' : 'initial' }}>{formatBalance(transaction.amount)} €</td>
                   </tr>
                 ))}
+
+                {transactions.length === 0 &&
+                  <p className='no-data'>Nothing to display at the moment. <br /> We&apos;ll track all your transactions here.</p>
+                }
               </tbody>
             </table>
           </div>
