@@ -8,6 +8,8 @@ import { ClipLoader, GridLoader } from 'react-spinners';
 import StaticLoader from '../Components/StaticLoader/StaticLoader';
 import TransactionItem from '../Components/TransactionItem/TransactionItem';
 import Select from 'react-select';
+import { BiListUl, BiTable } from 'react-icons/bi';
+import { formatBalance, formatDate } from '../utils/helpers';
 
 interface TransactionInterface {
   type: string;
@@ -52,6 +54,8 @@ export default function Transactions() {
   const [page, setPage] = useState<number>(1);
   const [totalFilteredResults, setTotalFilteredResults] = useState<number>(1);
   const [filtersData, setFiltersData] = useState<FiltersData>({ type: 'All', category: 'All' });
+
+  const [currentView, setCurrentView] = useState<string>("list");
 
   async function fetchTransactions() {
     setLoadingAction(true);
@@ -132,20 +136,52 @@ export default function Transactions() {
             {loadingAction &&
              <ClipLoader color="#000" size={11} />
             }
+
+            <div className='view'>
+              <BiListUl className={currentView === "list" ? "active" : ""} onClick={() => setCurrentView("list")}/>
+              <BiTable className={currentView === "table" ? "active" : ""} onClick={() => setCurrentView("table")}/>
+            </div>
           </div>
           }
           <hr />
         </div>
         
-        <div className={'transactions-list' + (loadingAction ? ' loading-data' : '')}>
-          {transactions.map((transaction, index) => (
-            <TransactionItem key={index} type={transaction.type} amount={transaction.amount} category={transaction.category} table={true} date={transaction.date}/>
-          ))}
+        {currentView === "list" &&
+          <div className={'transactions-list' + (loadingAction ? ' loading-data' : '')}>
+            {transactions.map((transaction, index) => (
+              <TransactionItem key={index} type={transaction.type} amount={transaction.amount} category={transaction.category} table={true} date={transaction.date}/>
+            ))}
 
-          {transactions.length === 0 &&
-            <p className='no-data'>Nothing to display at the moment. <br /> We&apos;ll track all your transactions here.</p>
-          }
-        </div>
+            {transactions.length === 0 &&
+              <p className='no-data'>Nothing to display at the moment. <br /> We&apos;ll track all your transactions here.</p>
+            }
+          </div>
+        }
+
+        {currentView === "table" &&
+          <div className={'transactions-table' + (loadingAction ? ' loading-data' : '')}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td className='date'>{formatDate(transaction.date || '')}</td>
+                    <td className='type'>{transaction.type}</td>
+                    <td className='category'>{transaction.category}</td>
+                    <td className='amount' style={{ color: transaction.amount >= 0 ? '#68c9c4' : 'initial' }}>{formatBalance(transaction.amount)} €</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        }
 
         {transactions.length > 0 &&
           <div className="pagination">
