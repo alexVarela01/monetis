@@ -153,7 +153,7 @@
 
 .dashboard .accounts_balance .seeAll{
   position: absolute;
-  top: -15px;
+  top: -21px;
   right: 0px;
   font-size: 15px;
   z-index: 2;
@@ -198,6 +198,14 @@
 }
 
 @media only screen and (max-width:500px) {
+  .dashboard .accounts_balance{
+    flex-wrap: wrap;
+    height: fit-content;
+  }
+  .dashboard .account{
+    flex-basis: 100%;
+  }
+
   .dashboard .transaction .amount{
     font-size: 15px;
   }
@@ -206,10 +214,41 @@
   .dashboard .transaction .category{
     font-size: 14px;
   }
+
+  .dashboard .new_account{
+    flex: 1 !important;
+  }
+
+  .dashboard .overall-panel{
+    flex-wrap: wrap;
+  }
+  .dashboard .overall-panel .container{
+    flex: 1 !important;
+  }
+  .dashboard .overall-panel .container.overview{
+    flex-basis: 100% !important;
+    h2{
+      margin-bottom: 20px;
+    }
+  }
 }
 
+@media only screen and (max-width:760px) {
+  .dashboard .new_account{
+    flex: 1;
+    flex-basis: 100%;
+  }
 
-@media only screen and (max-width:1150px) {
+  .dashboard .accounts_balance{
+    margin-top: 20px;
+  }
+
+  .dashboard .seeAll{
+    top: -30px !important
+  }
+}
+
+@media only screen and (min-width:500px) and (max-width:1150px) {
   .dashboard .panels{
     flex-direction: column !important;
   }
@@ -231,6 +270,13 @@
     h2{
       margin-bottom: 20px;
     }
+  }
+  .dashboard .new_account{
+    flex: 1;
+    flex-basis: 49%;
+  }
+  .dashboard .seeAll{
+    top: -30px !important
   }
 }
 
@@ -254,9 +300,8 @@
   .dashboard .account p{
     font-size: 18px;
   }
-  
   .dashboard .new_account{
-    display: none;
+    height: 106px;
   }
 
   .dashboard .account{
@@ -266,5 +311,16 @@
 
   .account .chart {
     width: 70px;
+  }
+}
+
+@media only screen and (min-width:1350px) and (max-width:1600px) {
+    
+  .dashboard .new_account{
+    flex: 0.3;
+
+    svg{
+      font-size: 30px;
+    }
   }
 }
