@@ -241,6 +241,55 @@ li::marker {
   width: fit-content;
 }
 
+.docContainer .index{
+  gap: 8px !important;
+}
+
+.docContainer .index > div{
+  font-family: "GeneralSans Regular";
+  font-size: 14px;
+  color: #4d8bf7;
+  cursor: pointer;
+}
+
+.docContainer .index > div:hover{
+  text-decoration: underline;
+}
+
+.docContainer .info h4{
+  margin: 0;
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  color: #2e2e2e;
+  margin-top: 5px;
+}
+
+.back-to-top{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4d8bf7;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  transition: 0.5s;
+  opacity: 0;
+  pointer-events: none;
+  outline: none;
+  border: none;
+  font-size: 23px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px #444444;
+}
+
+.back-to-top.show{
+  opacity: 1;
+  pointer-events: all;
+}
+
 /* media queries */
 @media only screen and (max-width:600px) {
   .docContainer .mainSection h1{
