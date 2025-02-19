@@ -77,9 +77,10 @@
   overflow: auto;
 }
 
-.transactions .transactions-list.loading-data{
+.transactions .transactions-list.loading-data, .transactions .transactions-table.loading-data{
   opacity: 0.5;
 }
+
 
 .transactions .pagination{
   display: flex;
@@ -127,6 +128,56 @@
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.5;
+}
+
+.transactions .view{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  svg{
+    font-size: 20px;
+    background-color: #efefef;
+    box-shadow: 0px 0px 3px #e9e9e9;
+    color: #727272;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+.transactions .view svg.active{
+  color: #000;
+}
+.transactions-table{
+  transition: 0.2s;
+}
+
+
+.transactions-table table{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0 10px;
+  font-family: "GeneralSans Regular";
+  font-size: 15px;
+  color: #000;
+  text-align: left;
+  overflow: hidden;
+}
+
+.transactions-table td, .transactions-table th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.transactions-table tr:nth-child(even) {
+  background-color: #dddddd34;
+}
+
+.transactions-table .type{
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width:1150px) {
