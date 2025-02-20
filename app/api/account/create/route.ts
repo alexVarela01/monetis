@@ -46,6 +46,15 @@ export async function POST(req: Request) {
         errorsList.push('Insufficient balance on checking account');
       }
 
+      // check number of accounts
+      const userAccounts = await prisma.userAccount.findMany({
+        where: { user_id: decoded.id },
+      });
+
+      if (userAccounts.length >= 6) {
+        errorsList.push('Maximum number of accounts reached');
+      }
+
       if (errorsList.length > 0) return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
 
       const user = await prisma.user.findUnique({where: { id: decoded.id }});
