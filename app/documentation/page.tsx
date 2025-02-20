@@ -95,7 +95,7 @@ x-password: thisIsMyPassword!1
               <hr />
 
               <div>
-                <h3>Account management</h3>
+                <h3>User management</h3>
               </div>
 
               <div className="endpoint">
@@ -146,6 +146,52 @@ x-password: thisIsMyPassword!1
 x-password: thisIsMyPassword!1
 `}
               </pre>
+
+              <div className="endpoint" style={{ marginTop: '10px' }}>
+                <span className='post'>POST</span><code>/api/account/api/createTransaction</code>
+              </div>
+              <p>Create a testing transaction that is logged into the history</p>
+              
+              <h5>Headers (Account to add transaction)</h5>
+              <pre>
+{`x-username: testingaccount@eshkay.dev
+x-password: thisIsMyPassword!1
+`}
+              </pre>
+
+              <h5>Request body</h5>
+              <pre>
+{`{
+    "description": "account",  
+    "type": "payment",        
+    "amount": 1000            
+}`}
+              </pre>
+              <hr />
+
+<div>
+ <h3>Bank Accounts</h3>
+</div>
+
+<div className="endpoint">
+ <span className='post'>POST</span><code>/api/account/api/create</code>
+</div>
+<p>Create new bank account using the API</p>
+
+<h5>Headers (Account to add bank account)</h5>
+<pre>
+{`x-username: testingaccount@eshkay.dev
+x-password: thisIsMyPassword!1
+`}
+</pre>
+
+<h5>Request body</h5>
+<pre>
+{`{
+    "name": "account",        
+    "amount": 1000            
+}`}
+</pre>
             </div>
 
             <div id="cleanup" className="subTitle">
