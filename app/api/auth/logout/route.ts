@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { serialize } from "cookie";
+import { setCookieProperties } from "@/app/utils/helpers";
 
 export async function POST() {
   const token = setCookieProperties("token", "");
@@ -12,14 +12,4 @@ export async function POST() {
   response.headers.append("Set-Cookie", emailLogin);
 
   return response;
-}
-
-function setCookieProperties(name: string, token: string) {
-  return serialize(name, token, {
-    httpOnly: true,
-    secure: true,
-    path: "/",
-    sameSite: "strict",
-    expires: new Date(0), // Expire the cookie
-  });
 }
