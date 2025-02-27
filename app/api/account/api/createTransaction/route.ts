@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const availableTypes =[
+const availableTypes = [
   "transfer between accounts",
   "transfer",
   "payment",
-]
+];
 
 export async function POST(req: Request) {
   try {
@@ -16,13 +16,9 @@ export async function POST(req: Request) {
     const password = req.headers.get("x-password");
     
     const requestBody = await req.json().catch(() => null);
-    if (!requestBody) {
-      return new Response(JSON.stringify({ message: "Invalid request. Missing raw request body" }), { status: 400 });
+    if (!requestBody || !Array.isArray(requestBody)) {
+      return new Response(JSON.stringify({ message: "Invalid request. Expected an array of transactions." }), { status: 400 });
     }
-
-    const { description, type } = requestBody;
-    let { amount } = requestBody;
-    amount = Math.floor(amount * 100) / 100;
 
     if (!username || !password) {
       return new Response(JSON.stringify({ error: "Username and password are required" }), {
@@ -52,36 +48,35 @@ export async function POST(req: Request) {
       });
     }
 
-    if (type && !availableTypes.includes(type)) {
-      return new Response(JSON.stringify({ error: "Invalid transaction type [" + availableTypes+"]" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    } else if (!type) {
-      return new Response(JSON.stringify({ error: "Transaction type is required" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+    const transactions = requestBody.map(({ description, type, amount }) => {
+      if (typeof amount !== "number" || isNaN(amount) || amount <= 0) {
+        throw new Error("Invalid amount. It must be a positive number.");
+      }
 
-    if (!description) {
-      return new Response(JSON.stringify({ error: "Transaction description is required" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+      amount = Math.floor(amount * 100) / 100;
 
-    // add transaction history
-    await prisma.history.create({
-      data: {
+      if (!type || !availableTypes.includes(type)) {
+        throw new Error(`Invalid transaction type [${type}]. Allowed types: ${availableTypes.join(", ")}`);
+      }
+
+      if (!description || typeof description !== "string" || description.trim().length === 0) {
+        throw new Error("Transaction description is required and must be a non-empty string.");
+      }
+
+      return {
         user_id: user.id,
         amount: Number(amount),
-        type: type,
+        type,
         category: description,
-      },
+      };
     });
 
-    return new Response(JSON.stringify({ message: 'Transaction added to history' }), { status: 200 });
+    // Add transactions to history
+    await prisma.history.createMany({
+      data: transactions,
+    });
+
+    return new Response(JSON.stringify({ message: 'Transactions added to history' }), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ error: error?.toString() }), {
       status: 500,

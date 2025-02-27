@@ -159,13 +159,25 @@ x-password: thisIsMyPassword!1
 `}
               </pre>
 
-              <h5>Request body</h5>
+              <h5>Request body (must be an array)</h5>
               <pre>
-{`{
-    "description": "account",  
-    "type": "payment",        
-    "amount": 1000            
-}`}
+{`[
+    {
+        "description": "Grocery shopping",
+        "type": "payment",
+        "amount": 45.75
+    },
+    {
+        "description": "Bank transfer to savings",
+        "type": "transfer between accounts",
+        "amount": 150.00
+    },
+    {
+        "description": "Electricity bill",
+        "type": "payment",
+        "amount": 90.25
+    }
+]`}
               </pre>
               <hr />
 
