@@ -1,3 +1,5 @@
+import { serialize } from "cookie";
+
 function formatBalance(balance: number): string {
   return balance.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
@@ -14,4 +16,14 @@ function formatDate(date: string) {
   return `${day}.${month}.${year}`;
 }
 
-export { formatBalance, formatIban, formatDate };
+function setCookieProperties(name: string, token: string) {
+  return serialize(name, token, {
+    httpOnly: true,
+    secure: true,
+    path: "/",
+    sameSite: "strict",
+    expires: new Date(0), // Expire the cookie
+  });
+}
+
+export { formatBalance, formatIban, formatDate, setCookieProperties };

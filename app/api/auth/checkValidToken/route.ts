@@ -1,5 +1,10 @@
 import jwt from "jsonwebtoken";
 import { parse } from "cookie";
+import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
+import { setCookieProperties } from "@/app/utils/helpers";
+
+const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
@@ -18,6 +23,16 @@ export async function POST(req: Request) {
         if(typeof decoded !== 'string' && typeof emailDecoded !== 'string' && decoded.email !== emailDecoded.email) {
           throw new Error("Invalid token");
         }
+
+        if(typeof decoded !== 'string') {
+          // check if account still exists
+          const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+          if (!user) {
+            throw new Error("Invalid token");
+          }
+        }else{
+          throw new Error("Invalid token");
+        }
       }else{
         throw new Error("Invalid token");
       }
@@ -31,10 +46,16 @@ export async function POST(req: Request) {
       throw new Error("Invalid token");
     }
   } catch (error) {
-    // Token is invalid
-    return new Response(JSON.stringify({ error: error?.toLocaleString(), clearSession: true }), {
-      status: 401,
-      headers: { "Content-Type": "application/json" },
-    });
+
+    const token = setCookieProperties("token", "");
+    const userName = setCookieProperties("userName", "");
+    const emailLogin = setCookieProperties("emailLogin", "");
+    
+    const response = NextResponse.json({error: error?.toLocaleString(), clearSession: true }, { status: 401 });
+    response.headers.set("Set-Cookie", token);
+    response.headers.append("Set-Cookie", userName);
+    response.headers.append("Set-Cookie", emailLogin);
+  
+    return response;
   }
 }
