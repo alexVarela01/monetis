@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: "Invalid request" }), { status: 400 });
   }
 
-  const { account_id, category } = requestBody;
+  const { account_id, category, entity, reference } = requestBody;
   let { amount } = requestBody;
 
   amount = Math.floor(amount * 100) / 100;
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
         where: { user_id: decoded.id, id: Number(account_id)},
       })
 
-      if(!amount) errorsList.push('Required fields are missing');
+      if(!amount || !entity || !reference || !category) errorsList.push('Required fields are missing');
       if(amount <= 0) errorsList.push('Amount must be greater than 0');
       if(!selectedAccount) errorsList.push('Account not found');
       if(selectedAccount && selectedAccount.amount < Number(amount)) errorsList.push('Insufficient balance in this account');
