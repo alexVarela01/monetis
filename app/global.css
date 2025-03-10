@@ -85,7 +85,9 @@ body{
   visibility: hidden;
 }
 
-
+.select > div:first-of-type > div > div{
+  grid-template-columns: 0 !important;
+}
 
 form label{
   font-size: 15px;

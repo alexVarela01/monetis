@@ -316,6 +316,7 @@ export default function Transfer() {
                         name="iban"
                         placeholder="PT50000000000000000000000"
                         value={formData.iban}
+                        maxLength={32}
                         onChange={handleChangeIban}
                         required
                       />
@@ -342,6 +343,7 @@ export default function Transfer() {
                         type="text"
                         name="amount"
                         placeholder="10"
+                        maxLength={14}
                         style={{ textAlign: 'right' }}
                         value={formData.amount}
                         onChange={handleAmountChange}

@@ -322,6 +322,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
                   type="text"
                   name="amount"
                   style={{ textAlign: 'right' }}
+                  maxLength={14}
                   value={transactionAmount}
                   onChange={handleChange}
                   required
@@ -393,6 +394,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
                   type="text"
                   name="amount"
                   style={{ textAlign: 'right' }}
+                  maxLength={14}
                   value={transactionAmount}
                   onChange={handleChange}
                   required
