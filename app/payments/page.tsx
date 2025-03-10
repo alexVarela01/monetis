@@ -123,6 +123,26 @@ export default function Payment() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    // dont allow + and -
+    if (value.startsWith('-') || value.startsWith('+')) return;
+
+    // check if is valid number
+    if (isNaN(Number(value))) return;
+
+    // only allow max 2 decimals
+    if (value.includes('.')) {
+      const parts = value.split('.');
+      if (parts[1].length > 2) {
+        return;
+      }
+    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleAccountChange = (accountId: number) => {
     setFormData((prevData) => ({ ...prevData, sourceAccount: accountId }));
     setFormData((prevData) => ({ ...prevData, targetAccount: 0 }));
@@ -314,7 +334,7 @@ export default function Payment() {
                         placeholder="10"
                         style={{ textAlign: 'right' }}
                         value={formData.amount}
-                        onChange={handleChange}
+                        onChange={handleAmountChange}
                         required
                       />
                       <span>€</span>
