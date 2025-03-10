@@ -436,7 +436,7 @@ export default function Account({ params }: { params: Promise<{ id: string }> })
               <label htmlFor="name">Account name</label>
               <input
                 type="text"
-                name="amount"
+                name="name"
                 value={accountName}
                 maxLength={25}
                 onChange={(e) => setAccountName(e.target.value)}
