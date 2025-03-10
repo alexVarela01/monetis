@@ -230,6 +230,7 @@ export default function Accounts() {
                 placeholder="My next vacations"
                 value={formData.name}
                 onChange={handleChange}
+                maxLength={25}
                 required
               />
             </div>
@@ -241,6 +242,7 @@ export default function Accounts() {
                   type="text"
                   name="amount"
                   placeholder="10"
+                  maxLength={14}
                   style={{ textAlign: 'right' }}
                   value={formData.amount}
                   onChange={handleChangeAmount}

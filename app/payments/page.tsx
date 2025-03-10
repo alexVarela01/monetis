@@ -332,6 +332,7 @@ export default function Payment() {
                         type="text"
                         name="amount"
                         placeholder="10"
+                        maxLength={14}
                         style={{ textAlign: 'right' }}
                         value={formData.amount}
                         onChange={handleAmountChange}
