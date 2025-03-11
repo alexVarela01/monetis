@@ -103,6 +103,26 @@ export default function Payment() {
       return;
     }
 
+    if (
+      !formData.entity?.toString().trim() || 
+      !formData.reference?.toString().trim() || 
+      !formData.category?.toString().trim()
+    ) {
+      toast.error("Required fields missing", {
+        position: "bottom-right",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+
+      return;
+    }
+    
+
     setFormPhase(2);
   };
 

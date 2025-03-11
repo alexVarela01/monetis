@@ -25,7 +25,15 @@ export async function POST(req: Request) {
         where: { user_id: decoded.id, id: Number(account_id)},
       })
 
-      if(!amount || !entity || !reference || !category) errorsList.push('Required fields are missing');
+      if (
+        !amount?.toString().trim() || 
+        !entity?.toString().trim() || 
+        !reference?.toString().trim() || 
+        !category?.toString().trim()
+      ) {
+        errorsList.push('Required fields are missing');
+      }
+      
       if(amount <= 0) errorsList.push('Amount must be greater than 0');
       if(!selectedAccount) errorsList.push('Account not found');
       if(selectedAccount && selectedAccount.amount < Number(amount)) errorsList.push('Insufficient balance in this account');
