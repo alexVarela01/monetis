@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+    <img width="55%" src="https://github.com/user-attachments/assets/bbd12791-a819-47cc-9ac3-9be5c0aa65f1">
+</p>
+
 # MONETIS
 
 MONETIS is a dedicated testing playground for QA engineers and automation enthusiasts. It provides a safe and controlled environment to experiment with various testing tools, frameworks, and methodologies.
