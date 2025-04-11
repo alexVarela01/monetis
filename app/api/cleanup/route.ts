@@ -12,11 +12,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // List of protected user emails
-    const protectedEmails = [
-      "backstopjs@test.com",
-      "varela.alexandre01@gmail.com"
-    ];
+    const protectedEmails = getEmailsList();
 
     // Find all protected users based on their emails
     const protectedUsers = await prisma.user.findMany({
@@ -52,4 +48,12 @@ export async function GET(request: NextRequest) {
     console.error("Database cleanup failed:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
+}
+
+function getEmailsList() {
+  const emails = process.env.BYPASS_EMAILS; // Retrieve the BYPASS_EMAILS variable
+  if (!emails) {
+      return []; // Return an empty array if the variable is not found
+  }
+  return emails.split(','); // Split the string by commas to get the list
 }
