@@ -131,8 +131,9 @@ export default function Transfer() {
     // dont allow + and -
     if (value.startsWith('-') || value.startsWith('+')) return;
 
+    // TO BREAK: Currently commented to disable amount number only
     // check if is valid number
-    if (isNaN(Number(value))) return;
+    // if (isNaN(Number(value))) return;
 
     // only allow max 2 decimals
     if (value.includes('.')) {

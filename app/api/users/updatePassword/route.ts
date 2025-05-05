@@ -23,13 +23,14 @@ export async function POST(req: Request) {
         errorsList.push('Required fields are missing');
         return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
       }
-
-      const currentUser = await prisma.user.findUnique({ where: { id: decoded.id } });    
+      
+      // TO BREAK: Currently commented to disable old password validation
+      // const currentUser = await prisma.user.findUnique({ where: { id: decoded.id } });    
 
       // check if password matched the user one
-      if (!currentUser || !(await bcrypt.compare(oldPassword, currentUser.password))) {
-        errorsList.push('Password does not match the current password');
-      }
+      // if (!currentUser || !(await bcrypt.compare(oldPassword, currentUser.password))) {
+      //   errorsList.push('Password does not match the current password');
+      // }
 
       // check if password is strong
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&+=#^()\-])[A-Za-z\d@$!%*?&+=#^()\-]{8,}$/;
