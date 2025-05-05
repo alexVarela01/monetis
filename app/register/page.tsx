@@ -279,7 +279,11 @@ export default function Register() {
           <span className='helpText'>Password must be 8+ characters with a letter, number, and one special character: @$!%*?&+=#^()-</span>
 
           <hr />
-          <span className='helpText'>By clicking &quot;Sign up&quot; you agree to our <a href="/terms">Terms of Service</a></span>
+
+          <div className='terms-checkb'>
+            <input type="checkbox" id="terms" name="terms" value="accepted" required/>
+            <label htmlFor="terms" className='helpText'>You agree to our <a href="/terms">Terms of Service</a></label>
+          </div>
           
           <button type="submit" disabled={loading}>
             {loading ? <ClipLoader color="#fff" size={11} /> : 'Sign up'}
