@@ -2,6 +2,16 @@ body{
   overflow: auto;
 }
 
+.terms-checkb{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.terms-checkb input{
+  margin-top: 1px;
+}
+
 .logo{
   position: fixed;
   top: 0px;
