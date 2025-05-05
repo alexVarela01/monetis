@@ -141,156 +141,158 @@ export default function Register() {
 
       <Link href="/" className='logo'><Image src={logoImage} alt="Register"></Image></Link>
 
-      <div className='register'>
+      <div className='register-pos'>
 
-        <h2>Create an account</h2>
-        <form onSubmit={tryToRegister}>
-          <h3>User information</h3>
+        <div className='register'>
+          <h2>Create an account</h2>
+          <form onSubmit={tryToRegister}>
+            <h3>User information</h3>
 
-          <div className='row'>
-            <div className='column required'>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                maxLength={20}
-                placeholder="John"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+            <div className='row'>
+              <div className='column required'>
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  maxLength={20}
+                  placeholder="John"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className='column required'>
+                <label htmlFor="surname">Surname</label>
+                <input
+                  type="text"
+                  name="surname"
+                  maxLength={20}
+                  placeholder="Doe"
+                  value={formData.surname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
-            <div className='column required'>
-              <label htmlFor="surname">Surname</label>
-              <input
-                type="text"
-                name="surname"
-                maxLength={20}
-                placeholder="Doe"
-                value={formData.surname}
-                onChange={handleChange}
-                required
-              />
+            <div className='row'>
+              <div className='column required'>
+                <label htmlFor="email">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  maxLength={50}
+                  placeholder="johndoe@me.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='column'>
+                <label htmlFor="phone_number">Phone number</label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  placeholder="123456789"
+                  value={formData.phone_number}
+                  onChange={handlePhoneChange}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className='row'>
-            <div className='column required'>
-              <label htmlFor="email">Email address</label>
-              <input
-                type="email"
-                name="email"
-                maxLength={50}
-                placeholder="johndoe@me.com"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
+            <h3>Address information</h3>
+            <div className='row'>
+              <div className='column required' style={{ flex: '0.7' }}>
+                <label htmlFor="street_address">Street address</label>
+                <input
+                  type="text"
+                  name="street_address"
+                  maxLength={50}
+                  placeholder="Sttr. Example, 123"
+                  value={formData.street_address}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='column required' style={{ flex: '0.3' }}>
+                <label htmlFor="postal_code">Postal code</label>
+                <input
+                  type="text"
+                  name="postal_code"
+                  maxLength={20}
+                  placeholder="12345-678"
+                  value={formData.postal_code}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className='column'>
-              <label htmlFor="phone_number">Phone number</label>
-              <input
-                type="text"
-                name="phone_number"
-                placeholder="123456789"
-                value={formData.phone_number}
-                onChange={handlePhoneChange}
-              />
-            </div>
-          </div>
 
-          <h3>Address information</h3>
-          <div className='row'>
-            <div className='column required' style={{ flex: '0.7' }}>
-              <label htmlFor="street_address">Street address</label>
-              <input
-                type="text"
-                name="street_address"
-                maxLength={50}
-                placeholder="Sttr. Example, 123"
-                value={formData.street_address}
-                onChange={handleChange}
-                required
-              />
+            <div className='row'>
+              <div className='column required'>
+                <label htmlFor="city">City</label>
+                <input
+                  type="text"
+                  name="city"
+                  maxLength={20}
+                  placeholder="London"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='column required'>
+                <label htmlFor="country">Country</label>
+                <CountrySelector
+                  required
+                  value={formData.country}
+                  onChange={(country) => setSelectedCountry(country)}
+                />
+              </div>
             </div>
-            <div className='column required' style={{ flex: '0.3' }}>
-              <label htmlFor="postal_code">Postal code</label>
-              <input
-                type="text"
-                name="postal_code"
-                maxLength={20}
-                placeholder="12345-678"
-                value={formData.postal_code}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
 
-          <div className='row'>
-            <div className='column required'>
-              <label htmlFor="city">City</label>
-              <input
-                type="text"
-                name="city"
-                maxLength={20}
-                placeholder="London"
-                value={formData.city}
-                onChange={handleChange}
-                required
-              />
+            <h3>Security information</h3>
+            <div className='row'>
+              <div className='column required'>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className='column required'>
+                <label htmlFor="confirmPassword">Confirm password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className='column required'>
-              <label htmlFor="country">Country</label>
-              <CountrySelector
-                required
-                value={formData.country}
-                onChange={(country) => setSelectedCountry(country)}
-              />
+            <span className='helpText'>Password must be 8+ characters with a letter, number, and one special character: @$!%*?&+=#^()-</span>
+
+            <hr />
+
+            <div className='terms-checkb'>
+              <input type="checkbox" id="terms" name="terms" value="accepted" required/>
+              <label htmlFor="terms" className='helpText'>You agree to our <a href="/terms">Terms of Service</a></label>
             </div>
-          </div>
+            
+            <button type="submit" disabled={loading}>
+              {loading ? <ClipLoader color="#fff" size={11} /> : 'Sign up'}
+            </button>
 
-          <h3>Security information</h3>
-          <div className='row'>
-            <div className='column required'>
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className='column required'>
-              <label htmlFor="confirmPassword">Confirm password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <span className='helpText'>Password must be 8+ characters with a letter, number, and one special character: @$!%*?&+=#^()-</span>
-
-          <hr />
-
-          <div className='terms-checkb'>
-            <input type="checkbox" id="terms" name="terms" value="accepted" required/>
-            <label htmlFor="terms" className='helpText'>You agree to our <a href="/terms">Terms of Service</a></label>
-          </div>
-          
-          <button type="submit" disabled={loading}>
-            {loading ? <ClipLoader color="#fff" size={11} /> : 'Sign up'}
-          </button>
-
-          <a className='signUp' href="/login">Already have an account? Sign in!</a>
-        </form>
+            <a className='signUp' href="/login">Already have an account? Sign in!</a>
+          </form>
+        </div>
       </div>
 
       <ToastContainer />
