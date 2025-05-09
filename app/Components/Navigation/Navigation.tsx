@@ -17,17 +17,14 @@ function Navigation() {
   const router = useRouter();
 
   function handleLogout () {
-    // TO BREAK: refresh added
-    router.refresh();
-    // TO BREAK: Currently commented to disable logout button and refresh added
-    // fetch('/api/auth/logout', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    // })
-    // .then((response) => response.json())
-    // .then(() => {
-    //   router.push('/login');
-    // })
+    fetch('/api/auth/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((response) => response.json())
+    .then(() => {
+      router.push('/login');
+    })
   };
 
   return (
