@@ -122,6 +122,24 @@ export default function Register() {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  
+  const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+  
+    // allow only letters
+    const sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    setFormData((prevData) => ({ ...prevData, [name]: sanitizedValue }));
+  };
+  
+  const handlePostalChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+  
+    // allow only numbers, '-' and spaces
+    const sanitizedValue = value.replace(/[^0-9-\s]/g, '');
+    setFormData((prevData) => ({ ...prevData, [name]: sanitizedValue }));
+  };
+  
+
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // check if the value is a number
@@ -223,7 +241,7 @@ export default function Register() {
                   maxLength={20}
                   placeholder="12345-678"
                   value={formData.postal_code}
-                  onChange={handleChange}
+                  onChange={handlePostalChange}
                   required
                 />
               </div>
@@ -238,7 +256,7 @@ export default function Register() {
                   maxLength={20}
                   placeholder="London"
                   value={formData.city}
-                  onChange={handleChange}
+                  onChange={handleCityChange}
                   required
                 />
               </div>
