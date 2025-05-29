@@ -89,6 +89,21 @@ export default function Payment() {
   const moveToConfirmationPhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // check if reference is in format INV-digits
+    if (formData.reference && !/^INV-\d+$/.test(formData.reference)) {
+      toast.error("Reference must be in format INV-XXXXXX", {
+        position: "bottom-right",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     if ((userAccounts?.find((account: AccountInterface) => account.id === formData.sourceAccount)?.amount ?? 0) < formData.amount) {
       toast.error("Insufficient balance in source account", {
         position: "bottom-right",
@@ -138,7 +153,26 @@ export default function Payment() {
     setFormPhase(1);
   };
   
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleEntityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // dont allow + and -
+    if (value.startsWith('-') || value.startsWith('+')) return;
+
+    // check if is valid number
+    if (isNaN(Number(value))) return;
+
+    // dont allow .
+    if (value.includes('.')) {
+      const parts = value.split('.');
+      if (parts.length > 1) {
+        return;
+      }
+    }
+
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleReferenceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -309,7 +343,7 @@ export default function Payment() {
                       placeholder="00000"
                       maxLength={5}
                       value={formData.entity}
-                      onChange={handleChange}
+                      onChange={handleEntityChange}
                       required
                     />
                   </div>
@@ -318,10 +352,10 @@ export default function Payment() {
                     <input
                       type="text"
                       maxLength={20}
-                      placeholder="INV-20240201"
+                      placeholder="INV-202402"
                       name="reference"
                       value={formData.reference}
-                      onChange={handleChange}
+                      onChange={handleReferenceChange}
                       required
                     />
                   </div>
