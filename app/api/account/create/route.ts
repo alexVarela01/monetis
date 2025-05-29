@@ -37,14 +37,17 @@ export async function POST(req: Request) {
         errorsList.push('Amount must be a positive number and multiple of 10');
       }
 
-      //check if checking account has balance
-      const checkingAccount = await prisma.userAccount.findFirst({
-        where: { user_id: decoded.id, type: 'checking' },
-      });
 
-      if(checkingAccount && Number(checkingAccount.amount) < Number(amount)) {
-        errorsList.push('Insufficient balance on checking account');
-      }
+      // TO BREAK: Currently commented to allow "infinite balance" on new account
+      //check if checking account has balance
+      // const checkingAccount = await prisma.userAccount.findFirst({
+      //   where: { user_id: decoded.id, type: 'checking' },
+      // });
+
+      // TO BREAK: Currently commented to allow "infinite balance" on new account
+      // if(checkingAccount && Number(checkingAccount.amount) < Number(amount)) {
+      //   errorsList.push('Insufficient balance on checking account');
+      // }
 
       // check number of accounts
       const userAccounts = await prisma.userAccount.findMany({

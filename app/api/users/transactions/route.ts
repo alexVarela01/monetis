@@ -10,8 +10,11 @@ export async function GET(req: Request) {
 
     const url = new URL(req.url);
     const page = url.searchParams.get("page");
-    const type = url.searchParams.get("type");
-    const category = url.searchParams.get("category");
+    // TO BREAK: Commented out to disable filtering by type and category
+    // const type = url.searchParams.get("type");
+    // const category = url.searchParams.get("category");
+    const type = "All";
+    const category = "All";
 
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_secret_key");
