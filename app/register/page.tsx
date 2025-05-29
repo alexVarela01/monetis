@@ -212,7 +212,7 @@ export default function Register() {
                 <input
                   type="text"
                   name="phone_number"
-                  placeholder="123456789"
+                  placeholder="e.g. 123456789"
                   value={formData.phone_number}
                   onChange={handlePhoneChange}
                 />
@@ -227,7 +227,7 @@ export default function Register() {
                   type="text"
                   name="street_address"
                   maxLength={50}
-                  placeholder="Sttr. Example, 123"
+                  placeholder="e.g. Sttr. Example, 123"
                   value={formData.street_address}
                   onChange={handleChange}
                   required
@@ -239,7 +239,7 @@ export default function Register() {
                   type="text"
                   name="postal_code"
                   maxLength={20}
-                  placeholder="12345-678"
+                  placeholder="e.g. 12345-678"
                   value={formData.postal_code}
                   onChange={handlePostalChange}
                   required
