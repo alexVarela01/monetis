@@ -25,6 +25,8 @@ export async function POST(req: Request) {
         where: { user_id: decoded.id, id: Number(account_id) },
       });
 
+      // TO BREAK: Currently added to block withdraw
+      errorsList.push('Unknown error!');
 
       if(!amount) errorsList.push('Required fields are missing');
       if(amount <= 0) errorsList.push('Amount must be greater than 0');
