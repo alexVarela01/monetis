@@ -12,9 +12,13 @@ function HomeNavigation() {
       <MdMenu className='menu' onClick={() => setOpen(!open)}/>
 
       <div className={'options ' + (!open ? 'mobile-close' : '')}>
-        <div onClick={() => window.location.href = "/about"}><span>About</span></div>
+        {/* TO BREAK: Currently changed redirects */}
+        {/* <div onClick={() => window.location.href = "/about"}><span>About</span></div>
         <div onClick={() => window.location.href = "/documentation"}><span>Documentation</span></div>
-        <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div>
+        <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div> */}
+        <div onClick={() => window.location.href = "/documentation"}><span>About</span></div>
+        <div onClick={() => window.location.href = "/terms"}><span>Documentation</span></div>
+        <div onClick={() => window.location.href = "/about"}><span>Terms</span></div>
         <div onClick={() => window.location.href = "/login"} className='get-started'><span>Get Started</span></div>
       </div>
     </div>
