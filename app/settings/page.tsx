@@ -98,6 +98,22 @@ export default function Settings() {
     setUserData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+    const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+  
+    // allow only letters
+    const sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    setUserData((prevData) => ({ ...prevData, [name]: sanitizedValue }));
+  };
+  
+  const handlePostalChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+  
+    // allow only numbers, '-' and spaces
+    const sanitizedValue = value.replace(/[^0-9-\s]/g, '');
+    setUserData((prevData) => ({ ...prevData, [name]: sanitizedValue }));
+  };
+
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswordData((prevData) => ({ ...prevData, [name]: value }));
@@ -291,7 +307,7 @@ export default function Settings() {
                   maxLength={20}
                   placeholder="12345-678"
                   value={userData?.postal_code}
-                  onChange={handleChange}
+                  onChange={handlePostalChange}
                   required
                 />
               </div>
@@ -307,7 +323,7 @@ export default function Settings() {
                   placeholder="London"
                   maxLength={20}
                   value={userData?.city}
-                  onChange={handleChange}
+                  onChange={handleCityChange}
                   required
                 />
               </div>
