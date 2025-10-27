@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       data: {
         user_id: newUser.id,
         iban: checkingIban,
-        amount: 0,
+        amount: 10000,
         type: "checking",
         name: 'Checking',
       },
