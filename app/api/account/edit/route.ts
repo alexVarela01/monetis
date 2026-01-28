@@ -31,6 +31,17 @@ export async function POST(req: Request) {
         errorsList.push('Name must be less than 25 characters');
       }
 
+      const existingAccount = await prisma.userAccount.findFirst({
+        where: {
+          user_id: decoded.id,
+          name: newName,
+        },
+      });
+
+      if (existingAccount) {
+        errorsList.push('An account with this name already exists');
+      }
+
       if(errorsList.length > 0) {
         return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
       }
