@@ -121,7 +121,21 @@ export default function Transfer() {
 
   const closePhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Refetch accounts (optional, keeps balances up to date)
     await fetchAccounts();
+
+    // Reset form safely by keeping the first account as sourceAccount
+    const firstAccountId = userAccounts[0]?.id ?? 0;
+
+    setFormData({
+      sourceAccount: firstAccountId,
+      targetOwnAccount: false,
+      amount: '',
+      iban: '',
+      targetAccount: firstAccountId, // default to first account to avoid undefined
+    });
+
     setFormPhase(1);
   };
   

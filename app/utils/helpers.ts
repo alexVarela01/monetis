@@ -1,8 +1,16 @@
 import { serialize } from "cookie";
 
-function formatBalance(balance: number): string {
-  return balance.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function formatBalance(balance?: number): string {
+  if (typeof balance !== 'number' || isNaN(balance)) {
+    return '0,00';
+  }
+
+  return balance.toLocaleString('de-DE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
+
 
 function formatIban(iban: string) {
   return iban.match(/.{1,4}/g)?.join(" ") || iban;

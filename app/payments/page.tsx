@@ -149,7 +149,21 @@ export default function Payment() {
 
   const closePhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Refetch accounts to update balances
     await fetchAccounts();
+
+    // Keep the first account as sourceAccount to avoid undefined issues
+    const firstAccountId = userAccounts[0]?.id ?? 0;
+
+    setFormData({
+      sourceAccount: firstAccountId,
+      amount: '',
+      reference: '',
+      entity: '',
+      category: ''
+    });
+
     setFormPhase(1);
   };
   
