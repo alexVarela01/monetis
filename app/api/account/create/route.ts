@@ -55,6 +55,18 @@ export async function POST(req: Request) {
         errorsList.push('Maximum number of accounts reached');
       }
 
+      const existingAccount = await prisma.userAccount.findFirst({
+        where: {
+          user_id: decoded.id,
+          name: name,
+        },
+      });
+
+
+      if (existingAccount) {
+        errorsList.push('An account with this name already exists');
+      }
+
       if (errorsList.length > 0) return new Response(JSON.stringify({ errors: errorsList }), { status: 400 });
 
       const user = await prisma.user.findUnique({where: { id: decoded.id }});
