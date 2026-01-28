@@ -123,7 +123,7 @@ export default function Register() {
   };
 
   
-  const handleCityChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
   
     // allow only letters
@@ -175,7 +175,7 @@ export default function Register() {
                   maxLength={20}
                   placeholder="John"
                   value={formData.name}
-                  onChange={handleChange}
+                  onChange={handleTextChange}
                   required
                 />
               </div>
@@ -188,7 +188,7 @@ export default function Register() {
                   maxLength={20}
                   placeholder="Doe"
                   value={formData.surname}
-                  onChange={handleChange}
+                  onChange={handleTextChange}
                   required
                 />
               </div>
@@ -256,7 +256,7 @@ export default function Register() {
                   maxLength={20}
                   placeholder="London"
                   value={formData.city}
-                  onChange={handleCityChange}
+                  onChange={handleTextChange}
                   required
                 />
               </div>

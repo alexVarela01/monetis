@@ -24,7 +24,7 @@ interface AccountInterface {
 // Definição dos tipos
 type PaymentData = {
   sourceAccount: number;
-  amount: number;
+  amount: string;
   entity: string;
   reference: string;
   category: string;
@@ -54,7 +54,7 @@ export default function Payment() {
   const [accountHolder, setAccountHolder] = useState<string>('');
   const [formData, setFormData] = useState<Omit<PaymentData, 'id'>>({
     sourceAccount: 0,
-    amount: 0,
+    amount: '',
     reference: '',
     entity: '',
     category: ''
@@ -104,7 +104,7 @@ export default function Payment() {
       return;
     }
 
-    if ((userAccounts?.find((account: AccountInterface) => account.id === formData.sourceAccount)?.amount ?? 0) < formData.amount) {
+    if (Number(formData.amount || 0) > (userAccounts.find(a => a.id === formData.sourceAccount)?.amount ?? 0)) {
       toast.error("Insufficient balance in source account", {
         position: "bottom-right",
         autoClose: false,
@@ -144,7 +144,7 @@ export default function Payment() {
   const moveToSuccessPhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoadingAction(true);
-    launchRequest(e, '/api/account/payment', {amount: formData.amount, account_id: formData.sourceAccount, entity: formData.entity, reference: formData.reference, category: formData.category});
+    launchRequest(e, '/api/account/payment', {amount: Number(formData.amount), account_id: formData.sourceAccount, entity: formData.entity, reference: formData.reference, category: formData.category});
   };
 
   const closePhase = async (e: FormEvent<HTMLFormElement>) => {

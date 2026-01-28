@@ -27,7 +27,7 @@ type TransferData = {
   targetOwnAccount: boolean;
   iban?: string;
   targetAccount?: number;
-  amount: number;
+  amount: string;
 };
 
 export default function Transfer() {
@@ -42,7 +42,7 @@ export default function Transfer() {
   const [formData, setFormData] = useState<Omit<TransferData, 'id'>>({
     sourceAccount: 0,
     targetOwnAccount: false,
-    amount: 0,
+    amount: '',
     iban: '',
     targetAccount: 0
   });
@@ -76,7 +76,7 @@ export default function Transfer() {
   const moveToConfirmationPhase = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if ((userAccounts?.find((account: AccountInterface) => account.id === formData.sourceAccount)?.amount ?? 0) < formData.amount) {
+    if (Number(formData.amount || 0) > (userAccounts.find(a => a.id === formData.sourceAccount)?.amount ?? 0)) {
       toast.error("Insufficient balance in source account", {
         position: "bottom-right",
         autoClose: false,
@@ -113,9 +113,9 @@ export default function Transfer() {
     setLoadingAction(true);
 
     if(formData.targetOwnAccount) {
-      launchRequest(e, '/api/account/topup', {amount: formData.amount, account_id: formData.targetAccount, sourceAccount: formData.sourceAccount});
+      launchRequest(e, '/api/account/topup', {amount: Number(formData.amount), account_id: formData.targetAccount, sourceAccount: formData.sourceAccount});
     }else{
-      launchRequest(e, '/api/account/transfer', {amount: formData.amount, iban: formData.iban, account_id: formData.sourceAccount});
+      launchRequest(e, '/api/account/transfer', {amount: Number(formData.amount), iban: formData.iban, account_id: formData.sourceAccount});
     }
   };
 
