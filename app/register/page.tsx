@@ -142,10 +142,12 @@ export default function Register() {
 
   const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // check if the value is a number
-    if (isNaN(Number(value))) return;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  }
+
+    // allow digits, spaces, and +
+    if (!/^\+?[\d ]*$/.test(value)) return;
+
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const setSelectedCountry = (country: SingleValue<CountryOption>) => {
     setFormData((prevData) => ({
