@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import './HomeNavigation.css';
 import logoImage from '@/public/Logo.png';
-import { MdMenu } from 'react-icons/md';
+import { MdMenu, MdGetApp } from 'react-icons/md';
 
 function HomeNavigation() {
   const [open, setOpen] = useState(false);
@@ -15,6 +15,7 @@ function HomeNavigation() {
         <div onClick={() => window.location.href = "/about"}><span>About</span></div>
         <div onClick={() => window.location.href = "/documentation"}><span>Documentation</span></div>
         <div onClick={() => window.location.href = "/terms"}><span>Terms</span></div>
+        <a href="/app-debug.apk" download className='download-app'><MdGetApp/><span>Download App</span></a>
         <div onClick={() => window.location.href = "/login"} className='get-started'><span>Get Started</span></div>
       </div>
     </div>
