@@ -50,6 +50,26 @@
   color: #4d8bf7;
 }
 
+.home-navigation .options .download-app{
+  text-decoration: none;
+  color: #4d8bf7;
+  font-family: "GeneralSans Medium";
+  font-size: 14px;
+  border: 1px solid #4d8bf7;
+  border-radius: 125px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.5s;
+}
+
+.home-navigation .options .download-app:hover{
+  background-color: #4d8bf7;
+  color: #fff;
+  transform: scale(1.02);
+}
+
 .home-navigation .options .get-started{
   background-color: #4d8bf7;
   border: 1px solid #4d8bf7;
